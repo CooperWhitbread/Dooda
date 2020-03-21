@@ -1,0 +1,16 @@
+[submodule "Dooda/vendor/spdlog"]
+	path = Dooda/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+	branch = v1.x
+[submodule "Dooda/vendor/GLFW"]
+	path = Dooda/vendor/GLFW
+	url = https://github.com/Dooda1318/glfw
+	branch = master
+[submodule "Dooda/vendor/glm"]
+	path = Dooda/vendor/glm
+	url = https://github.com/Groovounet/glm-deprecated
+	branch = master
+[submodule "Dooda/vendor/imgui"]
+	path = Dooda/vendor/imgui
+	url = https://github.com/TheCherno/imgui
+	branch = docking
