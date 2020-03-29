@@ -20,8 +20,7 @@ private: //Variables
 	Dooda::Ref<Dooda::Shader> m_FlatColorShader;
 	Dooda::Ref<Dooda::VertexArray> m_SquareVA;
 
-	Dooda::Ref<Dooda::Texture2DManager> m_Texture;
-	Dooda::Ref<Dooda::Texture2DManager> m_ChernoLogoTexture;
+	Dooda::Ref<Dooda::Texture2D> m_Texture, m_ChernoLogoTexture;
 
 	Dooda::OrthographicCameraController m_CameraController;
 	glm::vec3 m_SquareColor = glm::vec3(0.2f, 0.3f, 0.8f);

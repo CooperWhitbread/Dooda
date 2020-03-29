@@ -123,9 +123,8 @@ ExampleLayer::ExampleLayer()
 
 	auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-	Dooda::Texture2DManager::Create();
-	m_Texture->AddTexture("assets/textures/ChernoLogo.png", "Logo");
-	m_Texture->AddTexture("assets/textures/Checkerboard.png", "Checkerboard");
+	m_Texture = Dooda::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_ChernoLogoTexture = Dooda::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 	textureShader->Bind();
 	textureShader->SetInt("u_Texture", 0);
@@ -159,10 +158,9 @@ void ExampleLayer::OnUpdate(Dooda::Timestep ts)
 
 	auto textureShader = m_ShaderLibrary.Get("Texture");
 
-	m_Texture->Bind("Checkerboard");
+	m_Texture->Bind();
 	Dooda::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
-	m_Texture->Bind("Logo");
+	m_ChernoLogoTexture->Bind();
 	Dooda::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 	//End the draw loop

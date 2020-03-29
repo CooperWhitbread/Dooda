@@ -20,5 +20,7 @@ private:
 	Dooda::Ref<Dooda::VertexArray> m_SquareVA;
 	Dooda::Ref<Dooda::Shader> m_FlatColorShader;
 
+	Dooda::Ref<Dooda::Texture2D> m_CheckerboardTexture;
+
 	glm::vec4 m_SquareColor = glm::vec4( 0.2f, 0.3f, 0.8f, 1.0f );
 };

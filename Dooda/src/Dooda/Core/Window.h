@@ -13,7 +13,7 @@ namespace Dooda
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Dooda Engine", unsigned int width = 1280, unsigned int height = 720)
+		WindowProps(const std::string& title = "Dooda Engine", unsigned int width = 2560, unsigned int height = 1440)
 			: Title(title), Width(width), Height(height)
 		{
 		}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Dooda/Events/Event.h"
+#include "Dooda/Core/Input.h"
 
 namespace Dooda {
 
@@ -60,7 +61,7 @@ namespace Dooda {
 	class MouseButtonEvent : public Event
 	{
 	protected:
-		MouseButtonEvent(int button)
+		MouseButtonEvent(MouseCode button)
 			: d_Button(button)
 		{
 		}
@@ -68,16 +69,16 @@ namespace Dooda {
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	public: //Getters
-		inline int GetMouseButton() const { return d_Button; }
+		inline MouseCode GetMouseButton() const { return d_Button; }
 
 	protected://Variables
-		int d_Button;
+		MouseCode d_Button;
 	};
 
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(MouseCode button)
 			: MouseButtonEvent(button) 
 		{
 		}
@@ -96,7 +97,7 @@ namespace Dooda {
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(MouseCode button)
 			: MouseButtonEvent(button) 
 		{
 		}

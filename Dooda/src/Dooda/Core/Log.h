@@ -13,12 +13,12 @@ namespace Dooda
 		static void Init();
 
 	public: //Getters
-		inline static Ref<spdlog::logger>& GetCoreLogger() { return d_CoreLogger; }
-		inline static Ref<spdlog::logger>& GetClientLogger() { return d_ClientLogger; }
+		inline static Ref<spdlog::logger>& GetCoreLogger() { return sd_CoreLogger; }
+		inline static Ref<spdlog::logger>& GetClientLogger() { return sd_ClientLogger; }
 
 	private: //Variables
-		static Ref<spdlog::logger> d_CoreLogger;
-		static Ref<spdlog::logger> d_ClientLogger;
+		static Ref<spdlog::logger> sd_CoreLogger;
+		static Ref<spdlog::logger> sd_ClientLogger;
 	};
 }
 
@@ -34,4 +34,4 @@ namespace Dooda
 #define DD_INFO(...)			::Dooda::Log::GetClientLogger()->info(__VA_ARGS__)
 #define DD_WARN(...)			::Dooda::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define DD_ERROR(...)			::Dooda::Log::GetClientLogger()->error(__VA_ARGS__)
-#define DD_CRITICAL(...)		::Dooda::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define DD_CRITICAL(...)		::Dooda::Log::GetClientLogger()->critical(__VA_ARGS__) 

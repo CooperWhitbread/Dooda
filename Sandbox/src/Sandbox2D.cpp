@@ -14,8 +14,7 @@ void Sandbox2D::OnAttach()
 {
 	DD_PROFILE_FUNCTION();
 
-	Dooda::Texture2DManager::Create();
-	Dooda::s_Texture2DManager->AddTexture("assets/textures/Checkerboard.png", "CheckerBoard");
+	m_CheckerboardTexture = Dooda::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -41,9 +40,9 @@ void Sandbox2D::OnUpdate(Dooda::Timestep ts)
 	{
 		DD_PROFILE_SCOPE("Renderer Draw");
 		Dooda::Renderer2D::BeginScene(m_CameraController.GetCamera());
-		Dooda::Renderer2D::DrawRotatedQuad(glm::vec2(-1.0f, 0.0f), glm::vec2(0.8f, 0.8f), 45.0f, glm::vec4(0.8f, 0.2f, 0.3f, 1.0f));
+		Dooda::Renderer2D::DrawRotatedQuad(glm::vec2(-1.0f, 0.0f), glm::vec2(0.8f, 0.8f), 45.0f, m_SquareColor);
 		Dooda::Renderer2D::DrawQuad(glm::vec2(0.5f, -0.5f), glm::vec2(0.5f, 0.75f), glm::vec4(0.2f, 0.3f, 0.8f, 1.0f));
-		Dooda::Renderer2D::DrawQuad(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f, 10.0f), "CheckerBoard", 10.0f, glm::vec4(1.0f, 0.8f, 0.8f, 1.0f));
+		Dooda::Renderer2D::DrawQuad(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f, 10.0f), m_CheckerboardTexture, 10.0f);
 		Dooda::Renderer2D::EndScene();
 	}
 }
@@ -54,6 +53,8 @@ void Sandbox2D::OnImGuiRender()
 
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor)); 
+
+	ImGui::SetWindowFontScale(2.5f);
 	ImGui::End();
 }
 

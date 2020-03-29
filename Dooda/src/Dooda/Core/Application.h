@@ -9,6 +9,8 @@
 
 #include "Dooda/Core/Timestep.h"
 
+int main(int argc, char** argv);
+
 namespace Dooda
 {
 
@@ -17,8 +19,6 @@ namespace Dooda
 	public:
 		Application();
 		virtual ~Application();
-
-		void Run();
 
 		void OnEvent(Event& e);
 
@@ -30,6 +30,8 @@ namespace Dooda
 		inline Window& GetWindow() { return *d_window; }
 
 	private: //Private Functions
+		void Run();
+
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
@@ -45,6 +47,7 @@ namespace Dooda
 
 	private:
 		static Application* sd_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	Application* S_CreateApplication();

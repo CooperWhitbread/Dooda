@@ -14,7 +14,7 @@
 //Events
 #include "Dooda/Core/KeyCodes.h"
 #include "Dooda/Core/Input.h"
-#include "Dooda/Core/MouseButtonCodes.h"
+#include "Dooda/Core/MouseCodes.h"
 
 //Imgui
 #include "Dooda/ImGui/ImGuiLayer.h"

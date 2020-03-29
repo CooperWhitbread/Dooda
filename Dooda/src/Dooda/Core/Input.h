@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Dooda/Core/Core.h"
+#include "Dooda/Core/KeyCodes.h"
+#include "Dooda/Core/MouseCodes.h"
+
 namespace Dooda {
 
 	class Input
@@ -12,8 +16,10 @@ namespace Dooda {
 		Input(const Input&) = delete;
 		Input& operator=(const Input&) = delete;
 
-		inline static bool IsKeyPressed(int keycode) { return sd_Instance->IsKeyPressedImpl(keycode); }
-		inline static bool IsMouseButtonPressed(int button) { return sd_Instance->IsMouseButtonPressedImpl(button); }
+		inline static bool IsKeyPressed(KeyCode key) { return sd_Instance->IsKeyPressedImpl(key); }
+		inline static bool IsMouseButtonPressed(MouseCode button) { return sd_Instance->IsMouseButtonPressedImpl(button); }
+
+		static Scope<Input> Create();
 
 	public: //Getters
 		inline static std::pair<float, float> GetMousePosition() { return sd_Instance->GetMousePositionImpl(); }
@@ -21,8 +27,8 @@ namespace Dooda {
 		inline static float GetMouseY() { return sd_Instance->GetMouseYImpl(); }
 
 	protected: //Private Functions
-		virtual bool IsKeyPressedImpl(int keycode) = 0;
-		virtual bool IsMouseButtonPressedImpl(int button) = 0;
+		virtual bool IsKeyPressedImpl(KeyCode key) = 0;
+		virtual bool IsMouseButtonPressedImpl(MouseCode button) = 0;
 
 		virtual std::pair<float, float> GetMousePositionImpl() = 0;
 		virtual float GetMouseXImpl() = 0;

@@ -17,8 +17,6 @@ void main()
 	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 }
 
-
-
 #type fragment
 #version 330 core
 
@@ -33,4 +31,4 @@ uniform sampler2D u_Texture;
 void main()
 {
 	color = texture(u_Texture, v_TexCoord * u_TilingFactor) * u_Color;
-} 
+}
