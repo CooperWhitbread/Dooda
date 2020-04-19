@@ -46,11 +46,6 @@ project "Dooda"
 	pchheader "Ddpch.h"
 	pchsource "Dooda/src/Ddpch.cpp"
 
-	disablewarnings 
-	{ 
-		"26495"
-	}
-
 	files 
 	{
 		"%{prj.name}/src/**.h",

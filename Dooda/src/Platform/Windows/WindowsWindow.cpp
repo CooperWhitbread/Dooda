@@ -49,6 +49,7 @@ namespace Dooda
 			DD_PROFILE_SCOPE("glfwInit");
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
+			DD_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 

@@ -8,6 +8,7 @@ namespace Dooda
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
+		OpenGLVertexBuffer(uint32_t size);
 		OpenGLVertexBuffer(float* verticies, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
@@ -19,6 +20,7 @@ namespace Dooda
 
 	public: //Setters
 		virtual void SetLayout(const BufferLayout& layout) override { d_Layout = layout; }
+		virtual void SetData(const void* data, uint32_t size) override;
 		
 	private: //Variables
 		uint32_t d_RendererID;

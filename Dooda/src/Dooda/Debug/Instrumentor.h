@@ -30,6 +30,9 @@ namespace Dooda
 
 		void WriteProfile(const ProfileResult& result);
 
+	public: //Getters
+		static Instrumentor& Get();
+
 	private: //Private Functions
 		void WriteHeader();
 		void WriteFooter();
@@ -37,9 +40,6 @@ namespace Dooda
 		// Note: you must already own lock on m_Mutex before
 		// calling InternalEndSession()
 		void InternalEndSession();
-
-	public: //Getters
-		static Instrumentor& Get();
 
 	private: //Variables
 		std::mutex d_Mutex;
@@ -65,7 +65,7 @@ namespace Dooda
 	};
 }
 
-#define DD_PROFILE 1
+#define DD_PROFILE 0
 
 #if DD_PROFILE
 	// Resolve which function signature macro will be used. Note that this only

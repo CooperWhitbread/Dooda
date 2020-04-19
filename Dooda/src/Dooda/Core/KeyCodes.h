@@ -145,128 +145,128 @@ namespace Dooda
 
 }
 
-#define DD_KEY_SPACE           ::Dooda::Key::Space
-#define DD_KEY_APOSTROPHE      ::Dooda::Key::Apostrophe    /* ' */
-#define DD_KEY_COMMA           ::Dooda::Key::Comma         /* , */
-#define DD_KEY_MINUS           ::Dooda::Key::Minus         /* - */
-#define DD_KEY_PERIOD          ::Dooda::Key::Period        /* . */
-#define DD_KEY_SLASH           ::Dooda::Key::Slash         /* / */
-#define DD_KEY_0               ::Dooda::Key::D0
-#define DD_KEY_1               ::Dooda::Key::D1
-#define DD_KEY_2               ::Dooda::Key::D2
-#define DD_KEY_3               ::Dooda::Key::D3
-#define DD_KEY_4               ::Dooda::Key::D4
-#define DD_KEY_5               ::Dooda::Key::D5
-#define DD_KEY_6               ::Dooda::Key::D6
-#define DD_KEY_7               ::Dooda::Key::D7
-#define DD_KEY_8               ::Dooda::Key::D8
-#define DD_KEY_9               ::Dooda::Key::D9
-#define DD_KEY_SEMICOLON       ::Dooda::Key::Semicolon     /* ; */
-#define DD_KEY_EQUAL           ::Dooda::Key::Equal         /* = */
-#define DD_KEY_A               ::Dooda::Key::A
-#define DD_KEY_B               ::Dooda::Key::B
-#define DD_KEY_C               ::Dooda::Key::C
-#define DD_KEY_D               ::Dooda::Key::D
-#define DD_KEY_E               ::Dooda::Key::E
-#define DD_KEY_F               ::Dooda::Key::F
-#define DD_KEY_G               ::Dooda::Key::G
-#define DD_KEY_H               ::Dooda::Key::H
-#define DD_KEY_I               ::Dooda::Key::I
-#define DD_KEY_J               ::Dooda::Key::J
-#define DD_KEY_K               ::Dooda::Key::K
-#define DD_KEY_L               ::Dooda::Key::L
-#define DD_KEY_M               ::Dooda::Key::M
-#define DD_KEY_N               ::Dooda::Key::N
-#define DD_KEY_O               ::Dooda::Key::O
-#define DD_KEY_P               ::Dooda::Key::P
-#define DD_KEY_Q               ::Dooda::Key::Q
-#define DD_KEY_R               ::Dooda::Key::R
-#define DD_KEY_S               ::Dooda::Key::S
-#define DD_KEY_T               ::Dooda::Key::T
-#define DD_KEY_U               ::Dooda::Key::U
-#define DD_KEY_V               ::Dooda::Key::V
-#define DD_KEY_W               ::Dooda::Key::W
-#define DD_KEY_X               ::Dooda::Key::X
-#define DD_KEY_Y               ::Dooda::Key::Y
-#define DD_KEY_Z               ::Dooda::Key::Z
-#define DD_KEY_LEFT_BRACKET    ::Dooda::Key::LeftBracket   /* [ */
-#define DD_KEY_BACKSLASH       ::Dooda::Key::Backslash     /* \ */
-#define DD_KEY_RIGHT_BRACKET   ::Dooda::Key::RightBracket  /* ] */
-#define DD_KEY_GRAVE_ACCENT    ::Dooda::Key::GraveAccent   /* ` */
-#define DD_KEY_WORLD_1         ::Dooda::Key::World1        /* non-US #1 */
-#define DD_KEY_WORLD_2         ::Dooda::Key::World2        /* non-US #2 */
+#define DD_KEY_SPACE			::Dooda::Key::Space
+#define DD_KEY_APOSTROPHE		::Dooda::Key::Apostrophe	/* ' */
+#define DD_KEY_COMMA			::Dooda::Key::Comma			/* , */
+#define DD_KEY_MINUS			::Dooda::Key::Minus			/* - */
+#define DD_KEY_PERIOD			::Dooda::Key::Period		/* . */
+#define DD_KEY_SLASH			::Dooda::Key::Slash			/* / */
+#define DD_KEY_0				::Dooda::Key::D0
+#define DD_KEY_1				::Dooda::Key::D1
+#define DD_KEY_2				::Dooda::Key::D2
+#define DD_KEY_3				::Dooda::Key::D3
+#define DD_KEY_4				::Dooda::Key::D4
+#define DD_KEY_5				::Dooda::Key::D5
+#define DD_KEY_6				::Dooda::Key::D6
+#define DD_KEY_7				::Dooda::Key::D7
+#define DD_KEY_8				::Dooda::Key::D8
+#define DD_KEY_9				::Dooda::Key::D9
+#define DD_KEY_SEMICOLON		::Dooda::Key::Semicolon		/* ; */
+#define DD_KEY_EQUAL			::Dooda::Key::Equal			/* = */
+#define DD_KEY_A				::Dooda::Key::A
+#define DD_KEY_B				::Dooda::Key::B
+#define DD_KEY_C				::Dooda::Key::C
+#define DD_KEY_D				::Dooda::Key::D
+#define DD_KEY_E				::Dooda::Key::E
+#define DD_KEY_F				::Dooda::Key::F
+#define DD_KEY_G				::Dooda::Key::G
+#define DD_KEY_H				::Dooda::Key::H
+#define DD_KEY_I				::Dooda::Key::I
+#define DD_KEY_J				::Dooda::Key::J
+#define DD_KEY_K				::Dooda::Key::K
+#define DD_KEY_L				::Dooda::Key::L
+#define DD_KEY_M				::Dooda::Key::M
+#define DD_KEY_N				::Dooda::Key::N
+#define DD_KEY_O				::Dooda::Key::O
+#define DD_KEY_P				::Dooda::Key::P
+#define DD_KEY_Q				::Dooda::Key::Q
+#define DD_KEY_R				::Dooda::Key::R
+#define DD_KEY_S				::Dooda::Key::S
+#define DD_KEY_T				::Dooda::Key::T
+#define DD_KEY_U				::Dooda::Key::U
+#define DD_KEY_V				::Dooda::Key::V
+#define DD_KEY_W				::Dooda::Key::W
+#define DD_KEY_X				::Dooda::Key::X
+#define DD_KEY_Y				::Dooda::Key::Y
+#define DD_KEY_Z				::Dooda::Key::Z
+#define DD_KEY_LEFT_BRACKET		::Dooda::Key::LeftBracket   /* [ */
+#define DD_KEY_BACKSLASH		::Dooda::Key::Backslash		/* \ */
+#define DD_KEY_RIGHT_BRACKET	::Dooda::Key::RightBracket	/* ] */
+#define DD_KEY_GRAVE_ACCENT		::Dooda::Key::GraveAccent	/* ` */
+#define DD_KEY_WORLD_1			::Dooda::Key::World1		/* non-US #1 */
+#define DD_KEY_WORLD_2			::Dooda::Key::World2		/* non-US #2 */
 
 /* Function keys */
-#define DD_KEY_ESCAPE          ::Dooda::Key::Escape
-#define DD_KEY_ENTER           ::Dooda::Key::Enter
-#define DD_KEY_TAB             ::Dooda::Key::Tab
-#define DD_KEY_BACKSPACE       ::Dooda::Key::Backspace
-#define DD_KEY_INSERT          ::Dooda::Key::Insert
-#define DD_KEY_DELETE          ::Dooda::Key::Delete
-#define DD_KEY_RIGHT           ::Dooda::Key::Right
-#define DD_KEY_LEFT            ::Dooda::Key::Left
-#define DD_KEY_DOWN            ::Dooda::Key::Down
-#define DD_KEY_UP              ::Dooda::Key::Up
-#define DD_KEY_PAGE_UP         ::Dooda::Key::PageUp
-#define DD_KEY_PAGE_DOWN       ::Dooda::Key::PageDown
-#define DD_KEY_HOME            ::Dooda::Key::Home
-#define DD_KEY_END             ::Dooda::Key::End
-#define DD_KEY_CAPS_LOCK       ::Dooda::Key::CapsLock
-#define DD_KEY_SCROLL_LOCK     ::Dooda::Key::ScrollLock
-#define DD_KEY_NUM_LOCK        ::Dooda::Key::NumLock
-#define DD_KEY_PRINT_SCREEN    ::Dooda::Key::PrintScreen
-#define DD_KEY_PAUSE           ::Dooda::Key::Pause
-#define DD_KEY_F1              ::Dooda::Key::F1
-#define DD_KEY_F2              ::Dooda::Key::F2
-#define DD_KEY_F3              ::Dooda::Key::F3
-#define DD_KEY_F4              ::Dooda::Key::F4
-#define DD_KEY_F5              ::Dooda::Key::F5
-#define DD_KEY_F6              ::Dooda::Key::F6
-#define DD_KEY_F7              ::Dooda::Key::F7
-#define DD_KEY_F8              ::Dooda::Key::F8
-#define DD_KEY_F9              ::Dooda::Key::F9
-#define DD_KEY_F10             ::Dooda::Key::F10
-#define DD_KEY_F11             ::Dooda::Key::F11
-#define DD_KEY_F12             ::Dooda::Key::F12
-#define DD_KEY_F13             ::Dooda::Key::F13
-#define DD_KEY_F14             ::Dooda::Key::F14
-#define DD_KEY_F15             ::Dooda::Key::F15
-#define DD_KEY_F16             ::Dooda::Key::F16
-#define DD_KEY_F17             ::Dooda::Key::F17
-#define DD_KEY_F18             ::Dooda::Key::F18
-#define DD_KEY_F19             ::Dooda::Key::F19
-#define DD_KEY_F20             ::Dooda::Key::F20
-#define DD_KEY_F21             ::Dooda::Key::F21
-#define DD_KEY_F22             ::Dooda::Key::F22
-#define DD_KEY_F23             ::Dooda::Key::F23
-#define DD_KEY_F24             ::Dooda::Key::F24
-#define DD_KEY_F25             ::Dooda::Key::F25
+#define DD_KEY_ESCAPE			::Dooda::Key::Escape
+#define DD_KEY_ENTER			::Dooda::Key::Enter
+#define DD_KEY_TAB				::Dooda::Key::Tab
+#define DD_KEY_BACKSPACE		::Dooda::Key::Backspace
+#define DD_KEY_INSERT			::Dooda::Key::Insert
+#define DD_KEY_DELETE			::Dooda::Key::Delete
+#define DD_KEY_RIGHT			::Dooda::Key::Right
+#define DD_KEY_LEFT				::Dooda::Key::Left
+#define DD_KEY_DOWN				::Dooda::Key::Down
+#define DD_KEY_UP				::Dooda::Key::Up
+#define DD_KEY_PAGE_UP			::Dooda::Key::PageUp
+#define DD_KEY_PAGE_DOWN		::Dooda::Key::PageDown
+#define DD_KEY_HOME				::Dooda::Key::Home
+#define DD_KEY_END				::Dooda::Key::End
+#define DD_KEY_CAPS_LOCK		::Dooda::Key::CapsLock
+#define DD_KEY_SCROLL_LOCK		::Dooda::Key::ScrollLock
+#define DD_KEY_NUM_LOCK			::Dooda::Key::NumLock
+#define DD_KEY_PRINT_SCREEN		::Dooda::Key::PrintScreen
+#define DD_KEY_PAUSE			::Dooda::Key::Pause
+#define DD_KEY_F1				::Dooda::Key::F1
+#define DD_KEY_F2				::Dooda::Key::F2
+#define DD_KEY_F3				::Dooda::Key::F3
+#define DD_KEY_F4				::Dooda::Key::F4
+#define DD_KEY_F5				::Dooda::Key::F5
+#define DD_KEY_F6				::Dooda::Key::F6
+#define DD_KEY_F7				::Dooda::Key::F7
+#define DD_KEY_F8				::Dooda::Key::F8
+#define DD_KEY_F9				::Dooda::Key::F9
+#define DD_KEY_F10				::Dooda::Key::F10
+#define DD_KEY_F11				::Dooda::Key::F11
+#define DD_KEY_F12				::Dooda::Key::F12
+#define DD_KEY_F13				::Dooda::Key::F13
+#define DD_KEY_F14				::Dooda::Key::F14
+#define DD_KEY_F15				::Dooda::Key::F15
+#define DD_KEY_F16				::Dooda::Key::F16
+#define DD_KEY_F17				::Dooda::Key::F17
+#define DD_KEY_F18				::Dooda::Key::F18
+#define DD_KEY_F19				::Dooda::Key::F19
+#define DD_KEY_F20				::Dooda::Key::F20
+#define DD_KEY_F21				::Dooda::Key::F21
+#define DD_KEY_F22				::Dooda::Key::F22
+#define DD_KEY_F23				::Dooda::Key::F23
+#define DD_KEY_F24				::Dooda::Key::F24
+#define DD_KEY_F25				::Dooda::Key::F25
 
 /* Keypad */
-#define DD_KEY_KP_0            ::Dooda::Key::KP0
-#define DD_KEY_KP_1            ::Dooda::Key::KP1
-#define DD_KEY_KP_2            ::Dooda::Key::KP2
-#define DD_KEY_KP_3            ::Dooda::Key::KP3
-#define DD_KEY_KP_4            ::Dooda::Key::KP4
-#define DD_KEY_KP_5            ::Dooda::Key::KP5
-#define DD_KEY_KP_6            ::Dooda::Key::KP6
-#define DD_KEY_KP_7            ::Dooda::Key::KP7
-#define DD_KEY_KP_8            ::Dooda::Key::KP8
-#define DD_KEY_KP_9            ::Dooda::Key::KP9
-#define DD_KEY_KP_DECIMAL      ::Dooda::Key::KPDecimal
-#define DD_KEY_KP_DIVIDE       ::Dooda::Key::KPDivide
-#define DD_KEY_KP_MULTIPLY     ::Dooda::Key::KPMultiply
-#define DD_KEY_KP_SUBTRACT     ::Dooda::Key::KPSubtract
-#define DD_KEY_KP_ADD          ::Dooda::Key::KPAdd
-#define DD_KEY_KP_ENTER        ::Dooda::Key::KPEnter
-#define DD_KEY_KP_EQUAL        ::Dooda::Key::KPEqual
+#define DD_KEY_KP_0				::Dooda::Key::KP0
+#define DD_KEY_KP_1				::Dooda::Key::KP1
+#define DD_KEY_KP_2				::Dooda::Key::KP2
+#define DD_KEY_KP_3				::Dooda::Key::KP3
+#define DD_KEY_KP_4				::Dooda::Key::KP4
+#define DD_KEY_KP_5				::Dooda::Key::KP5
+#define DD_KEY_KP_6				::Dooda::Key::KP6
+#define DD_KEY_KP_7				::Dooda::Key::KP7
+#define DD_KEY_KP_8				::Dooda::Key::KP8
+#define DD_KEY_KP_9				::Dooda::Key::KP9
+#define DD_KEY_KP_DECIMAL		::Dooda::Key::KPDecimal
+#define DD_KEY_KP_DIVIDE		::Dooda::Key::KPDivide
+#define DD_KEY_KP_MULTIPLY		::Dooda::Key::KPMultiply
+#define DD_KEY_KP_SUBTRACT		::Dooda::Key::KPSubtract
+#define DD_KEY_KP_ADD			::Dooda::Key::KPAdd
+#define DD_KEY_KP_ENTER			::Dooda::Key::KPEnter
+#define DD_KEY_KP_EQUAL			::Dooda::Key::KPEqual
 
-#define DD_KEY_LEFT_SHIFT      ::Dooda::Key::LeftShift
-#define DD_KEY_LEFT_CONTROL    ::Dooda::Key::LeftControl
-#define DD_KEY_LEFT_ALT        ::Dooda::Key::LeftAlt
-#define DD_KEY_LEFT_SUPER      ::Dooda::Key::LeftSuper
-#define DD_KEY_RIGHT_SHIFT     ::Dooda::Key::RightShift
-#define DD_KEY_RIGHT_CONTROL   ::Dooda::Key::RightControl
-#define DD_KEY_RIGHT_ALT       ::Dooda::Key::RightAlt
-#define DD_KEY_RIGHT_SUPER     ::Dooda::Key::RightSuper
-#define DD_KEY_MENU            ::Dooda::Key::Menu
+#define DD_KEY_LEFT_SHIFT		::Dooda::Key::LeftShift
+#define DD_KEY_LEFT_CONTROL		::Dooda::Key::LeftControl
+#define DD_KEY_LEFT_ALT			::Dooda::Key::LeftAlt
+#define DD_KEY_LEFT_SUPER		::Dooda::Key::LeftSuper
+#define DD_KEY_RIGHT_SHIFT		::Dooda::Key::RightShift
+#define DD_KEY_RIGHT_CONTROL	::Dooda::Key::RightControl
+#define DD_KEY_RIGHT_ALT		::Dooda::Key::RightAlt
+#define DD_KEY_RIGHT_SUPER		::Dooda::Key::RightSuper
+#define DD_KEY_MENU				::Dooda::Key::Menu

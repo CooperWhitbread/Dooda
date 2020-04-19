@@ -34,7 +34,7 @@
 #include "Dooda/Renderer/OrthographicCamera.h"
 
 //Camera Objects
-#include "Dooda/Controllers/OrthographicCameraController.h"
+#include "Dooda/Renderer/OrthographicCameraController.h"
 
 //////////////////////
 //Dooda Layout Style//
@@ -61,14 +61,17 @@
 Engine Member Variable	= d_[C]..
 Temporary Variable		= [l]..
 Parameter Variable		= [l]..
-Struct Variables        = [C]..
+Struct Variables		= [C]..
 Static Member Variable	= sd_[C]..
 Static Global Variable	= s_[C]..
+Uniform Variable		= u_[C]..
+Varying Variable		= v_[C]..
+Attribute Variable		= a_[C]..
 */
 
 /*
 --Macros--
-General macro           = [C..]_[C..] 
+General macro			= [C..]_[C..] 
 */
 
 /*
@@ -85,8 +88,9 @@ Setter Function			= Set[C]..
 -Constructors and general functions (no comment)
 -Getters
 -Setters
--Private Functions
 -Iterators
--Variables
+-Operators
+-Private Functions
 -Static Functions
+-Variables
 */

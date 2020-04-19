@@ -27,15 +27,15 @@ namespace Dooda
 	}
 }
 
-#define DD_MOUSE_BUTTON_0      ::Dooda::Mouse::Button0
-#define DD_MOUSE_BUTTON_1      ::Dooda::Mouse::Button1
-#define DD_MOUSE_BUTTON_2      ::Dooda::Mouse::Button2
-#define DD_MOUSE_BUTTON_3      ::Dooda::Mouse::Button3
-#define DD_MOUSE_BUTTON_4      ::Dooda::Mouse::Button4
-#define DD_MOUSE_BUTTON_5      ::Dooda::Mouse::Button5
-#define DD_MOUSE_BUTTON_6      ::Dooda::Mouse::Button6
-#define DD_MOUSE_BUTTON_7      ::Dooda::Mouse::Button7
-#define DD_MOUSE_BUTTON_LAST   ::Dooda::Mouse::ButtonLast
-#define DD_MOUSE_BUTTON_LEFT   ::Dooda::Mouse::ButtonLeft
-#define DD_MOUSE_BUTTON_RIGHT  ::Dooda::Mouse::ButtonRight
-#define DD_MOUSE_BUTTON_MIDDLE ::Dooda::Mouse::ButtonMiddle
+#define DD_MOUSE_BUTTON_0		::Dooda::Mouse::Button0
+#define DD_MOUSE_BUTTON_1		::Dooda::Mouse::Button1
+#define DD_MOUSE_BUTTON_2		::Dooda::Mouse::Button2
+#define DD_MOUSE_BUTTON_3		::Dooda::Mouse::Button3
+#define DD_MOUSE_BUTTON_4		::Dooda::Mouse::Button4
+#define DD_MOUSE_BUTTON_5		::Dooda::Mouse::Button5
+#define DD_MOUSE_BUTTON_6		::Dooda::Mouse::Button6
+#define DD_MOUSE_BUTTON_7		::Dooda::Mouse::Button7
+#define DD_MOUSE_BUTTON_LAST	::Dooda::Mouse::ButtonLast
+#define DD_MOUSE_BUTTON_LEFT	::Dooda::Mouse::ButtonLeft
+#define DD_MOUSE_BUTTON_RIGHT	::Dooda::Mouse::ButtonRight
+#define DD_MOUSE_BUTTON_MIDDLE	::Dooda::Mouse::ButtonMiddle
