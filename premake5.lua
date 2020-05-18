@@ -29,6 +29,7 @@ group "Depedencies"
 	include "Dooda/vendor/GLFW"
 	include "Dooda/vendor/Glad"
 	include "Dooda/vendor/imgui"
+	include "Dooda/vendor/spdlog"
 group ""
 
 
