@@ -9,7 +9,7 @@
 	/* Windows x64/x86 */
 	#ifdef _WIN64
 		/* Windows x64  */
-		#define HZ_PLATFORM_WINDOWS
+		#define DD_PLATFORM_WINDOWS
 	#else
 		/* Windows x86 */
 		#error "x86 Builds are not supported!"
@@ -23,10 +23,10 @@
 	#if TARGET_IPHONE_SIMULATOR == 1
 		#error "IOS simulator is not supported!"
 	#elif TARGET_OS_IPHONE == 1
-		#define HZ_PLATFORM_IOS
+		#define DD_PLATFORM_IOS
 		#error "IOS is not supported!"
 	#elif TARGET_OS_MAC == 1
-		#define HZ_PLATFORM_MACOS
+		#define DD_PLATFORM_MACOS
 		#error "MacOS is not supported!"
 	#else 
 		#error "Unknown Apple platform!"
@@ -36,10 +36,10 @@
   * since android is based on the linux kernel
   * it has __linux__ defined */
 #elif defined(__ANDROID__)
-	#define HZ_PLATFORM_ANDROID
+	#define DD_PLATFORM_ANDROID
 	#error "Android is not supported!"
 #elif defined(__linux__)
-	#define HZ_PLATFORM_LINUX
+	#define DD_PLATFORM_LINUX
 	#error "Linux is not supported!"
 #else
 	/* Unknown compiler/platform */
@@ -50,13 +50,23 @@
 //Debugging Macros//
 ////////////////////
 #ifdef DD_DEBUG
+	#if defined(DD_PLATFORM_WINDOWS)
+		#define DD_DEBUGBREAK() __debugbreak()
+	#elif defined(DD_PLATFORM_LINUX)
+		#include <signal.h>
+		#define DD_DEBUGBREAK() raise(SIGTRAP)
+	#else
+		#error "Platform doesn't support debugbreak yet!"
+	#endif
 	#define DD_ENABLE_ASSERTS
+	#else
+	#define DD_DEBUGBREAK()
 #endif
 
 #ifdef DD_ENABLE_ASSERTS
-	#define DD_ASSERT(x, ...) { if(!(x)) { DD_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define DD_CORE_ASSERT(x, ...) { if(!(x)) { DD_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#else
+	#define DD_ASSERT(x, ...) { if(!(x)) { DD_ERROR("Assertion Failed: {0}", __VA_ARGS__); DD_DEBUGBREAK(); } }
+	#define DD_CORE_ASSERT(x, ...) { if(!(x)) { DD_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); DD_DEBUGBREAK(); } }
+	#else
 	#define DD_ASSERT(x, ...)
 	#define DD_CORE_ASSERT(x, ...)
 #endif
@@ -66,6 +76,8 @@
 ////////////////////
 #define BIT(x) (1 << x)
 #define DD_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+#define UINT UINT
+#define INT int32_t
 
 /////////////
 //templates//

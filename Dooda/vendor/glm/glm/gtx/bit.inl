@@ -585,7 +585,7 @@ namespace glm
 	}
 
 	template <typename genIUType>
-	GLM_FUNC_QUALIFIER genIUType fillBitfieldWithZero
+	GLM_FUNC_QUALIFIER genIUType fillBitfieldWitDDero
 	(
 		genIUType const & Value,
 		int const & FromBit, 

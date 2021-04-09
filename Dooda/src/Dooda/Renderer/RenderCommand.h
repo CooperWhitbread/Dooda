@@ -17,13 +17,13 @@ namespace Dooda {
 			sd_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count = 0)
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, UINT count = 0)
 		{
 			sd_RendererAPI->DrawIndexed(vertexArray, count);
 		}
 
 	public: //Setters
-		inline static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+		inline static void SetViewport(UINT x, UINT y, UINT width, UINT height)
 		{
 			sd_RendererAPI->SetViewport(x, y, width, height);
 		}

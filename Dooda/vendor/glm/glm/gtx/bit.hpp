@@ -127,7 +127,7 @@ namespace glm
 	//! Set to 0 a range of bits.
 	/// @see gtx_bit
 	template <typename genIUType>
-	genIUType fillBitfieldWithZero(
+	genIUType fillBitfieldWitDDero(
 		genIUType const & Value,
 		int const & FromBit, 
 		int const & ToBit);

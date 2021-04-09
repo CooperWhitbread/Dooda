@@ -27,7 +27,9 @@ namespace Dooda
 
 	public: //Getters
 		inline static Application& Get() { return *sd_Instance; }
-		inline Window& GetWindow() { return *d_window; }
+		inline Window& GetWindow() { return *d_Window; }
+
+		void Close();
 
 	private: //Private Functions
 		void Run();
@@ -36,14 +38,14 @@ namespace Dooda
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private: //Variables
-		std::unique_ptr<Window> d_window;
+		std::unique_ptr<Window> d_Window;
 
-		ImGuiLayer* d_imGuiLayer;
+		ImGuiLayer* d_ImGuiLayer;
 		bool m_Minimized = false;
-		bool d_running = true;
-		LayerStack d_layerStack;
+		bool d_Running = true;
+		LayerStack d_LayerStack;
 
-		float d_lastFrameTime = 0.0f;
+		float d_LastFrameTime = 0.0f;
 
 	private:
 		static Application* sd_Instance;

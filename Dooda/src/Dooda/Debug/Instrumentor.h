@@ -75,7 +75,7 @@ namespace Dooda
 		#define DD_FUNC_SIG __PRETTY_FUNCTION__
 	#elif defined(__DMC__) && (__DMC__ >= 0x810)
 		#define DD_FUNC_SIG __PRETTY_FUNCTION__
-	#elif defined(__FUNCSIG__)
+	#elif (defined(__FUNCSIG__) || (_MSC_VER))
 		#define DD_FUNC_SIG __FUNCSIG__
 	#elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
 		#define DD_FUNC_SIG __FUNCTION__
@@ -91,7 +91,8 @@ namespace Dooda
 
 	#define DD_PROFILE_BEGIN_SESSION(name, filepath) ::Dooda::Instrumentor::Get().BeginSession(name, filepath)
 	#define DD_PROFILE_END_SESSION() ::Dooda::Instrumentor::Get().EndSession()
-	#define DD_PROFILE_SCOPE(name) ::Dooda::InstrumentationTimer timer##__LINE__(name);
+	#define DD_PROFILE_SCOPE(name) constexpr auto fixedName = ::Dooda::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+									::Dooda::InstrumentationTimer timer##__LINE__(fixedName.Data)
 	#define DD_PROFILE_FUNCTION() DD_PROFILE_SCOPE(DD_FUNC_SIG)
 
 #else

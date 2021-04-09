@@ -18,13 +18,13 @@ namespace Dooda
 		DD_CORE_ASSERT(!sd_Instance, "Application already exists!");
 		sd_Instance = this;
 
-		d_window = Window::SD_Create();
-		d_window->SetEventCallback(DD_BIND_EVENT_FN(Application::OnEvent));
+		d_Window = Window::SD_Create();
+		d_Window->SetEventCallback(DD_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
 
-		d_imGuiLayer = new ImGuiLayer();
-		PushOverlay(d_imGuiLayer);
+		d_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(d_ImGuiLayer);
 
 	}
 
@@ -40,37 +40,42 @@ namespace Dooda
 	{
 		DD_PROFILE_FUNCTION();
 
-		while (d_running)
+		while (d_Running)
 		{
 			DD_PROFILE_SCOPE("RunLoop");
-			float time = (float)glfwGetTime(); //Platform::GetTime();
-			Timestep timestep = time - d_lastFrameTime;
-			d_lastFrameTime = time;
+			auto time = (float)glfwGetTime(); //Platform::GetTime();
+			Timestep timestep = time - d_LastFrameTime;
+			d_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
 				{
 					DD_PROFILE_SCOPE("LayerStack OnUpdate");
-					for (Layer* layer : d_layerStack)
+					for (Layer* layer : d_LayerStack)
 					{
 						layer->OnUpdate(timestep);
 					}
 				}
 
-				d_imGuiLayer->Begin();
+				d_ImGuiLayer->Begin();
 				{
 					DD_PROFILE_SCOPE("LayerStack OnImGuiRender");
-					for (Layer* layer : d_layerStack)
+					for (Layer* layer : d_LayerStack)
 					{
 						layer->OnImGuiRender();
 					}
 				}
-				d_imGuiLayer->End();
+				d_ImGuiLayer->End();
 			}
 
 
-			d_window->OnUpdate();
+			d_Window->OnUpdate();
 		}
+	}
+
+	void Application::Close()
+	{
+		d_Running = false;
 	}
 
 	void Application::OnEvent(Event& e)
@@ -81,13 +86,11 @@ namespace Dooda
 		dispatcher.Dispatch<WindowCloseEvent>(DD_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(DD_BIND_EVENT_FN(Application::OnWindowResize));
 
-		for (auto it = d_layerStack.rbegin(); it != d_layerStack.rend(); ++it)
+		for (auto it = d_LayerStack.rbegin(); it != d_LayerStack.rend(); ++it)
 		{
-			(*it)->OnEvent(e);
 			if (e.Handled)
-			{
 				break;
-			}
+			(*it)->OnEvent(e);
 		}
 
 	}
@@ -96,7 +99,7 @@ namespace Dooda
 	{
 		DD_PROFILE_FUNCTION();
 
-		d_layerStack.PushLayer(layer);
+		d_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
@@ -104,13 +107,13 @@ namespace Dooda
 	{
 		DD_PROFILE_FUNCTION();
 
-		d_layerStack.PushOverlay(overlay);
+		d_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		d_running = false;
+		d_Running = false;
 		return true;
 	}
 

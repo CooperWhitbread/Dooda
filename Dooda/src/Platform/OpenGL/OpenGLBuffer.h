@@ -8,8 +8,8 @@ namespace Dooda
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(uint32_t size);
-		OpenGLVertexBuffer(float* verticies, uint32_t size);
+		OpenGLVertexBuffer(UINT size);
+		OpenGLVertexBuffer(float* verticies, UINT size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const;
@@ -20,27 +20,27 @@ namespace Dooda
 
 	public: //Setters
 		virtual void SetLayout(const BufferLayout& layout) override { d_Layout = layout; }
-		virtual void SetData(const void* data, uint32_t size) override;
+		virtual void SetData(const void* data, UINT size) override;
 		
 	private: //Variables
-		uint32_t d_RendererID;
+		UINT d_RendererID;
 		BufferLayout d_Layout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indicies, uint32_t count);
+		OpenGLIndexBuffer(UINT* indicies, UINT count);
 		virtual ~OpenGLIndexBuffer();
 
 		virtual void Bind() const;
 		virtual void UnBind() const;
 
 	public: //Getters
-		virtual uint32_t GetCount() const { return d_Count; }
+		virtual UINT GetCount() const { return d_Count; }
 
 	private: //Variables
-		uint32_t d_RendererID;
-		uint32_t d_Count;
+		UINT d_RendererID;
+		UINT d_Count;
 	};
 }

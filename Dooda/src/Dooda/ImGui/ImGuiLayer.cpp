@@ -61,6 +61,13 @@ namespace Dooda
 		ImGui::DestroyContext();
 	}
 
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		e.Handled |= e.GetIsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+		e.Handled |= e.GetIsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+	}
+
 	void ImGuiLayer::Begin()
 	{
 		DD_PROFILE_FUNCTION();

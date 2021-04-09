@@ -61,7 +61,8 @@ project "GLFW"
 		defines
 		{
 			"_GLFW_X11",
-			"_CTR_SECURE_NO_WARNINGS"
+			"_CTR_SECURE_NO_WARNINGS",
+			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"

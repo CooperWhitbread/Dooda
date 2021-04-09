@@ -209,7 +209,7 @@ namespace glm
 
 	/// 32 bit unsigned integer type. 
 	/// @see gtc_type_precision
-	typedef detail::uint32 uint32_t;
+	typedef detail::uint32 UINT;
 
 	/// 64 bit unsigned integer type. 
 	/// @see gtc_type_precision

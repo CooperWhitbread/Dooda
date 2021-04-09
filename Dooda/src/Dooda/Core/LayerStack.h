@@ -28,6 +28,7 @@ namespace Dooda
 
 	private: //Variables
 		std::vector<Layer*> d_Layers;
-		unsigned int d_LayerInsertIndex = 0;
+		unsigned 
+			d_LayerInsertIndex = 0;
 	};
 }

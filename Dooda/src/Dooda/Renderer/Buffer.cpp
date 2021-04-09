@@ -8,7 +8,7 @@
 namespace Dooda
 {
 
-	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(UINT size)
 	{
 		switch (Renderer::GetCurrentRendererAPI())
 		{
@@ -20,7 +20,7 @@ namespace Dooda
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float* verticies, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* verticies, UINT size)
 	{
 		switch (Renderer::GetCurrentRendererAPI())
 		{
@@ -39,7 +39,7 @@ namespace Dooda
 		return nullptr;
 	}
 
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indicies, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(UINT* indicies, UINT size)
 	{
 		switch (Renderer::GetCurrentRendererAPI())
 		{

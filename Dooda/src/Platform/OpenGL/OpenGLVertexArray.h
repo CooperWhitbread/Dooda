@@ -24,10 +24,10 @@ namespace Dooda
 		virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
 	private: //Variables
-		uint32_t d_RendererID;
+		UINT d_RendererID;
 		std::vector<Ref<VertexBuffer>> d_VertexBuffers;
 		Ref<IndexBuffer> d_IndexBuffer; 
-		uint32_t d_VertexBufferIndex = 0;
+		UINT d_VertexBufferIndex = 0;
 	};
 
 }

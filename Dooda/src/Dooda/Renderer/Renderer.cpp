@@ -20,7 +20,7 @@ namespace Dooda
 		Renderer2D::Shutdown();
 	}
 
-	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+	void Renderer::OnWindowResize(UINT width, UINT height)
 	{
 		RenderCommand::SetViewport(0, 0, width, height);
 	}
