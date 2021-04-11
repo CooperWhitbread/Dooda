@@ -141,7 +141,7 @@ project "Sandbox"
 
 		defines 
 		{
-			"DD_PLATFORM_WINDOWS"
+			"DD_PLATFORd_WINDOWS"
 		}
 
 	filter "configurations:Debug"

@@ -19,6 +19,7 @@ private:
 
 	Dooda::Ref<Dooda::VertexArray> m_SquareVA;
 	Dooda::Ref<Dooda::Shader> m_FlatColorShader;
+	Dooda::Ref<Dooda::Framebuffer> m_Framebuffer;
 
 	Dooda::Ref<Dooda::Texture2D> m_CheckerboardTexture;
 
