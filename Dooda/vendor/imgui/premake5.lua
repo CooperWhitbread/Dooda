@@ -1,8 +1,6 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -21,20 +19,16 @@ project "ImGui"
 		"imgui_demo.cpp"
 	}
 
-    disablewarnings
-    {
-        "6011",
-        "28182",
-        "6385",
-        "26812",
-        "26451"
-    }
-
 	filter "system:windows"
 		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "On"
 
 	filter "system:linux"
+		pic "On"
 		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "On"
 
 	filter "configurations:Debug"
 		runtime "Debug"

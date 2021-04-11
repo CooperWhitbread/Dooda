@@ -28,6 +28,7 @@
 #include "Dooda/Renderer/Buffer.h"
 #include "Dooda/Renderer/Framebuffer.h"
 #include "Dooda/Renderer/Shader.h"
+#include "Dooda/Renderer/Framebuffer.h"
 #include "Dooda/Renderer/Texture.h"
 #include "Dooda/Renderer/VertexArray.h"
 

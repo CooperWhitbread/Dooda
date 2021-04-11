@@ -1,12 +1,3 @@
-#pragma warning( push )
-#pragma warning( disable : 26495)
-#pragma warning( disable : 28182)
-#pragma warning( disable : 26451)
-#pragma warning( disable : 5033)
-#pragma warning( disable : 26451)
-#pragma warning( disable : 6387)
-
-
 // dear imgui, v1.68 WIP
 // (headers)
 
@@ -2345,8 +2336,3 @@ struct ImGuiViewport
 #ifdef IMGUI_INCLUDE_IMGUI_USER_H
 #include "imgui_user.h"
 #endif
-
-
-
-
-#pragma warning( pop ) 

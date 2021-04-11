@@ -47,7 +47,7 @@ namespace Dooda
 			Timestep timestep = time - d_LastFrameTime;
 			d_LastFrameTime = time;
 
-			if (!m_Minimized)
+			if (!d_Minimized)
 			{
 				{
 					DD_PROFILE_SCOPE("LayerStack OnUpdate");
@@ -123,11 +123,11 @@ namespace Dooda
 
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
-			m_Minimized = true;
+			d_Minimized = true;
 			return false;
 		}
 
-		m_Minimized = false;
+		d_Minimized = false;
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 
 		return false;

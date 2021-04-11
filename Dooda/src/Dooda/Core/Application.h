@@ -41,7 +41,7 @@ namespace Dooda
 		std::unique_ptr<Window> d_Window;
 
 		ImGuiLayer* d_ImGuiLayer;
-		bool m_Minimized = false;
+		bool d_Minimized = false;
 		bool d_Running = true;
 		LayerStack d_LayerStack;
 
