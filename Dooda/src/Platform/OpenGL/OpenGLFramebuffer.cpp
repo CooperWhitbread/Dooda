@@ -14,10 +14,19 @@ namespace Dooda {
 	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
 		glDeleteFramebuffers(1, &d_RendererID);
+		glDeleteTextures(1, &d_ColorAttachment);
+		glDeleteTextures(1, &d_DepthAttachment);
 	}
 
 	void OpenGLFramebuffer::Invalidate()
 	{
+		if (d_RendererID)
+		{
+			glDeleteFramebuffers(1, &d_RendererID);
+			glDeleteTextures(1, &d_ColorAttachment);
+			glDeleteTextures(1, &d_DepthAttachment);
+		}
+
 		glCreateFramebuffers(1, &d_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, d_RendererID);
 
@@ -32,8 +41,6 @@ namespace Dooda {
 		glCreateTextures(GL_TEXTURE_2D, 1, &d_DepthAttachment);
 		glBindTexture(GL_TEXTURE_2D, d_DepthAttachment);
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, d_Specification.Width, d_Specification.Height);
-		// glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, d_Specification.Width, d_Specification.Height, 0,
-		// 	GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, d_DepthAttachment, 0);
 
 		DD_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is incomplete!");
@@ -44,11 +51,20 @@ namespace Dooda {
 	void OpenGLFramebuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, d_RendererID);
+		glViewport(0, 0, d_Specification.Width, d_Specification.Height);
 	}
 
 	void OpenGLFramebuffer::Unbind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void OpenGLFramebuffer::Resize(UINT width, UINT height)
+	{
+		d_Specification.Width = width;
+		d_Specification.Height = height;
+
+		Invalidate();
 	}
 
 }

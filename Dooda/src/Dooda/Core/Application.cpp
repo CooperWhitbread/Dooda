@@ -11,14 +11,14 @@ namespace Dooda
 
 	Application* Application::sd_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		DD_PROFILE_FUNCTION();
 
 		DD_CORE_ASSERT(!sd_Instance, "Application already exists!");
 		sd_Instance = this;
 
-		d_Window = Window::SD_Create();
+		d_Window = Window::SD_Create(WindowProps(name));
 		d_Window->SetEventCallback(DD_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();

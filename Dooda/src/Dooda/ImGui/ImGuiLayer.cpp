@@ -22,7 +22,7 @@ namespace Dooda
 		DD_PROFILE_FUNCTION();
 
 		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
+		//IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;		// Enable Keyboard Controls
@@ -63,9 +63,12 @@ namespace Dooda
 
 	void ImGuiLayer::OnEvent(Event& e)
 	{
-		ImGuiIO& io = ImGui::GetIO();
-		e.Handled |= e.GetIsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
-		e.Handled |= e.GetIsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		if (d_BlockEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			e.Handled |= e.GetIsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.Handled |= e.GetIsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
 	}
 
 	void ImGuiLayer::Begin()

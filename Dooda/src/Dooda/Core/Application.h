@@ -17,13 +17,15 @@ namespace Dooda
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Dooda Application");
 		virtual ~Application();
 
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
+
+		ImGuiLayer* GetImGuiLayer() { return d_ImGuiLayer; }
 
 	public: //Getters
 		inline static Application& Get() { return *sd_Instance; }

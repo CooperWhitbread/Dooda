@@ -42,6 +42,8 @@ namespace Dooda
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string GetToString() const { return GetName(); }
 
+		virtual ~Event() = default;
+
 		inline bool GetIsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
 
 	public: //Variables

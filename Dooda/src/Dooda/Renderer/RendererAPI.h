@@ -14,6 +14,8 @@ namespace Dooda {
 			None = 0, OpenGL = 1
 		};
 	public:
+		virtual ~RendererAPI() = default;
+
 		virtual void Init() = 0;
 		virtual void SetViewport(UINT x, UINT y, UINT width, UINT height) = 0;
 

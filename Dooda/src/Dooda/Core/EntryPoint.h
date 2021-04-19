@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 	app->Run();
 	DD_PROFILE_END_SESSION();
 
-	DD_PROFILE_BEGIN_SESSION("Startup", "DoodaProfile-Shutdown.json");
+	DD_PROFILE_BEGIN_SESSION("Shutdown", "DoodaProfile-Shutdown.json");
 	delete app;
 	DD_PROFILE_END_SESSION();
 }

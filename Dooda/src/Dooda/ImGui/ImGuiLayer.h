@@ -22,8 +22,11 @@ namespace Dooda
 		void Begin();
 		void End();
 
+		void BlockEvents(bool block) { d_BlockEvents = block; }
+
 	private: //Variables
 		float d_Time = 0.0f;
+		bool d_BlockEvents = true;
 	};
 
 }

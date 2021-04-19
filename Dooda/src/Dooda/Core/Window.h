@@ -10,10 +10,10 @@ namespace Dooda
 	struct WindowProps
 	{
 		std::string Title;
-		unsigned int Width;
-		unsigned int Height;
+		UINT Width;
+		UINT Height;
 
-		WindowProps(const std::string& title = "Dooda Engine", unsigned int width = 2560, unsigned int height = 1440)
+		WindowProps(const std::string& title = "Dooda Engine", UINT width = 2560, UINT height = 1440)
 			: Title(title), Width(width), Height(height)
 		{
 		}
@@ -30,8 +30,8 @@ namespace Dooda
 		virtual void OnUpdate() = 0;
 
 	public: //Getters
-		virtual unsigned int GetWidth() const = 0;
-		virtual unsigned int GetHeight() const = 0;
+		virtual UINT GetWidth() const = 0;
+		virtual UINT GetHeight() const = 0;
 
 		// Window attributes
 		virtual bool GetVSync() const = 0;

@@ -55,6 +55,12 @@ namespace Dooda {
 		d_CameraTranslationSpeed = d_ZoomLevel;
 	}
 
+	void OrthographicCameraController::OnResize(float width, float height)
+	{
+		d_AspectRatio = width / height;
+		d_Camera.SetProjection(-d_AspectRatio * d_ZoomLevel, d_AspectRatio * d_ZoomLevel, -d_ZoomLevel, d_ZoomLevel);
+	}
+
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
@@ -72,8 +78,7 @@ namespace Dooda {
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
-		d_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		d_Camera.SetProjection(-d_AspectRatio * d_ZoomLevel, d_AspectRatio * d_ZoomLevel, -d_ZoomLevel, d_ZoomLevel);
+		OnResize((float)e.GetWidth(), (float)e.GetHeight());
 		return false;
 	}
 

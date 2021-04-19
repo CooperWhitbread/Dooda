@@ -26,6 +26,8 @@ namespace Dooda {
 	public: //Setters
 		void SetZoomLevel(float level) { d_ZoomLevel = level; }
 
+		void OnResize(float width, float height);
+
 	private: //Private Functions
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowResized(WindowResizeEvent& e);
