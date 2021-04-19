@@ -35,6 +35,14 @@ namespace Dooda {
 	{
 		DD_PROFILE_FUNCTION();
 
+		if (Dooda::FramebufferSpecification spec = d_Framebuffer->GetSpecification();
+			d_ViewportSize.x > 0.0f && d_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
+			(spec.Width != d_ViewportSize.x || spec.Height != d_ViewportSize.y))
+		{
+			d_Framebuffer->Resize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
+			d_CameraController.OnResize(d_ViewportSize.x, d_ViewportSize.y);
+		}
+
 		// Update
 		if (d_ViewportFocused)
 			d_CameraController.OnUpdate(ts);
@@ -161,13 +169,7 @@ namespace Dooda {
 		Application::Get().GetImGuiLayer()->BlockEvents(!d_ViewportFocused || !d_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (d_ViewportSize != *((glm::vec2*)&viewportPanelSize))
-		{
-			d_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			d_ViewportSize = glm::vec2{ viewportPanelSize.x, viewportPanelSize.y };
-
-			d_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
-		}
+		d_ViewportSize = glm::vec2{ viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t textureID = d_Framebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ d_ViewportSize.x, d_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
