@@ -16,12 +16,20 @@ namespace Dooda {
 	{
 		DD_PROFILE_FUNCTION();
 
-		d_CheckerboardTexture = Dooda::Texture2D::Create("assets/textures/Checkerboard.png");
+		d_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 
-		Dooda::FramebufferSpecification fbSpec;
+		FramebufferSpecification fbSpec;
 		fbSpec.Width = 1280;
 		fbSpec.Height = 720;
-		d_Framebuffer = Dooda::Framebuffer::Create(fbSpec);
+		d_Framebuffer = Framebuffer::Create(fbSpec);
+
+		d_ActiveScene = CreateRef<Scene>();
+
+		auto square = d_ActiveScene->CreateEntity();
+		d_ActiveScene->Reg().emplace<TransformComponent>(square);
+		d_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+		d_SquareEntity = square;
 
 		d_CameraController.SetZoomLevel(8.0f);
 	}
@@ -31,11 +39,11 @@ namespace Dooda {
 		DD_PROFILE_FUNCTION();
 	}
 
-	void EditorLayer::OnUpdate(Dooda::Timestep ts)
+	void EditorLayer::OnUpdate(Timestep ts)
 	{
 		DD_PROFILE_FUNCTION();
 
-		if (Dooda::FramebufferSpecification spec = d_Framebuffer->GetSpecification();
+		if (FramebufferSpecification spec = d_Framebuffer->GetSpecification();
 			d_ViewportSize.x > 0.0f && d_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
 			(spec.Width != d_ViewportSize.x || spec.Height != d_ViewportSize.y))
 		{
@@ -48,39 +56,19 @@ namespace Dooda {
 			d_CameraController.OnUpdate(ts);
 
 		// Render
-		Dooda::Renderer2D::ResetStats();
-		{
-			DD_PROFILE_SCOPE("Renderer Prep");
-			d_Framebuffer->Bind();
-			Dooda::RenderCommand::SetClearColor(glm::vec4{ 0.1f, 0.1f, 0.1f, 1 });
-			Dooda::RenderCommand::Clear();
-		}
+		Renderer2D::ResetStats();
+		d_Framebuffer->Bind();
+		RenderCommand::SetClearColor(glm::vec4{ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
 
-		{
-			static float rotation = 0.0f;
-			rotation += ts * 50.0f;
+		Renderer2D::BeginScene(d_CameraController.GetCamera());
 
-			DD_PROFILE_SCOPE("Renderer Draw");
-			Dooda::Renderer2D::BeginScene(d_CameraController.GetCamera());
-			Dooda::Renderer2D::DrawRotatedQuad(glm::vec2{ 1.0f, 0.0f }, glm::vec2{ 0.8f, 0.8f }, -45.0f, glm::vec4{ 0.8f, 0.2f, 0.3f, 1.0f });
-			Dooda::Renderer2D::DrawQuad(glm::vec2{ -1.0f, 0.0f }, glm::vec2{ 0.8f, 0.8f }, glm::vec4{ 0.8f, 0.2f, 0.3f, 1.0f });
-			Dooda::Renderer2D::DrawQuad(glm::vec2{ 0.5f, -0.5f }, glm::vec2{ 0.5f, 0.75f }, d_SquareColor);
-			Dooda::Renderer2D::DrawQuad(glm::vec3{ 0.0f, 0.0f, -0.1f }, glm::vec2{ 20.0f, 20.0f }, d_CheckerboardTexture, 10.0f);
-			Dooda::Renderer2D::DrawRotatedQuad(glm::vec3{ -2.0f, 0.0f, 0.0f }, glm::vec2{ 1.0f, 1.0f }, rotation, d_CheckerboardTexture, 20.0f);
-			Dooda::Renderer2D::EndScene();
+		// Update scene
+		d_ActiveScene->OnUpdate(ts);
 
-			Dooda::Renderer2D::BeginScene(d_CameraController.GetCamera());
-			for (float y = -5.0f; y < 5.0f; y += 0.5f)
-			{
-				for (float x = -5.0f; x < 5.0f; x += 0.5f)
-				{
-					glm::vec4 color = glm::vec4{ (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
-					Dooda::Renderer2D::DrawQuad(glm::vec2{ x, y }, glm::vec2{ 0.45f, 0.45f }, color);
-				}
-			}
-			Dooda::Renderer2D::EndScene();
-			d_Framebuffer->Unbind();
-		}
+		Renderer2D::EndScene();
+
+		d_Framebuffer->Unbind();
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -140,7 +128,7 @@ namespace Dooda {
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Exit")) Dooda::Application::Get().Close();
+				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 
 			}
@@ -150,14 +138,15 @@ namespace Dooda {
 
 		ImGui::Begin("Settings");
 
-		auto stats = Dooda::Renderer2D::GetStats();
+		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(d_SquareColor));
+		auto& squareColor = d_ActiveScene->Reg().get<SpriteRendererComponent>(d_SquareEntity).Color;
+		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 
 		ImGui::End();
 
@@ -169,7 +158,13 @@ namespace Dooda {
 		Application::Get().GetImGuiLayer()->BlockEvents(!d_ViewportFocused || !d_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		d_ViewportSize = glm::vec2{ viewportPanelSize.x, viewportPanelSize.y };
+		if (d_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
+		{
+			d_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
+			d_ViewportSize = glm::vec2{ viewportPanelSize.x, viewportPanelSize.y };
+
+			d_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
+		}
 		uint32_t textureID = d_Framebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ d_ViewportSize.x, d_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
@@ -178,7 +173,7 @@ namespace Dooda {
 		ImGui::End();
 	}
 
-	void EditorLayer::OnEvent(Dooda::Event& e)
+	void EditorLayer::OnEvent(Event& e)
 	{
 		d_CameraController.OnEvent(e);
 	}

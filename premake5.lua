@@ -23,6 +23,7 @@ IncludeDir["Glad"] = "Dooda/vendor/Glad/include"
 IncludeDir["ImGui"] = "Dooda/vendor/imgui"
 IncludeDir["glm"] = "Dooda/vendor/glm"
 IncludeDir["stb_image"] = "Dooda/vendor/stb_image"
+IncludeDir["entt"] = "Dooda/vendor/entt/include"
 
 --Group the depndancies together
 group "Depedencies"
@@ -70,7 +71,8 @@ project "Dooda"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -128,7 +130,8 @@ project "Sandbox"
 		"Dooda/vendor/spdlog/include",
 		"Dooda/src",
 		"Dooda/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -181,7 +184,8 @@ project "Adood"
 		"Dooda/vendor/spdlog/include",
 		"Dooda/src",
 		"Dooda/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

@@ -24,6 +24,9 @@ namespace Dooda {
 		Ref<Framebuffer> d_Framebuffer;
 		glm::vec2 d_ViewportSize = glm::vec2(0.0f, 0.0f);
 
+		Ref<Scene> d_ActiveScene;
+		entt::entity d_SquareEntity;
+
 		Ref<Texture2D> d_CheckerboardTexture;
 		bool d_ViewportFocused = false, d_ViewportHovered = false;
 

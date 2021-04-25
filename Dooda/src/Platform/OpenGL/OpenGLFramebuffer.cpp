@@ -5,6 +5,8 @@
 
 namespace Dooda {
 
+	static const uint32_t s_MaxFramebufferSize = 8192;
+
 	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec)
 		: d_Specification(spec)
 	{
@@ -61,6 +63,11 @@ namespace Dooda {
 
 	void OpenGLFramebuffer::Resize(UINT width, UINT height)
 	{
+		if (width == 0 || height == 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize)
+		{
+			DD_CORE_WARN("Attempted to rezize framebuffer to {0}, {1}", width, height);
+			return;
+		}
 		d_Specification.Width = width;
 		d_Specification.Height = height;
 

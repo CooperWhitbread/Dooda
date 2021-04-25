@@ -19,6 +19,10 @@
 //Imgui
 #include "Dooda/ImGui/ImGuiLayer.h"
 
+//Scenes
+#include "Dooda/Scene/Scene.h"
+#include "Dooda/Scene/Component.h"
+
 //Renderer
 #include "Dooda/Renderer/Renderer.h"
 #include "Dooda/Renderer/Renderer2D.h"
