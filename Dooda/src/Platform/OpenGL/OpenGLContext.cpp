@@ -27,15 +27,7 @@ void Dooda::OpenGLContext::Init()
 	DD_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
 	DD_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 
-	//Add when opengl version is 4.5 or higher
-	/*#ifdef DD_ENABLE_ASSERTS
-		int versionMajor;
-		int versionMinor;
-		glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
-		glGetIntegerv(GL_MINOR_VERSION, &versionMinor);
-
-		DD_CORE_ASSERT(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Dooda requires at least OpenGL version 4.5!");
-	#endif*/
+	DD_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Hazel requires at least OpenGL version 4.5!");
 }
 
 void Dooda::OpenGLContext::SwapBuffers()

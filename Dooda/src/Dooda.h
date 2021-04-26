@@ -22,6 +22,8 @@
 //Scenes
 #include "Dooda/Scene/Scene.h"
 #include "Dooda/Scene/Component.h"
+#include "Dooda/Scene/Entity.h"
+#include "Dooda/Scene/ScriptableEntity.h"
 
 //Renderer
 #include "Dooda/Renderer/Renderer.h"

@@ -13,23 +13,23 @@ namespace Dooda {
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
-		if (Input::IsKeyPressed(DD_KEY_A))
+		if (Input::IsKeyPressed(Key::A))
 		{
 			d_CameraPosition.x -= cos(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 			d_CameraPosition.y -= sin(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 		}
-		else if (Input::IsKeyPressed(DD_KEY_D))
+		else if (Input::IsKeyPressed(Key::D))
 		{
 			d_CameraPosition.x += cos(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 			d_CameraPosition.y += sin(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 		}
 
-		if (Input::IsKeyPressed(DD_KEY_W))
+		if (Input::IsKeyPressed(Key::W))
 		{
 			d_CameraPosition.x += -sin(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 			d_CameraPosition.y += cos(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 		}
-		else if (Input::IsKeyPressed(DD_KEY_S))
+		else if (Input::IsKeyPressed(Key::S))
 		{
 			d_CameraPosition.x -= -sin(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
 			d_CameraPosition.y -= cos(glm::radians(d_CameraRotation)) * d_CameraTranslationSpeed * ts;
@@ -37,9 +37,9 @@ namespace Dooda {
 
 		if (d_Rotation)
 		{
-			if (Input::IsKeyPressed(DD_KEY_Q))
+			if (Input::IsKeyPressed(Key::Q))
 				d_CameraRotation += d_CameraRotationSpeed * ts;
-			if (Input::IsKeyPressed(DD_KEY_E))
+			if (Input::IsKeyPressed(Key::E))
 				d_CameraRotation -= d_CameraRotationSpeed * ts;
 
 			if (d_CameraRotation > 180.0f)

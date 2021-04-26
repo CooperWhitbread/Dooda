@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Dooda/Events/Event.h"
-#include "Dooda/Core/Input.h"
+#include "Dooda/Core/KeyCodes.h"
 
 namespace Dooda {
 
 	class KeyEvent : public Event
 	{
 	protected:
-		KeyEvent(KeyCode keycode)
+		KeyEvent(const KeyCode keycode)
 			: d_KeyCode(keycode) 
 		{
 		}
@@ -26,7 +26,7 @@ namespace Dooda {
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(KeyCode keycode, int repeatCount)
+		KeyPressedEvent(const KeyCode keycode, UINT repeatCount)
 			: KeyEvent(keycode), d_RepeatCount(repeatCount) 
 		{
 		}
@@ -34,7 +34,7 @@ namespace Dooda {
 		EVENT_CLASS_TYPE(KeyPressed)
 
 	public: //Getters
-		inline int GetRepeatCount() const { return d_RepeatCount; }
+		inline UINT GetRepeatCount() const { return d_RepeatCount; }
 
 		std::string GetToString() const override
 		{
@@ -50,7 +50,7 @@ namespace Dooda {
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(KeyCode keycode)
+		KeyReleasedEvent(const KeyCode keycode)
 			: KeyEvent(keycode) 
 		{
 		}
@@ -70,7 +70,7 @@ namespace Dooda {
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(KeyCode keycode)
+		KeyTypedEvent(const KeyCode keycode)
 			: KeyEvent(keycode) 
 		{
 		}

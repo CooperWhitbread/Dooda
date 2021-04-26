@@ -25,13 +25,49 @@ namespace Dooda {
 
 		d_ActiveScene = CreateRef<Scene>();
 
-		auto square = d_ActiveScene->CreateEntity();
-		d_ActiveScene->Reg().emplace<TransformComponent>(square);
-		d_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
-
+		// Entity
+		auto square = d_ActiveScene->CreateEntity("Green Square");
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 		d_SquareEntity = square;
 
-		d_CameraController.SetZoomLevel(8.0f);
+		d_CameraEntity = d_ActiveScene->CreateEntity("Camera Entity");
+		d_CameraEntity.AddComponent<CameraComponent>();
+
+		d_SecondCamera = d_ActiveScene->CreateEntity("Clip-Space Entity");
+		auto& cc = d_SecondCamera.AddComponent<CameraComponent>();
+		cc.Primary = false;
+
+		class CameraController : public ScriptableEntity
+		{
+		public:
+			void OnCreate()
+			{
+			}
+
+			void OnDestroy()
+			{
+			}
+
+			void OnUpdate(Timestep ts)
+			{
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				float speed = 5.0f;
+
+				if (Input::IsKeyPressed(Key::A))
+					transform[3][0] -= speed * ts;
+				if (Input::IsKeyPressed(Key::D))
+					transform[3][0] += speed * ts;
+				if (Input::IsKeyPressed(Key::W))
+					transform[3][1] += speed * ts;
+				if (Input::IsKeyPressed(Key::S))
+					transform[3][1] -= speed * ts;
+			}
+		};
+
+		d_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+
+		//d_CameraController.SetZoomLevel(8.0f);
 	}
 
 	void EditorLayer::OnDetach()
@@ -47,8 +83,10 @@ namespace Dooda {
 			d_ViewportSize.x > 0.0f && d_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
 			(spec.Width != d_ViewportSize.x || spec.Height != d_ViewportSize.y))
 		{
-			d_Framebuffer->Resize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
+			d_Framebuffer->Resize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
 			d_CameraController.OnResize(d_ViewportSize.x, d_ViewportSize.y);
+
+			d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
 		}
 
 		// Update
@@ -61,12 +99,8 @@ namespace Dooda {
 		RenderCommand::SetClearColor(glm::vec4{ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
-		Renderer2D::BeginScene(d_CameraController.GetCamera());
-
 		// Update scene
 		d_ActiveScene->OnUpdate(ts);
-
-		Renderer2D::EndScene();
 
 		d_Framebuffer->Unbind();
 	}
@@ -145,8 +179,32 @@ namespace Dooda {
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		auto& squareColor = d_ActiveScene->Reg().get<SpriteRendererComponent>(d_SquareEntity).Color;
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+		if (d_SquareEntity)
+		{
+			ImGui::Separator();
+			auto& tag = d_SquareEntity.GetComponent<TagComponent>().Tag;
+			ImGui::Text("%s", tag.c_str());
+
+			auto& squareColor = d_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
+			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+			ImGui::Separator();
+
+			ImGui::DragFloat3("Camera Transform",
+				glm::value_ptr(d_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+
+			if (ImGui::Checkbox("Camera A", &d_PrimaryCamera))
+			{
+				d_CameraEntity.GetComponent<CameraComponent>().Primary = d_PrimaryCamera;
+				d_SecondCamera.GetComponent<CameraComponent>().Primary = !d_PrimaryCamera;
+			}
+
+			{
+				auto& camera = d_SecondCamera.GetComponent<CameraComponent>().Camera;
+				float orthoSize = camera.GetOrthographicSize();
+				if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
+					camera.SetOrthographicSize(orthoSize);
+			}
+		}
 
 		ImGui::End();
 
@@ -158,15 +216,10 @@ namespace Dooda {
 		Application::Get().GetImGuiLayer()->BlockEvents(!d_ViewportFocused || !d_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (d_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
-		{
-			d_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			d_ViewportSize = glm::vec2{ viewportPanelSize.x, viewportPanelSize.y };
+		d_ViewportSize = glm::vec2(viewportPanelSize.x, viewportPanelSize.y);
 
-			d_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
-		}
-		uint32_t textureID = d_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ d_ViewportSize.x, d_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		uint64_t textureID = d_Framebuffer->GetColorAttachmentRendererID();
+		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ d_ViewportSize.x, d_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 		ImGui::PopStyleVar();
 

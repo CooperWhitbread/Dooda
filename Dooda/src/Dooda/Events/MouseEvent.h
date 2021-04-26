@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Dooda/Events/Event.h"
-#include "Dooda/Core/Input.h"
+#include "Dooda/Core/MouseCodes.h"
 
 namespace Dooda {
 
 	class MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(float x, float y)
+		MouseMovedEvent(const float x, const float y)
 			: d_MouseX(x), d_MouseY(y) 
 		{
 		}
@@ -35,7 +35,7 @@ namespace Dooda {
 	class MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
+		MouseScrolledEvent(const float xOffset, const float yOffset)
 			: d_XOffset(xOffset), d_YOffset(yOffset) 
 		{
 		}
@@ -61,7 +61,7 @@ namespace Dooda {
 	class MouseButtonEvent : public Event
 	{
 	protected:
-		MouseButtonEvent(MouseCode button)
+		MouseButtonEvent(const MouseCode button)
 			: d_Button(button)
 		{
 		}
@@ -69,7 +69,7 @@ namespace Dooda {
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	public: //Getters
-		inline MouseCode GetMouseButton() const { return d_Button; }
+		MouseCode GetMouseButton() const { return d_Button; }
 
 	protected://Variables
 		MouseCode d_Button;
@@ -78,7 +78,7 @@ namespace Dooda {
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(MouseCode button)
+		MouseButtonPressedEvent(const MouseCode button)
 			: MouseButtonEvent(button) 
 		{
 		}
@@ -97,7 +97,7 @@ namespace Dooda {
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(MouseCode button)
+		MouseButtonReleasedEvent(const MouseCode button)
 			: MouseButtonEvent(button) 
 		{
 		}

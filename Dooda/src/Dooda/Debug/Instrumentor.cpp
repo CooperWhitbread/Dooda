@@ -4,7 +4,7 @@
 namespace Dooda
 {
 	Instrumentor::Instrumentor()
-		: d_CurrentSession(nullptr), d_ProfileCount(0)
+		: d_CurrentSession(nullptr)
 	{
 	}
 
@@ -67,11 +67,6 @@ namespace Dooda
 			d_OutputStream << json.str();
 			d_OutputStream.flush();
 		}
-	}
-
-	static Instrumentor& Get() {
-		static Instrumentor instance;
-		return instance;
 	}
 
 	void Instrumentor::WriteHeader()

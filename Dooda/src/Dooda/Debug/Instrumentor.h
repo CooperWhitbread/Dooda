@@ -1,6 +1,13 @@
 #pragma once
 
 #include <iomanip>
+#include <string>
+#include <thread>
+#include <mutex>
+#include <sstream>
+#include <fstream>
+
+#include "Dooda/Core/Log.h"
 
 namespace Dooda 
 {
@@ -23,7 +30,8 @@ namespace Dooda
 	class Instrumentor
 	{
 	public:
-		Instrumentor();
+		Instrumentor(const Instrumentor&) = delete;
+		Instrumentor(Instrumentor&&) = delete;
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json");
 		void EndSession();
@@ -34,6 +42,9 @@ namespace Dooda
 		static Instrumentor& Get();
 
 	private: //Private Functions
+		Instrumentor();
+		~Instrumentor(){ EndSession(); }
+
 		void WriteHeader();
 		void WriteFooter();
 
@@ -45,7 +56,6 @@ namespace Dooda
 		std::mutex d_Mutex;
 		InstrumentationSession* d_CurrentSession;
 		std::ofstream d_OutputStream;
-		int d_ProfileCount;
 
 	};
 
@@ -91,8 +101,10 @@ namespace Dooda
 
 	#define DD_PROFILE_BEGIN_SESSION(name, filepath) ::Dooda::Instrumentor::Get().BeginSession(name, filepath)
 	#define DD_PROFILE_END_SESSION() ::Dooda::Instrumentor::Get().EndSession()
-	#define DD_PROFILE_SCOPE(name) constexpr auto fixedName = ::Dooda::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-									::Dooda::InstrumentationTimer timer##__LINE__(fixedName.Data)
+	#define DD_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Dooda::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+												   ::Dooda::InstrumentationTimer timer##line(fixedName##line.Data)
+	#define DD_PROFILE_SCOPE_LINE(name, line) DD_PROFILE_SCOPE_LINE2(name, line)
+	#define DD_PROFILE_SCOPE(name) DD_PROFILE_SCOPE_LINE(name, __LINE__)
 	#define DD_PROFILE_FUNCTION() DD_PROFILE_SCOPE(DD_FUNC_SIG)
 
 #else

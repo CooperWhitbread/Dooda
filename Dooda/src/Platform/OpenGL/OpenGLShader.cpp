@@ -57,7 +57,7 @@ namespace Dooda {
 		DD_PROFILE_FUNCTION();
 
 		std::string result;
-		std::ifstream in(filepath, std::ios::in | std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary); // ifstream closes itself due to RAII
 		if (in)
 		{
 				in.seekg(0, std::ios::end);
@@ -67,7 +67,6 @@ namespace Dooda {
 					result.resize(size);
 					in.seekg(0, std::ios::beg);
 					in.read(&result[0], size);
-					in.close();
 				}
 				else
 				{
