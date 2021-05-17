@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Dooda.h>
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace Dooda {
 
@@ -23,6 +24,9 @@ namespace Dooda {
 		Ref<Shader> d_FlatColorShader;
 		Ref<Framebuffer> d_Framebuffer;
 		glm::vec2 d_ViewportSize = glm::vec2(0.0f, 0.0f);
+
+		// Panels
+		SceneHierarchyPanel d_SceneHierarchyPanel;
 
 		Ref<Scene> d_ActiveScene;
 		Entity d_SquareEntity;

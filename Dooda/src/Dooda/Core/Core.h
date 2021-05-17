@@ -20,14 +20,8 @@
 	#else
 	#define DD_DEBUGBREAK()
 #endif
-
-#ifdef DD_ENABLE_ASSERTS
-	#define DD_ASSERT(x, ...) { if(!(x)) { DD_ERROR("Assertion Failed: {0}", __VA_ARGS__); DD_DEBUGBREAK(); } }
-	#define DD_CORE_ASSERT(x, ...) { if(!(x)) { DD_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); DD_DEBUGBREAK(); } }
-	#else
-	#define DD_ASSERT(x, ...)
-	#define DD_CORE_ASSERT(x, ...)
-#endif
+#define DD_EXPAND_MACRO(x) x
+#define DD_STRINGIFY_MACRO(x) #x
 
 ////////////////////
 //Useful Functions//
@@ -59,3 +53,6 @@ namespace Dooda {
 	}
 
 }
+
+#include "Dooda/Core/Log.h"
+#include "Dooda/Core/Assert.h"

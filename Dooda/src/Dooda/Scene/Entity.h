@@ -41,6 +41,15 @@ namespace Dooda {
 		}
 
 		operator bool() const { return d_EntityHandle != entt::null; }
+		operator uint32_t() const { return (uint32_t)d_EntityHandle; }
+		bool operator==(const Entity& other) const
+		{
+			return d_EntityHandle == other.d_EntityHandle && d_Scene == other.d_Scene;
+		}
+		bool operator!=(const Entity& other) const
+		{
+			return !(*this == other);
+		}
 	private:
 		entt::entity d_EntityHandle{ entt::null };
 		Scene* d_Scene = nullptr;

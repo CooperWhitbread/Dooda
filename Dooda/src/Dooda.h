@@ -10,6 +10,7 @@
 #include "Dooda/Core/Log.h"
 #include "Dooda/Core/Core.h"
 #include "Dooda/Core/Timestep.h"
+#include "Dooda/Core/Assert.h"
 
 //Events
 #include "Dooda/Core/KeyCodes.h"

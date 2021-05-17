@@ -30,6 +30,9 @@ namespace Dooda {
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 		d_SquareEntity = square;
 
+		auto redSquare = d_ActiveScene->CreateEntity("Red Square");
+		redSquare.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+
 		d_CameraEntity = d_ActiveScene->CreateEntity("Camera Entity");
 		d_CameraEntity.AddComponent<CameraComponent>();
 
@@ -40,15 +43,17 @@ namespace Dooda {
 		class CameraController : public ScriptableEntity
 		{
 		public:
-			void OnCreate()
+			virtual void OnCreate() override
+			{
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				transform[3][0] = rand() % 10 - 5.0f;
+			}
+
+			virtual void OnDestroy() override
 			{
 			}
 
-			void OnDestroy()
-			{
-			}
-
-			void OnUpdate(Timestep ts)
+			virtual void OnUpdate(Timestep ts) override
 			{
 				auto& transform = GetComponent<TransformComponent>().Transform;
 				float speed = 5.0f;
@@ -65,8 +70,9 @@ namespace Dooda {
 		};
 
 		d_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		d_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
-
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 		//d_CameraController.SetZoomLevel(8.0f);
 	}
 
@@ -169,6 +175,8 @@ namespace Dooda {
 
 			ImGui::EndMenuBar();
 		}
+
+		d_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Settings");
 

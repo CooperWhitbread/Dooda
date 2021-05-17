@@ -21,6 +21,7 @@ namespace Dooda {
 		entt::registry d_Registry;
 		UINT d_ViewportWidth = 0, d_ViewportHeight = 0;
 
-		friend class Entity;
+		friend class Entity; 
+		friend class SceneHierarchyPanel;
 	};
 }

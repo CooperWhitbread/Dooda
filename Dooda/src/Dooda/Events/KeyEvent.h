@@ -13,7 +13,7 @@ namespace Dooda {
 		{
 		}
 
-		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput | EventCategoryMouseButton)
 
 	public: //Getters
 		inline KeyCode GetKeyCode() const { return d_KeyCode; }

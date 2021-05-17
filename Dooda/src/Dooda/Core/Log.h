@@ -1,8 +1,10 @@
 #pragma once
 #include "Dooda/Core/Core.h"
 
+#pragma warning(push, 0) // This ignores all warnings raised inside External headers
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
+#pragma warning(pop)
 
 namespace Dooda
 {
