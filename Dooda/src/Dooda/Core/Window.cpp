@@ -1,4 +1,4 @@
-#include "Ddpch.h"
+#include "ddpch.h"
 #include "Window.h"
 
 #ifdef DD_PLATFORM_WINDOWS

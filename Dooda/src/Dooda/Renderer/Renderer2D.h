@@ -38,14 +38,14 @@ namespace Dooda {
 			UINT DrawCalls = 0;
 			UINT QuadCount = 0;
 
-			UINT GetTotalVertexCount() { return QuadCount * 4; }
-			UINT GetTotalIndexCount() { return QuadCount * 6; }
+			UINT GetTotalVertexCount() const { return QuadCount * 4; }
+			UINT GetTotalIndexCount() const { return QuadCount * 6; }
 		};
 		static void ResetStats();
 		static Statistics GetStats();
 
 	private: //Functions
-		static void FlushAndReset();
+		static void StartBatch();
 	};
 
 }

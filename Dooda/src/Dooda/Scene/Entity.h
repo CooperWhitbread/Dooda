@@ -17,7 +17,9 @@ namespace Dooda {
 		T& AddComponent(Args&&... args)
 		{
 			DD_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
-			return d_Scene->d_Registry.emplace<T>(d_EntityHandle, std::forward<Args>(args)...);
+			T& component = d_Scene->d_Registry.emplace<T>(d_EntityHandle, std::forward<Args>(args)...);
+			d_Scene->OnComponentAdded<T>(*this, component);
+			return component;
 		}
 
 		template<typename T>
@@ -46,6 +48,7 @@ namespace Dooda {
 		{
 			return d_EntityHandle == other.d_EntityHandle && d_Scene == other.d_Scene;
 		}
+		operator entt::entity() const { return d_EntityHandle; }
 		bool operator!=(const Entity& other) const
 		{
 			return !(*this == other);

@@ -1,7 +1,7 @@
 include "./vendor/premake/premake_customization/solution_items.lua"
 
 workspace "Dooda"
-	architecture "x86_64"
+	architecture "x64"
 	startproject "Adood"
 	
 	configurations 
@@ -30,6 +30,7 @@ IncludeDir["ImGui"] = "%{wks.location}/Dooda/vendor/imgui"
 IncludeDir["glm"] = "%{wks.location}/Dooda/vendor/glm"
 IncludeDir["stb_image"] = "%{wks.location}/Dooda/vendor/stb_image"
 IncludeDir["entt"] = "%{wks.location}/Dooda/vendor/entt/include"
+IncludeDir["yaml_cpp"] = "%{wks.location}/Dooda/vendor/yaml-cpp/include"
 
 --Group the depndancies together
 group "Depedencies"
@@ -38,6 +39,7 @@ group "Depedencies"
 	include "Dooda/vendor/Glad"
 	include "Dooda/vendor/imgui"
 	include "Dooda/vendor/spdlog"
+	include "Dooda/vendor/yaml-cpp"
 group ""
 
 include "Dooda"

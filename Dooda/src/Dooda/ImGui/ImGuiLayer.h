@@ -24,6 +24,8 @@ namespace Dooda
 
 		void BlockEvents(bool block) { d_BlockEvents = block; }
 
+		void SetDarkThemeColors();
+
 	private: //Variables
 		float d_Time = 0.0f;
 		bool d_BlockEvents = true;

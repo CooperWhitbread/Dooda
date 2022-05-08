@@ -1,5 +1,7 @@
 #include "EditorLayer.h"
 
+#include "Dooda/Scene/SceneSerialiser.h"
+
 #include <imgui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,6 +27,7 @@ namespace Dooda {
 
 		d_ActiveScene = CreateRef<Scene>();
 
+#if 0
 		// Entity
 		auto square = d_ActiveScene->CreateEntity("Green Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
@@ -33,10 +36,10 @@ namespace Dooda {
 		auto redSquare = d_ActiveScene->CreateEntity("Red Square");
 		redSquare.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
 
-		d_CameraEntity = d_ActiveScene->CreateEntity("Camera Entity");
+		d_CameraEntity = d_ActiveScene->CreateEntity("Camera A");
 		d_CameraEntity.AddComponent<CameraComponent>();
 
-		d_SecondCamera = d_ActiveScene->CreateEntity("Clip-Space Entity");
+		d_SecondCamera = d_ActiveScene->CreateEntity("Camera B");
 		auto& cc = d_SecondCamera.AddComponent<CameraComponent>();
 		cc.Primary = false;
 
@@ -45,8 +48,8 @@ namespace Dooda {
 		public:
 			virtual void OnCreate() override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
-				transform[3][0] = rand() % 10 - 5.0f;
+				auto& translation = GetComponent<TransformComponent>().Translation;
+				translation.x = rand() % 10 - 5.0f;
 			}
 
 			virtual void OnDestroy() override
@@ -55,23 +58,23 @@ namespace Dooda {
 
 			virtual void OnUpdate(Timestep ts) override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
+				auto& translation = GetComponent<TransformComponent>().Translation;
 				float speed = 5.0f;
 
 				if (Input::IsKeyPressed(Key::A))
-					transform[3][0] -= speed * ts;
+					translation.x -= speed * ts;
 				if (Input::IsKeyPressed(Key::D))
-					transform[3][0] += speed * ts;
+					translation.x += speed * ts;
 				if (Input::IsKeyPressed(Key::W))
-					transform[3][1] += speed * ts;
+					translation.y += speed * ts;
 				if (Input::IsKeyPressed(Key::S))
-					transform[3][1] -= speed * ts;
+					translation.y -= speed * ts;
 			}
 		};
 
 		d_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		d_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-
+#endif
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 		//d_CameraController.SetZoomLevel(8.0f);
 	}
@@ -154,11 +157,16 @@ namespace Dooda {
 
 		// DockSpace
 		ImGuiIO& io = ImGui::GetIO();
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 370.0f;
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
+
+		style.WindowMinSize.x = minWinSizeX;
 
 		if (ImGui::BeginMenuBar())
 		{
@@ -168,6 +176,17 @@ namespace Dooda {
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
+				if (ImGui::MenuItem("Serialise"))
+				{
+					SceneSerialiser serializer(d_ActiveScene);
+					serializer.Serialise("assets/scenes/Example.dooda");
+				}
+
+				if (ImGui::MenuItem("Deserialise"))
+				{
+					SceneSerialiser serializer(d_ActiveScene);
+					serializer.Deserialise("assets/scenes/Example.dooda");
+				}
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 
@@ -178,7 +197,7 @@ namespace Dooda {
 
 		d_SceneHierarchyPanel.OnImGuiRender();
 
-		ImGui::Begin("Settings");
+		ImGui::Begin("Stats");
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
@@ -186,33 +205,6 @@ namespace Dooda {
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
-		if (d_SquareEntity)
-		{
-			ImGui::Separator();
-			auto& tag = d_SquareEntity.GetComponent<TagComponent>().Tag;
-			ImGui::Text("%s", tag.c_str());
-
-			auto& squareColor = d_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
-			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
-			ImGui::Separator();
-
-			ImGui::DragFloat3("Camera Transform",
-				glm::value_ptr(d_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
-
-			if (ImGui::Checkbox("Camera A", &d_PrimaryCamera))
-			{
-				d_CameraEntity.GetComponent<CameraComponent>().Primary = d_PrimaryCamera;
-				d_SecondCamera.GetComponent<CameraComponent>().Primary = !d_PrimaryCamera;
-			}
-
-			{
-				auto& camera = d_SecondCamera.GetComponent<CameraComponent>().Camera;
-				float orthoSize = camera.GetOrthographicSize();
-				if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
-					camera.SetOrthographicSize(orthoSize);
-			}
-		}
 
 		ImGui::End();
 

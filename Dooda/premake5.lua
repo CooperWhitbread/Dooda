@@ -1,6 +1,5 @@
 project "Dooda"
 
-	location "Dooda"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -9,8 +8,8 @@ project "Dooda"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "Ddpch.h"
-	pchsource "src/Ddpch.cpp"
+	pchheader "ddpch.h"
+	pchsource "src/ddpch.cpp"
 
 	files 
 	{
@@ -37,7 +36,8 @@ project "Dooda"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links 
@@ -45,6 +45,7 @@ project "Dooda"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"yaml-cpp",
 		"opengl32.lib"
 	}
 	

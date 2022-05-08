@@ -66,7 +66,7 @@ namespace Dooda {
 		{
 		}
 
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
 
 	public: //Getters
 		MouseCode GetMouseButton() const { return d_Button; }

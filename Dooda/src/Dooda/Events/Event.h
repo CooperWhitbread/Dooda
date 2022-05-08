@@ -67,7 +67,7 @@ namespace Dooda
 		{
 			if (d_Event.GetEventType() == T::GetStaticType())
 			{
-				d_Event.Handled = func(static_cast<T&>(d_Event));
+				d_Event.Handled |= func(static_cast<T&>(d_Event));
 				return true;
 			}
 			return false;
