@@ -31,6 +31,7 @@ IncludeDir["glm"] = "%{wks.location}/Dooda/vendor/glm"
 IncludeDir["stb_image"] = "%{wks.location}/Dooda/vendor/stb_image"
 IncludeDir["entt"] = "%{wks.location}/Dooda/vendor/entt/include"
 IncludeDir["yaml_cpp"] = "%{wks.location}/Dooda/vendor/yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "%{wks.location}/Dooda/vendor/ImGuizmo"
 
 --Group the depndancies together
 group "Depedencies"

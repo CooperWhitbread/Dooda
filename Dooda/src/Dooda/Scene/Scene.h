@@ -19,6 +19,8 @@ namespace Dooda {
 		void OnUpdate(Timestep ts);
 		void OnViewportResize(UINT width, UINT height);
 
+		Entity GetPrimaryCameraEntity();//TODO remove from this class
+
 	private:
 		template<typename T>
 		void OnComponentAdded(Entity entity, T& component);

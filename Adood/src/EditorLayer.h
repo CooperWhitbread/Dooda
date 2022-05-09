@@ -18,12 +18,20 @@ namespace Dooda {
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+	private:
 		OrthographicCameraController d_CameraController;
 
 		Ref<VertexArray> d_SquareVA;
 		Ref<Shader> d_FlatColorShader;
 		Ref<Framebuffer> d_Framebuffer;
 		glm::vec2 d_ViewportSize = glm::vec2(0.0f, 0.0f);
+
+		int d_GizmoType = -1;
 
 		// Panels
 		SceneHierarchyPanel d_SceneHierarchyPanel;

@@ -20,7 +20,8 @@ project "Adood"
 		"%{wks.location}/Dooda/src",
 		"%{wks.location}/Dooda/vendor",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links
