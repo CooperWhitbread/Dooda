@@ -31,7 +31,7 @@ namespace Dooda {
 		d_Registry.destroy(entity);
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+	void Scene::OnUpdateRunTime(Timestep ts)
 	{// Update scripts
 		{
 			d_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
@@ -75,11 +75,26 @@ namespace Dooda {
 			{
 				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
 			}
 
 			Renderer2D::EndScene();
 		}
+	}
+
+	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
+	{
+		Renderer2D::BeginScene(camera);
+
+		auto group = d_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+		}
+
+		Renderer2D::EndScene();
 	}
 
 	void Scene::OnViewportResize(UINT width, UINT height)
@@ -124,7 +139,8 @@ namespace Dooda {
 	template<>
 	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component)
 	{
-		component.Camera.SetViewportSize(d_ViewportWidth, d_ViewportHeight);
+		if (d_ViewportWidth > 0 && d_ViewportHeight > 0)
+			component.Camera.SetViewportSize(d_ViewportWidth, d_ViewportHeight);
 	}
 
 	template<>

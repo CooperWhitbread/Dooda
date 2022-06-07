@@ -43,7 +43,7 @@ namespace Dooda {
 		}
 
 		operator bool() const { return d_EntityHandle != entt::null; }
-		operator uint32_t() const { return (uint32_t)d_EntityHandle; }
+		operator UINT() const { return (UINT)d_EntityHandle; }
 		bool operator==(const Entity& other) const
 		{
 			return d_EntityHandle == other.d_EntityHandle && d_Scene == other.d_Scene;

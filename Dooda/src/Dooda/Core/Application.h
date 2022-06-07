@@ -14,10 +14,22 @@ int main(int argc, char** argv);
 namespace Dooda
 {
 
+	struct ApplicationCommandLineArgs
+	{
+		int Count = 0;
+		char** Args = nullptr;
+
+		const char* operator[](int index) const
+		{
+			DD_CORE_ASSERT(index < Count);
+			return Args[index];
+		}
+	};
+
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Dooda Application");
+		Application(const std::string& name = "Dooda Application", ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
 		virtual ~Application();
 
 		void OnEvent(Event& e);
@@ -26,6 +38,7 @@ namespace Dooda
 		void PushOverlay(Layer* overlay);
 
 		ImGuiLayer* GetImGuiLayer() { return d_ImGuiLayer; }
+		ApplicationCommandLineArgs GetCommandLineArgs() const { return d_CommandLineArgs; }
 
 	public: //Getters
 		inline static Application& Get() { return *sd_Instance; }
@@ -40,7 +53,8 @@ namespace Dooda
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private: //Variables
-		std::unique_ptr<Window> d_Window;
+		ApplicationCommandLineArgs d_CommandLineArgs;
+		Scope<Window> d_Window;
 
 		ImGuiLayer* d_ImGuiLayer;
 		bool d_Minimized = false;
@@ -54,6 +68,7 @@ namespace Dooda
 		friend int ::main(int argc, char** argv);
 	};
 
-	Application* S_CreateApplication();
+	// To be defined in CLIENT
+	Application* S_CreateApplication(ApplicationCommandLineArgs args);
 
 }

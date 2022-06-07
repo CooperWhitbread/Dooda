@@ -17,6 +17,8 @@ namespace Dooda {
 		void OnImGuiRender();
 
 		Entity GetSelectedEntity() const { return d_SelectionContext; }
+
+		void SetSelectedEntity(Entity entity);
 	private:
 		void DrawEntityNode(Entity entity);
 		void DrawComponents(Entity entity);

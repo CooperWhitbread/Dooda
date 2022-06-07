@@ -5,7 +5,8 @@
 
 #include "Platform/OpenGL/OpenGLFramebuffer.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec)
 	{

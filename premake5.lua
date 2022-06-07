@@ -1,4 +1,5 @@
 include "./vendor/premake/premake_customization/solution_items.lua"
+include "Dependencies.lua"
 
 workspace "Dooda"
 	architecture "x64"
@@ -22,16 +23,6 @@ workspace "Dooda"
 	}
 	 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
---Include diectories relitive to root folder
-IncludeDir = {}IncludeDir["GLFW"] = "%{wks.location}/Dooda/vendor/GLFW/include"
-IncludeDir["Glad"] = "%{wks.location}/Dooda/vendor/Glad/include"
-IncludeDir["ImGui"] = "%{wks.location}/Dooda/vendor/imgui"
-IncludeDir["glm"] = "%{wks.location}/Dooda/vendor/glm"
-IncludeDir["stb_image"] = "%{wks.location}/Dooda/vendor/stb_image"
-IncludeDir["entt"] = "%{wks.location}/Dooda/vendor/entt/include"
-IncludeDir["yaml_cpp"] = "%{wks.location}/Dooda/vendor/yaml-cpp/include"
-IncludeDir["ImGuizmo"] = "%{wks.location}/Dooda/vendor/ImGuizmo"
 
 --Group the depndancies together
 group "Depedencies"

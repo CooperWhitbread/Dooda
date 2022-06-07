@@ -1,6 +1,5 @@
 # Binaries
 **/bin/
-!vendor/bin/premake/
 bin-int/
 
 # Dooda files
@@ -12,3 +11,8 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user 
+
+# Directories
+Dooda/vendor/VulkanSDK
+Adood/assets/cache
+scripts/__pycache__ 

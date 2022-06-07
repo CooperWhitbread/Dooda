@@ -4,6 +4,8 @@
 
 #include "PlatformDetection.h"
 
+//TODO set up the readme page to download python and do everything correctly and move vulkan folder into better spot
+
 ////////////////////
 //Debugging Macros//
 ////////////////////

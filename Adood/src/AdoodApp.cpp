@@ -7,8 +7,8 @@ namespace Dooda {
 	class Adood : public Application
 	{
 	public:
-		Adood()
-			: Application("Adood")
+		Adood(ApplicationCommandLineArgs args)
+			: Application("Adood", args)
 		{
 			PushLayer(new EditorLayer());
 		}
@@ -19,8 +19,8 @@ namespace Dooda {
 		}
 	};
 
-	Application* S_CreateApplication()
+	Application* S_CreateApplication(ApplicationCommandLineArgs args)
 	{
-		return new Adood;
+		return new Adood(args);
 	}
 }

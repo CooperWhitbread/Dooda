@@ -25,6 +25,7 @@ namespace Dooda {
 	void SceneHierarchyPanel::SetContext(const Ref<Scene>& context)
 	{
 		d_Context = context;
+		//TODO fix the selection of entities, when it changes and when it doesn't
 		d_SelectionContext = {};
 	}
 
@@ -60,6 +61,11 @@ namespace Dooda {
 		}
 
 		ImGui::End();
+	}
+
+	void SceneHierarchyPanel::SetSelectedEntity(Entity entity)
+	{
+		d_SelectionContext = entity;
 	}
 
 	void SceneHierarchyPanel::DrawEntityNode(Entity entity)

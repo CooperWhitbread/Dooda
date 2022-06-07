@@ -11,7 +11,8 @@ namespace Dooda
 
 	Application* Application::sd_Instance = nullptr;
 
-	Application::Application(const std::string& name)
+	Application::Application(const std::string& name, ApplicationCommandLineArgs args)
+		: d_CommandLineArgs(args)
 	{
 		DD_PROFILE_FUNCTION();
 

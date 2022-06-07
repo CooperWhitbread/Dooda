@@ -2,6 +2,7 @@
 
 #include <Dooda.h>
 #include "Panels/SceneHierarchyPanel.h"
+#include "Dooda/Renderer/EditorCamera.h"
 
 namespace Dooda {
 
@@ -19,6 +20,7 @@ namespace Dooda {
 		void OnEvent(Event& e) override;
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
 		void NewScene();
 		void OpenScene();
@@ -31,6 +33,8 @@ namespace Dooda {
 		Ref<Framebuffer> d_Framebuffer;
 		glm::vec2 d_ViewportSize = glm::vec2(0.0f, 0.0f);
 
+		glm::vec2 d_ViewportBounds[2];
+
 		int d_GizmoType = -1;
 
 		// Panels
@@ -40,8 +44,10 @@ namespace Dooda {
 		Entity d_SquareEntity;
 		Entity d_CameraEntity;
 		Entity d_SecondCamera;
+		Entity d_HoveredEntity;
 
 		bool d_PrimaryCamera = true;
+		EditorCamera d_EditorCamera;
 
 		Ref<Texture2D> d_CheckerboardTexture;
 		bool d_ViewportFocused = false, d_ViewportHovered = false;

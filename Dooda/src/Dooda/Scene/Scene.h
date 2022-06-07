@@ -2,6 +2,7 @@
 
 #include "entt.hpp"
 #include "Dooda/Core/Timestep.h"
+#include "Dooda/Renderer/EditorCamera.h"
 
 namespace Dooda {
 
@@ -16,8 +17,9 @@ namespace Dooda {
 		Entity CreateEntity(const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
-		void OnUpdate(Timestep ts);
+		void OnUpdateRunTime(Timestep ts);
 		void OnViewportResize(UINT width, UINT height);
+		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 
 		Entity GetPrimaryCameraEntity();//TODO remove from this class
 
