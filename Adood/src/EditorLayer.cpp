@@ -12,7 +12,10 @@
 
 #include "Dooda/Math/Math.h"
 
-namespace Dooda {
+namespace Dooda 
+{
+
+	extern const std::filesystem::path g_AssetPath;
 
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer"), d_CameraController(1280.0f / 720.0f), d_SquareColor(glm::vec4{ 0.2f, 0.3f, 0.8f, 1.0f })
@@ -177,6 +180,7 @@ namespace Dooda {
 		}
 
 		d_SceneHierarchyPanel.OnImGuiRender();
+		d_ContentBrowserPanel.OnImGuiRender();
 
 		ImGui::Begin("Stats");
 
@@ -213,6 +217,16 @@ namespace Dooda {
 
 		uint64_t textureID = d_Framebuffer->GetColorAttachmentRendererID(0);
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ d_ViewportSize.x, d_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+			{
+				const wchar_t* path = (const wchar_t*)payload->Data;
+				OpenScene(std::filesystem::path(g_AssetPath) / path);
+			}
+			ImGui::EndDragDropTarget();
+		}
 
 		// Gizmos
 		Entity selectedEntity = d_SceneHierarchyPanel.GetSelectedEntity();
@@ -347,7 +361,7 @@ namespace Dooda {
 	void EditorLayer::NewScene()
 	{
 		d_ActiveScene = CreateRef<Scene>();
-		d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
+		d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 	}
 
@@ -355,14 +369,17 @@ namespace Dooda {
 	{
 		std::string filepath = FileDialogs::OpenFile("Dooda Scene (*.dooda)\0*.dooda\0");
 		if (!filepath.empty())
-		{
-			d_ActiveScene = CreateRef<Scene>();
-			d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
-			d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+			OpenScene(filepath);
+	}
 
-			SceneSerialiser serialiser(d_ActiveScene);
-			serialiser.Deserialise(filepath);
-		}
+	void EditorLayer::OpenScene(const std::filesystem::path& path)
+	{
+		d_ActiveScene = CreateRef<Scene>();
+		d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+
+		SceneSerialiser serializer(d_ActiveScene);
+		serializer.Deserialise(path.string());
 	}
 
 	void EditorLayer::SaveSceneAs()

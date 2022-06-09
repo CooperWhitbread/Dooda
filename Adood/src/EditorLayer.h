@@ -3,6 +3,7 @@
 #include <Dooda.h>
 #include "Panels/SceneHierarchyPanel.h"
 #include "Dooda/Renderer/EditorCamera.h"
+#include "Panels/ContentBrowserPanel.h"
 
 namespace Dooda {
 
@@ -23,7 +24,8 @@ namespace Dooda {
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
 		void NewScene();
-		void OpenScene();
+		void OpenScene(); 
+		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
 	private:
 		OrthographicCameraController d_CameraController;
@@ -39,6 +41,7 @@ namespace Dooda {
 
 		// Panels
 		SceneHierarchyPanel d_SceneHierarchyPanel;
+		ContentBrowserPanel d_ContentBrowserPanel;
 
 		Ref<Scene> d_ActiveScene;
 		Entity d_SquareEntity;
