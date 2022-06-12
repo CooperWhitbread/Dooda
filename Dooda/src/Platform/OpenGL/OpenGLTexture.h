@@ -15,6 +15,8 @@ namespace Dooda {
 
 		virtual void Bind(UINT slot = 0) const override;
 
+		virtual bool IsLoaded() const override { return d_IsLoaded; }
+
 	public: //Getters
 		virtual UINT GetWidth() const override { return d_Width; }
 		virtual UINT GetHeight() const override { return d_Height; }
@@ -31,6 +33,7 @@ namespace Dooda {
 
 	private: //Variables
 		std::string d_Path;
+		bool d_IsLoaded = false;
 		UINT d_Width, d_Height;
 		UINT d_RendererID;
 		GLenum d_InternalFormat, d_DataFormat;

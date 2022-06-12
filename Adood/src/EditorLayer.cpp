@@ -27,6 +27,8 @@ namespace Dooda
 		DD_PROFILE_FUNCTION();
 
 		d_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
+		d_IconPlay = Texture2D::Create("Resources/Icons/PlayButton.png");
+		d_IconStop = Texture2D::Create("Resources/Icons/StopButton.png");
 
 		FramebufferSpecification fbSpec;
 		fbSpec.Attachments = { FramebufferTextureFormat::RGBA8,FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
@@ -68,11 +70,6 @@ namespace Dooda
 			d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
 		}
 
-		// Update
-		if (d_ViewportFocused)
-			d_CameraController.OnUpdate(ts);
-		d_EditorCamera.OnUpdate(ts);
-
 		// Render
 		Renderer2D::ResetStats();
 		d_Framebuffer->Bind();
@@ -82,8 +79,25 @@ namespace Dooda
 		// Clear our entity ID attachment to -1
 		d_Framebuffer->ClearColourAttachment(1, -1);
 
-		// Update scene
-		d_ActiveScene->OnUpdateEditor(ts, d_EditorCamera);
+		// Update scene based on which scene is active
+		switch (d_SceneState)
+		{
+			case SceneState::Edit:
+			{
+				if (d_ViewportFocused)
+					d_CameraController.OnUpdate(ts);
+
+				d_EditorCamera.OnUpdate(ts);
+
+				d_ActiveScene->OnUpdateEditor(ts, d_EditorCamera);
+				break;
+			}
+			case SceneState::Play:
+			{
+				d_ActiveScene->OnUpdateRunTime(ts);
+				break;
+			}
+		}
 
 		auto [mx, my] = ImGui::GetMousePos();
 		mx -= d_ViewportBounds[0].x;
@@ -279,6 +293,36 @@ namespace Dooda
 		ImGui::End();
 		ImGui::PopStyleVar();
 
+		UI_Toolbar();
+
+		ImGui::End();
+	}
+
+	void EditorLayer::UI_Toolbar()
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 0));
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+		auto& colors = ImGui::GetStyle().Colors;
+		const auto& buttonHovered = colors[ImGuiCol_ButtonHovered];
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(buttonHovered.x, buttonHovered.y, buttonHovered.z, 0.5f));
+		const auto& buttonActive = colors[ImGuiCol_ButtonActive];
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(buttonActive.x, buttonActive.y, buttonActive.z, 0.5f));
+
+		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+
+		float size = ImGui::GetWindowHeight() - 4.0f;
+		Ref<Texture2D> icon = d_SceneState == SceneState::Edit ? d_IconPlay : d_IconStop;
+		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0))
+		{
+			if (d_SceneState == SceneState::Edit)
+				OnScenePlay();
+			else if (d_SceneState == SceneState::Play)
+				OnSceneStop();
+		}
+		ImGui::PopStyleVar(2);
+		ImGui::PopStyleColor(3);
 		ImGui::End();
 	}
 
@@ -374,12 +418,20 @@ namespace Dooda
 
 	void EditorLayer::OpenScene(const std::filesystem::path& path)
 	{
-		d_ActiveScene = CreateRef<Scene>();
-		d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
-		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+		if (path.extension().string() != ".dooda")
+		{
+			DD_WARN("Could not load {0} - not a scene file", path.filename().string());
+			return;
+		}
 
-		SceneSerialiser serializer(d_ActiveScene);
-		serializer.Deserialise(path.string());
+		Ref<Scene> newScene = CreateRef<Scene>();
+		SceneSerialiser serializer(newScene);
+		if (serializer.Deserialise(path.string()))
+		{
+			d_ActiveScene = newScene;
+			d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
+			d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+		}
 	}
 
 	void EditorLayer::SaveSceneAs()
@@ -394,6 +446,17 @@ namespace Dooda
 			SceneSerialiser serialiser(d_ActiveScene);
 			serialiser.Serialise(filepath);
 		}
+	}
+
+	void EditorLayer::OnScenePlay()
+	{
+		d_SceneState = SceneState::Play;
+	}
+
+	void EditorLayer::OnSceneStop()
+	{
+		d_SceneState = SceneState::Edit;
+
 	}
 
 }

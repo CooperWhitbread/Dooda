@@ -35,39 +35,42 @@ namespace Dooda {
 			DD_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
 			data = stbi_load(path.c_str(), &width, &height, &channels, 0);
 		}
-		DD_CORE_ASSERT(data, "Failed to load image!");
-		d_Width = width;
-		d_Height = height;
-
-		GLenum internalFormat = 0, dataFormat = 0;
-		if (channels == 4)
+		if (data)
 		{
-			internalFormat = GL_RGBA8;
-			dataFormat = GL_RGBA;
+			d_IsLoaded = true;
+
+			d_Width = width;
+			d_Height = height;
+
+			GLenum internalFormat = 0, dataFormat = 0;
+			if (channels == 4)
+			{
+				internalFormat = GL_RGBA8;
+				dataFormat = GL_RGBA;
+			}
+			else if (channels == 3)
+			{
+				internalFormat = GL_RGB8;
+				dataFormat = GL_RGB;
+			}
+			d_InternalFormat = internalFormat;
+			d_DataFormat = dataFormat;
+
+			DD_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
+
+			glCreateTextures(GL_TEXTURE_2D, 1, &d_RendererID);
+			glTextureStorage2D(d_RendererID, 1, internalFormat, d_Width, d_Height);
+
+			glTextureParameteri(d_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTextureParameteri(d_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			glTextureParameteri(d_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTextureParameteri(d_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+			glTextureSubImage2D(d_RendererID, 0, 0, 0, d_Width, d_Height, dataFormat, GL_UNSIGNED_BYTE, data);
+
+			stbi_image_free(data);
 		}
-		else if (channels == 3)
-		{
-			internalFormat = GL_RGB8;
-			dataFormat = GL_RGB;
-		}
-
-		d_InternalFormat = internalFormat;
-		d_DataFormat = dataFormat;
-
-		DD_CORE_ASSERT(internalFormat & dataFormat, "Format not supported!");
-
-		glCreateTextures(GL_TEXTURE_2D, 1, &d_RendererID);
-		glTextureStorage2D(d_RendererID, 1, internalFormat, d_Width, d_Height);
-
-		glTextureParameteri(d_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(d_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTextureParameteri(d_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTextureParameteri(d_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-		glTextureSubImage2D(d_RendererID, 0, 0, 0, d_Width, d_Height, dataFormat, GL_UNSIGNED_BYTE, data);
-
-		stbi_image_free(data);
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()

@@ -8,6 +8,7 @@
 
 namespace Dooda {
 
+	//TODO Set up Instance Rendering
 	class Renderer2D
 	{
 	public:

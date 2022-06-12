@@ -11,6 +11,8 @@ namespace Dooda {
 
 		virtual void Bind(UINT slot = 0) const = 0;
 
+		virtual bool IsLoaded() const = 0;
+
 	public: //Getters
 		virtual UINT GetWidth() const = 0;
 		virtual UINT GetHeight() const = 0;
