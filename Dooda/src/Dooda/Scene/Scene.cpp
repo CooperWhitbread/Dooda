@@ -2,8 +2,8 @@
 #include "Scene.h"
 
 #include "Component.h"
-#include "Entity.h"
 #include "Dooda/Renderer/Renderer2D.h"
+#include "ScriptableEntity.h"
 
 #include <glm/glm.hpp>
 
@@ -40,8 +40,14 @@ namespace Dooda
 
 	Entity Scene::CreateEntity(const std::string& name)
 	{
+		return CreateEntityWithUUID(UUID(), name);
+	}
+
+	Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string & name)
+	{
 		Entity entity = { d_Registry.create(), this };
 		entity.AddComponent<TransformComponent>();
+		entity.AddComponent<IDComponent>(uuid);
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
 		return entity;
@@ -215,7 +221,11 @@ namespace Dooda
 	template<typename T>
 	void Scene::OnComponentAdded(Entity entity, T& component)
 	{
-		static_assert(false);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
+	{
 	}
 
 	template<>

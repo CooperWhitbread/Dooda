@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Component.h"
 #include "Scene.h"
+#include "Dooda/Core/UUID.h"
 
 #include "entt.hpp"
 
@@ -44,6 +46,9 @@ namespace Dooda {
 
 		operator bool() const { return d_EntityHandle != entt::null; }
 		operator UINT() const { return (UINT)d_EntityHandle; }
+
+		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+
 		bool operator==(const Entity& other) const
 		{
 			return d_EntityHandle == other.d_EntityHandle && d_Scene == other.d_Scene;

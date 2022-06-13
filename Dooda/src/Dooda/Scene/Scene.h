@@ -2,6 +2,7 @@
 
 #include "entt.hpp"
 #include "Dooda/Core/Timestep.h"
+#include "Dooda/Core/UUID.h"
 #include "Dooda/Renderer/EditorCamera.h"
 
 class b2World;
@@ -17,6 +18,7 @@ namespace Dooda {
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string());
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnRuntimeStart();
