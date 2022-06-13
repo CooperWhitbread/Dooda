@@ -451,11 +451,13 @@ namespace Dooda
 	void EditorLayer::OnScenePlay()
 	{
 		d_SceneState = SceneState::Play;
+		d_ActiveScene->OnRuntimeStart();
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
 		d_SceneState = SceneState::Edit;
+		d_ActiveScene->OnRuntimeStop();
 
 	}
 

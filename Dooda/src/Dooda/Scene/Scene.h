@@ -4,6 +4,8 @@
 #include "Dooda/Core/Timestep.h"
 #include "Dooda/Renderer/EditorCamera.h"
 
+class b2World;
+
 namespace Dooda {
 
 	class Entity;
@@ -16,6 +18,9 @@ namespace Dooda {
 
 		Entity CreateEntity(const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
+
+		void OnRuntimeStart();
+		void OnRuntimeStop();
 
 		void OnUpdateRunTime(Timestep ts);
 		void OnViewportResize(UINT width, UINT height);
@@ -30,6 +35,8 @@ namespace Dooda {
 	private:
 		entt::registry d_Registry;
 		UINT d_ViewportWidth = 0, d_ViewportHeight = 0;
+
+		b2World* d_PhysicsWorld = nullptr;
 
 		friend class Entity;
 		friend class SceneSerialiser;
