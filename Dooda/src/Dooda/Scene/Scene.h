@@ -17,6 +17,8 @@ namespace Dooda {
 		Scene();
 		~Scene();
 
+		static Ref<Scene> Copy(Ref<Scene> other);
+
 		Entity CreateEntity(const std::string& name = std::string());
 		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
@@ -27,6 +29,8 @@ namespace Dooda {
 		void OnUpdateRunTime(Timestep ts);
 		void OnViewportResize(UINT width, UINT height);
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
+
+		void DuplicateEntity(Entity entity);
 
 		Entity GetPrimaryCameraEntity();//TODO remove from this class
 

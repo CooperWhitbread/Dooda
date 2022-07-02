@@ -20,11 +20,6 @@ namespace Dooda {
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 
-		void OnScenePlay();
-		void OnSceneStop();
-
-		// UI Panels
-		void UI_Toolbar();
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
@@ -32,7 +27,20 @@ namespace Dooda {
 		void NewScene();
 		void OpenScene(); 
 		void OpenScene(const std::filesystem::path& path);
+
+		void SaveScene();
 		void SaveSceneAs();
+
+		void SerialiseScene(Ref<Scene> scene, const std::filesystem::path& path);
+
+		void OnScenePlay();
+		void OnSceneStop();
+
+		void OnDuplicateEntity();
+
+		// UI Panels
+		void UI_Toolbar();
+
 	private:
 		OrthographicCameraController d_CameraController;
 
@@ -57,6 +65,8 @@ namespace Dooda {
 		ContentBrowserPanel d_ContentBrowserPanel;
 
 		Ref<Scene> d_ActiveScene;
+		Ref<Scene> d_EditorScene;
+		std::filesystem::path d_EditorScenePath;
 		Entity d_SquareEntity;
 		Entity d_CameraEntity;
 		Entity d_SecondCamera;

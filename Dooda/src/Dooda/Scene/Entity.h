@@ -24,6 +24,14 @@ namespace Dooda {
 			return component;
 		}
 
+		template<typename T, typename... Args>
+		T& AddOrReplaceComponent(Args&&... args)
+		{
+			T& component = d_Scene->d_Registry.emplace_or_replace<T>(d_EntityHandle, std::forward<Args>(args)...);
+			d_Scene->OnComponentAdded<T>(*this, component);
+			return component;
+		}
+
 		template<typename T>
 		T& GetComponent()
 		{
@@ -48,6 +56,7 @@ namespace Dooda {
 		operator UINT() const { return (UINT)d_EntityHandle; }
 
 		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+		const std::string& GetName() { return GetComponent<TagComponent>().Tag; }
 
 		bool operator==(const Entity& other) const
 		{

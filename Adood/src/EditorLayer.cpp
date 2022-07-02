@@ -359,9 +359,22 @@ namespace Dooda
 		}
 		case Key::S:
 		{
-			if (control && shift)
-				SaveSceneAs();
+			if (control)
+			{
+				if (shift)
+					SaveSceneAs();
+				else
+					SaveScene();
+			}
+
 			break;
+		}
+
+		// Scene Commands
+		case Key::D:
+		{
+			if (control)
+				OnDuplicateEntity();
 		}
 		// Gizmos
 		case Key::Q:
@@ -407,6 +420,8 @@ namespace Dooda
 		d_ActiveScene = CreateRef<Scene>();
 		d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+
+		d_EditorScenePath = std::filesystem::path();
 	}
 
 	void EditorLayer::OpenScene()
@@ -418,6 +433,9 @@ namespace Dooda
 
 	void EditorLayer::OpenScene(const std::filesystem::path& path)
 	{
+		if (d_SceneState != SceneState::Edit)
+			OnSceneStop();
+
 		if (path.extension().string() != ".dooda")
 		{
 			DD_WARN("Could not load {0} - not a scene file", path.filename().string());
@@ -428,10 +446,21 @@ namespace Dooda
 		SceneSerialiser serializer(newScene);
 		if (serializer.Deserialise(path.string()))
 		{
-			d_ActiveScene = newScene;
-			d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
-			d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+			d_EditorScene = newScene;
+			d_EditorScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
+			d_SceneHierarchyPanel.SetContext(d_EditorScene);
+
+			d_ActiveScene = d_EditorScene;
+			d_EditorScenePath = path;
 		}
+	}
+
+	void EditorLayer::SaveScene()
+	{
+		if (!d_EditorScenePath.empty())
+			SerialiseScene(d_ActiveScene, d_EditorScenePath);
+		else
+			SaveSceneAs();
 	}
 
 	void EditorLayer::SaveSceneAs()
@@ -443,22 +472,45 @@ namespace Dooda
 			if (filepath.find_last_of(".") == filepath.npos)
 				filepath.append(".dooda");
 
-			SceneSerialiser serialiser(d_ActiveScene);
-			serialiser.Serialise(filepath);
+			SerialiseScene(d_ActiveScene, filepath);
+			d_EditorScenePath = filepath;
 		}
+	}
+
+	void EditorLayer::SerialiseScene(Ref<Scene> scene, const std::filesystem::path& path)
+	{
+		SceneSerialiser serialiser(scene);
+		serialiser.Serialise(path.string());
 	}
 
 	void EditorLayer::OnScenePlay()
 	{
 		d_SceneState = SceneState::Play;
+
+		d_ActiveScene = Scene::Copy(d_EditorScene);
 		d_ActiveScene->OnRuntimeStart();
+
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
 		d_SceneState = SceneState::Edit;
-		d_ActiveScene->OnRuntimeStop();
 
+		d_ActiveScene->OnRuntimeStop();
+		d_ActiveScene = d_EditorScene;
+
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+	}
+
+	void EditorLayer::OnDuplicateEntity()
+	{
+		if (d_SceneState != SceneState::Edit)
+			return;
+
+		Entity selectedEntity = d_SceneHierarchyPanel.GetSelectedEntity();
+		if (selectedEntity)
+			d_EditorScene->DuplicateEntity(selectedEntity);
 	}
 
 }
