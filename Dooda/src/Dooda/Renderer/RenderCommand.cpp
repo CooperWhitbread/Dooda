@@ -3,6 +3,6 @@
 
 namespace Dooda {
 
-	Scope<RendererAPI> RenderCommand::sd_RendererAPI = RendererAPI::SD_Create();
+	Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::SD_Create();
 
 }

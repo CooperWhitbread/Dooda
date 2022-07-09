@@ -9,32 +9,42 @@ namespace Dooda {
 	public:
 		inline static void Init()
 		{
-			sd_RendererAPI->Init();
+			s_RendererAPI->Init();
 		}
 
 		inline static void Clear()
 		{
-			sd_RendererAPI->Clear();
+			s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, UINT count = 0)
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, UINT indexCount = 0)
 		{
-			sd_RendererAPI->DrawIndexed(vertexArray, count);
+			s_RendererAPI->DrawIndexed(vertexArray, indexCount);
+		}
+
+		static void DrawLines(const Ref<VertexArray>& vertexArray, UINT vertexCount)
+		{
+			s_RendererAPI->DrawLines(vertexArray, vertexCount);
+		}
+
+		static void SetLineWidth(float width)
+		{
+			s_RendererAPI->SetLineWidth(width);
 		}
 
 	public: //Setters
 		inline static void SetViewport(UINT x, UINT y, UINT width, UINT height)
 		{
-			sd_RendererAPI->SetViewport(x, y, width, height);
+			s_RendererAPI->SetViewport(x, y, width, height);
 		}
 
 		inline static void SetClearColor(const glm::vec4& color)
 		{
-			sd_RendererAPI->SetClearColor(color);
+			s_RendererAPI->SetClearColor(color);
 		}
 
 	private: //Variables
-		static Scope<RendererAPI> sd_RendererAPI;
+		static Scope<RendererAPI> s_RendererAPI;
 	};
 
 }

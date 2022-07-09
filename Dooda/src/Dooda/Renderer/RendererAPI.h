@@ -23,6 +23,9 @@ namespace Dooda {
 		virtual void Clear() = 0;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, UINT indexCount = 0) = 0;
+		virtual void DrawLines(const Ref<VertexArray>& vertexArray, UINT vertexCount) = 0;
+
+		virtual void SetLineWidth(float width) = 0;
 
 	public: //Getters
 		inline static API GetAPI() { return sd_API; }
