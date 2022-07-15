@@ -9,3 +9,6 @@
 [submodule "Dooda/vendor/imgui"]
 	path = Dooda/vendor/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Dooda/vendor/Box2D"]
+	path = Dooda/vendor/Box2D
+	url = https://github.com/Dooda1318/box2d.git

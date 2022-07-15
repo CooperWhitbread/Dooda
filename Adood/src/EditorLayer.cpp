@@ -1,16 +1,16 @@
 #include "EditorLayer.h"
 
-#include "Dooda/Scene/SceneSerialiser.h"
-#include "Dooda/Utilities/PlatformUtilities.h"
-
-#include <imgui/imgui.h>
+#include <Dooda/Math/Math.h>
+#include <Dooda/Scene/SceneSerialiser.h>
+#include <Dooda/Utilities/PlatformUtilities.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <imgui/imgui.h>
+
 #include <ImGuizmo.h>
 
-#include "Dooda/Math/Math.h"
 
 namespace Dooda 
 {
@@ -28,6 +28,7 @@ namespace Dooda
 
 		d_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 		d_IconPlay = Texture2D::Create("Resources/Icons/PlayButton.png");
+		d_IconSimulate = Texture2D::Create("Resources/Icons/SimulateButton.png");
 		d_IconStop = Texture2D::Create("Resources/Icons/StopButton.png");
 
 		FramebufferSpecification fbSpec;
@@ -36,9 +37,10 @@ namespace Dooda
 		fbSpec.Height = 720;
 		d_Framebuffer = Framebuffer::Create(fbSpec);
 
-		d_ActiveScene = CreateRef<Scene>();
+		d_EditorScene = CreateRef<Scene>();
+		d_ActiveScene = d_EditorScene;
 
-		auto commandLineArgs = Application::Get().GetCommandLineArgs();
+		auto commandLineArgs = Application::Get().GetSpecification().CommandLineArgs;
 		if (commandLineArgs.Count > 1)
 		{
 			auto sceneFilePath = commandLineArgs[1];
@@ -49,6 +51,8 @@ namespace Dooda
 		d_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 		//d_CameraController.SetZoomLevel(8.0f);
+
+		Renderer2D::SetLineWidth(1.0f);//Doesn't support greater than 1
 	}
 
 	void EditorLayer::OnDetach()
@@ -92,6 +96,13 @@ namespace Dooda
 				d_ActiveScene->OnUpdateEditor(ts, d_EditorCamera);
 				break;
 			}
+			case SceneState::Simulate:
+			{
+				d_EditorCamera.OnUpdate(ts);
+
+				d_ActiveScene->OnUpdateSimulation(ts, d_EditorCamera);
+				break;
+			}
 			case SceneState::Play:
 			{
 				d_ActiveScene->OnUpdateRunTime(ts);
@@ -113,6 +124,7 @@ namespace Dooda
 			d_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, d_ActiveScene.get());
 		}
 
+		OnOverlayRender();
 
 		d_Framebuffer->Unbind();
 	}
@@ -183,6 +195,8 @@ namespace Dooda
 					NewScene();
 				if (ImGui::MenuItem("Open...", "Ctrl+O"))
 					OpenScene();
+				if (ImGui::MenuItem("Save", "Ctrl+S"))
+					SaveScene();
 				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
 					SaveSceneAs();
 
@@ -210,6 +224,10 @@ namespace Dooda
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
+		ImGui::End();
+
+		ImGui::Begin("Settings");
+		ImGui::Checkbox("Show physics colliders", &d_ShowPhysicsColliders);
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
@@ -311,15 +329,34 @@ namespace Dooda
 
 		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
+		bool toolbarEnabled = (bool)d_ActiveScene;
+
+		ImVec4 tintColor = ImVec4(1, 1, 1, 1);
+		if (!toolbarEnabled)
+			tintColor.w = 0.5f;
+
 		float size = ImGui::GetWindowHeight() - 4.0f;
-		Ref<Texture2D> icon = d_SceneState == SceneState::Edit ? d_IconPlay : d_IconStop;
-		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
-		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0))
 		{
-			if (d_SceneState == SceneState::Edit)
-				OnScenePlay();
-			else if (d_SceneState == SceneState::Play)
-				OnSceneStop();
+			Ref<Texture2D> icon = (d_SceneState == SceneState::Edit || d_SceneState == SceneState::Simulate) ? d_IconPlay : d_IconStop;
+			ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+			{
+				if (d_SceneState == SceneState::Edit || d_SceneState == SceneState::Simulate)
+					OnScenePlay();
+				else if (d_SceneState == SceneState::Play)
+					OnSceneStop();
+			}
+		}
+		ImGui::SameLine();
+		{
+			Ref<Texture2D> icon = (d_SceneState == SceneState::Edit || d_SceneState == SceneState::Play) ? d_IconSimulate : d_IconStop;		//ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+			{
+				if (d_SceneState == SceneState::Edit || d_SceneState == SceneState::Play)
+					OnSceneSimulate();
+				else if (d_SceneState == SceneState::Simulate)
+					OnSceneStop();
+			}
 		}
 		ImGui::PopStyleVar(2);
 		ImGui::PopStyleColor(3);
@@ -329,7 +366,12 @@ namespace Dooda
 	void EditorLayer::OnEvent(Event& e)
 	{
 		d_CameraController.OnEvent(e);
-		d_EditorCamera.OnEvent(e);
+
+		if (d_SceneState == SceneState::Edit)
+		{
+			d_EditorCamera.OnEvent(e);
+		}
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(DD_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 		dispatcher.Dispatch<MouseButtonPressedEvent>(DD_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
@@ -338,7 +380,7 @@ namespace Dooda
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
 	{
 		// Shortcuts
-		if (e.GetRepeatCount() > 0)
+		if (e.IsRepeat())
 			return false;
 
 		bool control = Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl);
@@ -359,9 +401,22 @@ namespace Dooda
 		}
 		case Key::S:
 		{
-			if (control && shift)
-				SaveSceneAs();
+			if (control)
+			{
+				if (shift)
+					SaveSceneAs();
+				else
+					SaveScene();
+			}
+
 			break;
+		}
+
+		// Scene Commands
+		case Key::D:
+		{
+			if (control)
+				OnDuplicateEntity();
 		}
 		// Gizmos
 		case Key::Q:
@@ -402,11 +457,76 @@ namespace Dooda
 		return false;
 	}
 
+	void EditorLayer::OnOverlayRender()
+	{
+		if (d_SceneState == SceneState::Play)
+		{
+			Entity camera = d_ActiveScene->GetPrimaryCameraEntity();
+			if (!camera)
+				return;
+
+			Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
+		}
+		else
+		{
+			Renderer2D::BeginScene(d_EditorCamera);
+		}
+
+		if (d_ShowPhysicsColliders)
+		{
+			// Box Colliders
+			{
+				auto view = d_ActiveScene->GetAllEntitiesWith<TransformComponent, BoxCollider2DComponent>();
+				for (auto entity : view)
+				{
+					auto [tc, bc2d] = view.get<TransformComponent, BoxCollider2DComponent>(entity);
+
+					glm::vec3 translation = tc.Translation + glm::vec3(bc2d.Offset, 0.001f);
+					glm::vec3 scale = tc.Scale * glm::vec3(bc2d.Size * 2.0f, 1.0f);
+
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
+						* glm::rotate(glm::mat4(1.0f), tc.Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f))
+						* glm::scale(glm::mat4(1.0f), scale);
+
+					Renderer2D::DrawRect(transform, glm::vec4(0, 1, 0, 1));
+				}
+			}
+
+			// Circle Colliders
+			{
+				auto view = d_ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
+				for (auto entity : view)
+				{
+					auto [tc, cc2d] = view.get<TransformComponent, CircleCollider2DComponent>(entity);
+
+					glm::vec3 translation = tc.Translation + glm::vec3(cc2d.Offset, 0.001f);
+					glm::vec3 scale = tc.Scale * glm::vec3(cc2d.Radius * 2.0f);
+
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
+						* glm::scale(glm::mat4(1.0f), scale);
+
+					Renderer2D::DrawCircle(transform, glm::vec4(0, 1, 0, 1), 0.01f);
+				}
+			}
+		}
+
+		// Draw selected entity outline 
+		if (Entity selectedEntity = d_SceneHierarchyPanel.GetSelectedEntity())
+		{
+			const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
+			Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(1.0f, 0.5f, 0.0f, 1.0f));
+		}
+
+		Renderer2D::EndScene();
+	}
+
 	void EditorLayer::NewScene()
 	{
 		d_ActiveScene = CreateRef<Scene>();
 		d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+
+		d_EditorScenePath = std::filesystem::path();
 	}
 
 	void EditorLayer::OpenScene()
@@ -418,6 +538,9 @@ namespace Dooda
 
 	void EditorLayer::OpenScene(const std::filesystem::path& path)
 	{
+		if (d_SceneState != SceneState::Edit)
+			OnSceneStop();
+
 		if (path.extension().string() != ".dooda")
 		{
 			DD_WARN("Could not load {0} - not a scene file", path.filename().string());
@@ -428,10 +551,21 @@ namespace Dooda
 		SceneSerialiser serializer(newScene);
 		if (serializer.Deserialise(path.string()))
 		{
-			d_ActiveScene = newScene;
-			d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
-			d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+			d_EditorScene = newScene;
+			d_EditorScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
+			d_SceneHierarchyPanel.SetContext(d_EditorScene);
+
+			d_ActiveScene = d_EditorScene;
+			d_EditorScenePath = path;
 		}
+	}
+
+	void EditorLayer::SaveScene()
+	{
+		if (!d_EditorScenePath.empty())
+			SerialiseScene(d_ActiveScene, d_EditorScenePath);
+		else
+			SaveSceneAs();
 	}
 
 	void EditorLayer::SaveSceneAs()
@@ -443,20 +577,66 @@ namespace Dooda
 			if (filepath.find_last_of(".") == filepath.npos)
 				filepath.append(".dooda");
 
-			SceneSerialiser serialiser(d_ActiveScene);
-			serialiser.Serialise(filepath);
+			SerialiseScene(d_ActiveScene, filepath);
+			d_EditorScenePath = filepath;
 		}
+	}
+
+	void EditorLayer::SerialiseScene(Ref<Scene> scene, const std::filesystem::path& path)
+	{
+		SceneSerialiser serialiser(scene);
+		serialiser.Serialise(path.string());
 	}
 
 	void EditorLayer::OnScenePlay()
 	{
+		if (d_SceneState == SceneState::Simulate)
+			OnSceneStop();
+
 		d_SceneState = SceneState::Play;
+
+		d_ActiveScene = Scene::Copy(d_EditorScene);
+		d_ActiveScene->OnRuntimeStart();
+
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+	}
+
+	void EditorLayer::OnSceneSimulate()
+	{
+		if (d_SceneState == SceneState::Play)
+			OnSceneStop();
+
+		d_SceneState = SceneState::Simulate;
+
+		d_ActiveScene = Scene::Copy(d_EditorScene);
+		d_ActiveScene->OnSimulationStart();
+
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
+		DD_CORE_ASSERT(d_SceneState == SceneState::Play || d_SceneState == SceneState::Simulate);
+
+		if (d_SceneState == SceneState::Play)
+			d_ActiveScene->OnRuntimeStop();
+		else if (d_SceneState == SceneState::Simulate)
+			d_ActiveScene->OnSimulationStop();
+
 		d_SceneState = SceneState::Edit;
 
+		d_ActiveScene = d_EditorScene;
+		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
+	}
+
+	void EditorLayer::OnDuplicateEntity()
+	{
+		if (d_SceneState != SceneState::Edit)
+			return;
+
+		Entity selectedEntity = d_SceneHierarchyPanel.GetSelectedEntity();
+		if (selectedEntity)
+			d_EditorScene->DuplicateEntity(selectedEntity);
 	}
 
 }

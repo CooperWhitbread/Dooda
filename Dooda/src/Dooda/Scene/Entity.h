@@ -1,10 +1,13 @@
 #pragma once
 
-#include "Scene.h"
+#include "Dooda/Core/UUID.h"
+#include "Dooda/Scene/Component.h"
+#include "Dooda/Scene/Scene.h"
 
-#include "entt.hpp"
+#include <entt.hpp>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class Entity
 	{
@@ -18,6 +21,14 @@ namespace Dooda {
 		{
 			DD_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
 			T& component = d_Scene->d_Registry.emplace<T>(d_EntityHandle, std::forward<Args>(args)...);
+			d_Scene->OnComponentAdded<T>(*this, component);
+			return component;
+		}
+
+		template<typename T, typename... Args>
+		T& AddOrReplaceComponent(Args&&... args)
+		{
+			T& component = d_Scene->d_Registry.emplace_or_replace<T>(d_EntityHandle, std::forward<Args>(args)...);
 			d_Scene->OnComponentAdded<T>(*this, component);
 			return component;
 		}
@@ -44,6 +55,10 @@ namespace Dooda {
 
 		operator bool() const { return d_EntityHandle != entt::null; }
 		operator UINT() const { return (UINT)d_EntityHandle; }
+
+		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+		const std::string& GetName() { return GetComponent<TagComponent>().Tag; }
+
 		bool operator==(const Entity& other) const
 		{
 			return d_EntityHandle == other.d_EntityHandle && d_Scene == other.d_Scene;

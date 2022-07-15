@@ -1,8 +1,8 @@
 #include "ddpch.h"
 #include "OpenGLContext.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "glad/glad.h"
 
 Dooda::OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 	: d_WindowHandle(windowHandle)

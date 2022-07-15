@@ -1,6 +1,8 @@
 #include "ddpch.h"
 #include "OpenGLShader.h"
 
+#include "Dooda/Core/Timer.h"
+
 #include <glad/glad.h>
 
 #include <glm/gtc/type_ptr.hpp>
@@ -9,11 +11,11 @@
 #include <spirv_cross/spirv_cross.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
 
-#include "Dooda/Core/Timer.h"
+namespace Dooda 
+{
 
-namespace Dooda {
-
-	namespace Utils {
+	namespace Utils 
+	{
 
 		static GLenum ShaderTypeFromString(const std::string& type)
 		{

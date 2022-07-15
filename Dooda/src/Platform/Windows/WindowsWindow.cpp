@@ -1,15 +1,13 @@
 #include "ddpch.h"
 #include "WindowsWindow.h"
 
+#include "Dooda/Core/Input.h"
 #include "Dooda/Events/ApplicationEvent.h"
 #include "Dooda/Events/KeyEvent.h"
 #include "Dooda/Events/MouseEvent.h"
-
-#include "Platform/OpenGL/OpenGLContext.h"
-
 #include "Dooda/Renderer/Renderer.h"
 
-#include "Dooda/Core/Input.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Dooda
 {
@@ -78,15 +76,15 @@ namespace Dooda
 				data.Width = width;
 				data.Height = height;
 
-				WindowResizeEvent event(width, height);
-				data.EventCallback(event);
+				WindowResizeEvent events(width, height);
+				data.EventCallback(events);
 			});
 
 		glfwSetWindowCloseCallback(d_Window, [](GLFWwindow* window)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				WindowCloseEvent event;
-				data.EventCallback(event);
+				WindowCloseEvent events;
+				data.EventCallback(events);
 			});
 
 		glfwSetKeyCallback(d_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -97,20 +95,20 @@ namespace Dooda
 				{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
+					KeyPressedEvent events(key, false);
+					data.EventCallback(events);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
-					data.EventCallback(event);
+					KeyReleasedEvent events(key);
+					data.EventCallback(events);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
+					KeyPressedEvent events(key, true);
+					data.EventCallback(events);
 					break;
 				}
 				}
@@ -120,8 +118,8 @@ namespace Dooda
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				KeyTypedEvent event(keycode);
-				data.EventCallback(event);
+				KeyTypedEvent events(keycode);
+				data.EventCallback(events);
 			});
 
 		glfwSetMouseButtonCallback(d_Window, [](GLFWwindow* window, int button, int action, int mods)
@@ -132,14 +130,14 @@ namespace Dooda
 				{
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent event(button);
-					data.EventCallback(event);
+					MouseButtonPressedEvent events(button);
+					data.EventCallback(events);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent event(button);
-					data.EventCallback(event);
+					MouseButtonReleasedEvent events(button);
+					data.EventCallback(events);
 					break;
 				}
 				}
@@ -149,16 +147,16 @@ namespace Dooda
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				MouseScrolledEvent event((float)xOffset, (float)yOffset);
-				data.EventCallback(event);
+				MouseScrolledEvent events((float)xOffset, (float)yOffset);
+				data.EventCallback(events);
 			});
 
 		glfwSetCursorPosCallback(d_Window, [](GLFWwindow* window, double xPos, double yPos)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				MouseMovedEvent event((float)xPos, (float)yPos);
-				data.EventCallback(event);
+				MouseMovedEvent events((float)xPos, (float)yPos);
+				data.EventCallback(events);
 			});
 	}
 

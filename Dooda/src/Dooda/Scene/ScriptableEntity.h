@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Entity.h"
+#include "Dooda/Scene/Entity.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class ScriptableEntity
 	{

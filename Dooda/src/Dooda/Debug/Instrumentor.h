@@ -1,13 +1,13 @@
 #pragma once
 
+#include "Dooda/Core/Log.h"
+
+#include <fstream>
 #include <iomanip>
-#include <string>
-#include <thread>
 #include <mutex>
 #include <sstream>
-#include <fstream>
-
-#include "Dooda/Core/Log.h"
+#include <string>
+#include <thread>
 
 namespace Dooda 
 {

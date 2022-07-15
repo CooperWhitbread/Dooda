@@ -26,7 +26,8 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 --Group the depndancies together
 group "Depedencies"
-	--include "vendor/premake"
+	include "vendor/premake"
+	include "Dooda/vendor/Box2D"
 	include "Dooda/vendor/GLFW"
 	include "Dooda/vendor/Glad"
 	include "Dooda/vendor/imgui"

@@ -1,10 +1,12 @@
 #include "ddpch.h"
 #include "UniformBuffer.h"
 
-#include "Renderer.h"
+#include "Dooda/Renderer/Renderer.h"
+
 #include "Platform/OpenGL/OpenGLUniformBuffer.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	Ref<UniformBuffer> UniformBuffer::Create(UINT size, UINT binding)
 	{

@@ -36,11 +36,6 @@ project "Sandbox"
 		defines "DD_DEBUG"
 		runtime "debug"
 		symbols "on"
-
-		postbuildcommands
-		{
-			"{COPYDIR} \"%{LibraryDir.VulkanSDK_DebugDLL}\" \"%{cfg.targetdir}\""
-		}
 		
 	filter "configurations:Release"
 		defines "DD_RELEASE"

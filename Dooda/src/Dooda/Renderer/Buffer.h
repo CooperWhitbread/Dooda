@@ -1,6 +1,7 @@
 #pragma once
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	enum class ShaderDataType
 	{

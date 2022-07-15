@@ -1,25 +1,30 @@
 #include "ddpch.h"
 #include "Application.h"
 
-#include "GLFW/glfw3.h"
-
 #include "Dooda/Renderer/Renderer.h"
+#include "Dooda/Utilities/PlatformUtilities.h"
 
 namespace Dooda
 {
+
 #define BIND_EVENT_FUNCTION(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::sd_Instance = nullptr;
 
-	Application::Application(const std::string& name, ApplicationCommandLineArgs args)
-		: d_CommandLineArgs(args)
+	Application::Application(const ApplicationSpecification& specification)
+		: d_Specification(specification)
 	{
 		DD_PROFILE_FUNCTION();
 
 		DD_CORE_ASSERT(!sd_Instance, "Application already exists!");
 		sd_Instance = this;
 
-		d_Window = Window::SD_Create(WindowProps(name));
+		// Set working directory here
+		if (!d_Specification.WorkingDirectory.empty())
+			std::filesystem::current_path(d_Specification.WorkingDirectory);
+
+		d_Window = Window::SD_Create(WindowProps(d_Specification.Name));
+
 		d_Window->SetEventCallback(DD_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
@@ -44,7 +49,7 @@ namespace Dooda
 		while (d_Running)
 		{
 			DD_PROFILE_SCOPE("RunLoop");
-			auto time = (float)glfwGetTime(); //Platform::GetTime();
+			auto time = Time::GetTime();
 			Timestep timestep = time - d_LastFrameTime;
 			d_LastFrameTime = time;
 

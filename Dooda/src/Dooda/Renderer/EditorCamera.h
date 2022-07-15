@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Camera.h"
 #include "Dooda/Core/Timestep.h"
 #include "Dooda/Events/Event.h"
 #include "Dooda/Events/MouseEvent.h"
+#include "Dooda/Renderer/Camera.h"
 
 #include <glm/glm.hpp>
 

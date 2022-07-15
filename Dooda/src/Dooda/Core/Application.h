@@ -1,13 +1,11 @@
 #pragma once
 
-#include "Dooda/Events/Event.h"
-#include "Dooda/Events/ApplicationEvent.h"
 #include "Dooda/Core/LayerStack.h"
-#include "Dooda/Core/Window.h"
-
-#include "Dooda/ImGui/ImGuiLayer.h"
-
 #include "Dooda/Core/Timestep.h"
+#include "Dooda/Core/Window.h"
+#include "Dooda/Events/ApplicationEvent.h"
+#include "Dooda/Events/Event.h"
+#include "Dooda/ImGui/ImGuiLayer.h"
 
 int main(int argc, char** argv);
 
@@ -26,10 +24,17 @@ namespace Dooda
 		}
 	};
 
+	struct ApplicationSpecification
+	{
+		std::string Name = "Dooda Application";
+		std::string WorkingDirectory;
+		ApplicationCommandLineArgs CommandLineArgs;
+	};
+
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Dooda Application", ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
+		Application(const ApplicationSpecification& specification);
 		virtual ~Application();
 
 		void OnEvent(Event& e);
@@ -38,7 +43,7 @@ namespace Dooda
 		void PushOverlay(Layer* overlay);
 
 		ImGuiLayer* GetImGuiLayer() { return d_ImGuiLayer; }
-		ApplicationCommandLineArgs GetCommandLineArgs() const { return d_CommandLineArgs; }
+		const ApplicationSpecification& GetSpecification() const { return d_Specification; }
 
 	public: //Getters
 		inline static Application& Get() { return *sd_Instance; }
@@ -53,7 +58,7 @@ namespace Dooda
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private: //Variables
-		ApplicationCommandLineArgs d_CommandLineArgs;
+		ApplicationSpecification d_Specification;
 		Scope<Window> d_Window;
 
 		ImGuiLayer* d_ImGuiLayer;

@@ -3,11 +3,13 @@
 
 #include <glad/glad.h>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	static const uint32_t s_MaxFramebufferSize = 8192;
 
-	namespace Utils {
+	namespace Utils 
+	{
 
 		static GLenum TextureTarget(bool multisampled)
 		{

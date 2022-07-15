@@ -1,14 +1,22 @@
 #include "ddpch.h"
 #include "Dooda/Utilities/PlatformUtilities.h"
 
+#include "Dooda/Core/Application.h"
+
 #include <commdlg.h>
+
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 
-#include "Dooda/Core/Application.h"
+namespace Dooda 
+{
 
-namespace Dooda {
+	float Time::GetTime()
+	{
+		return glfwGetTime();
+	}
+
 
 	std::string FileDialogs::OpenFile(const char* filter)
 	{

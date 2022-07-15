@@ -1,8 +1,8 @@
 #pragma once
 
-#include <memory>
+#include "Dooda/Core/PlatformDetection.h"
 
-#include "PlatformDetection.h"
+#include <memory>
 
 //TODO set up the readme page to download python and do everything correctly and move vulkan folder into better spot
 

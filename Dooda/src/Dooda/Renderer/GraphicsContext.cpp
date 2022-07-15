@@ -2,6 +2,7 @@
 #include "GraphicsContext.h"
 
 #include "Dooda/Renderer/Renderer.h"
+
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Dooda

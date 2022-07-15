@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Dooda/Events/Event.h"
 #include "Dooda/Core/KeyCodes.h"
+#include "Dooda/Events/Event.h"
 
 namespace Dooda {
 
@@ -26,25 +26,25 @@ namespace Dooda {
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(const KeyCode keycode, UINT repeatCount)
-			: KeyEvent(keycode), d_RepeatCount(repeatCount) 
+		KeyPressedEvent(const KeyCode keycode, bool isRepeat = false)
+			: KeyEvent(keycode), d_IsRepeat(isRepeat)
 		{
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
 
 	public: //Getters
-		inline UINT GetRepeatCount() const { return d_RepeatCount; }
+		inline bool IsRepeat() const { return d_IsRepeat; }
 
 		std::string GetToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << d_KeyCode << " (" << d_RepeatCount << " repeats)";
+			ss << "KeyPressedEvent: " << d_KeyCode << " (repeat = " << d_IsRepeat << ")";
 			return ss.str();
 		}
 
 	private: //Variables
-		int d_RepeatCount;
+		bool d_IsRepeat;
 	};
 
 	class KeyReleasedEvent : public KeyEvent

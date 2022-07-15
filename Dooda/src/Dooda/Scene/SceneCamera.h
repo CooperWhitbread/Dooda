@@ -1,7 +1,9 @@
 #pragma once
+
 #include "Dooda/Renderer/Camera.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class SceneCamera : public Camera
 	{
