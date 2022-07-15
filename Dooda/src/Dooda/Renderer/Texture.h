@@ -19,6 +19,8 @@ namespace Dooda
 		virtual UINT GetHeight() const = 0;
 		virtual UINT GetRendererID() const = 0;
 
+		virtual const std::string& GetPath() const = 0;
+
 	public: //Setters
 		virtual void SetData(void* data, UINT size) = 0;
 

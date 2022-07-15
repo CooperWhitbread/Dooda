@@ -75,7 +75,8 @@ namespace Dooda
 
 	void OpenGLRendererAPI::SetLineWidth(float width)
 	{
-		glLineWidth(1.0f); //TODO fix this to be dfferent widths
+		DD_CORE_ASSERT(width <= 1, "Width for lines cannot be greater than 1");
+		glLineWidth((GLfloat)width); //TODO fix this to be dfferent widths
 	}
 
 }

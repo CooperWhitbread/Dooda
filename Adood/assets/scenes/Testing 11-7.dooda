@@ -1,23 +1,46 @@
 Scene: Untitled
 Entities:
-  - Entity: 5553015469767639838
+  - Entity: 10017633079534004151
     TagComponent:
-      Tag: Camera
+      Tag: Background
     TransformComponent:
-      Translation: [0, 0, 18.7999992]
+      Translation: [0, 0, -5.30000019]
+      Rotation: [0, 0, 0]
+      Scale: [40.7000008, 34.9000015, 1]
+    SpriteRendererComponent:
+      Color: [0.0387591086, 0.381701559, 0.386100411, 1]
+      TilingFactor: 1
+  - Entity: 7787685399076212131
+    TagComponent:
+      Tag: Logo
+    TransformComponent:
+      Translation: [-1.60000002, -1, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    CameraComponent:
-      Camera:
-        ProjectionType: 0
-        PerspectiveFOV: 0.785398185
-        PerspectiveNear: 0.00999999978
-        PerspectiveFar: 1000
-        OrthographicSize: 10
-        OrthographicNear: -1
-        OrthographicFar: 1
-      Primary: true
-      FixedAspectRatio: false
+    SpriteRendererComponent:
+      Color: [1, 0.999989986, 0.999989986, 1]
+      TexturePath: assets\textures\ChernoLogo.png
+      TilingFactor: 4
+  - Entity: 11462501120403588006
+    TagComponent:
+      Tag: Ground
+    TransformComponent:
+      Translation: [0.558339834, 0.537528336, 0]
+      Rotation: [0, 0, -0.286233991]
+      Scale: [7.0999999, 0.5, 1]
+    SpriteRendererComponent:
+      Color: [0.249489501, 0.864864886, 0.00333925197, 1]
+      TilingFactor: 1
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
   - Entity: 12260228025362827079
     TagComponent:
       Tag: Ball
@@ -39,22 +62,21 @@ Entities:
       Friction: 0.5
       Restitution: 0
       RestitutionThreshold: 0.5
-  - Entity: 11462501120403588006
+  - Entity: 5553015469767639838
     TagComponent:
-      Tag: Ground
+      Tag: Camera
     TransformComponent:
-      Translation: [0.558339834, 0.537528336, 0]
-      Rotation: [0, 0, -0.286233991]
-      Scale: [7.0999999, 0.5, 1]
-    SpriteRendererComponent:
-      Color: [0.249489501, 0.864864886, 0.00333925197, 1]
-    Rigidbody2DComponent:
-      BodyType: Static
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
+      Translation: [0, 0, 18.7999992]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 0
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false

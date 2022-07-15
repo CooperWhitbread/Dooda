@@ -8,20 +8,19 @@ namespace Dooda
 	class Adood : public Application
 	{
 	public:
-		Adood(ApplicationCommandLineArgs args)
-			: Application("Adood", args)
+		Adood(const ApplicationSpecification& spec)
+			: Application(spec)
 		{
 			PushLayer(new EditorLayer());
-		}
-
-		~Adood()
-		{
-
 		}
 	};
 
 	Application* S_CreateApplication(ApplicationCommandLineArgs args)
 	{
-		return new Adood(args);
+		ApplicationSpecification spec;
+		spec.Name = "Adood";
+		spec.CommandLineArgs = args;
+
+		return new Adood(spec);
 	}
 }

@@ -4,22 +4,26 @@
 #include "Sandbox2D.h"
 #include "ExampleLayer.h"
 
-class SandBox : public Dooda::Application
+class Sandbox : public Dooda::Application
 {
 public:
-	SandBox()
+	Sandbox(const Dooda::ApplicationSpecification& specification)
+	: Dooda::Application(specification)
 	{
-		//PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
 		PushLayer(new Sandbox2D());
 	}
-
-	~SandBox()
+	~Sandbox()
 	{
-		
 	}
 };
 
-Dooda::Application* Dooda::S_CreateApplication()
+Dooda::Application* Dooda::S_CreateApplication(Dooda::ApplicationCommandLineArgs args)
 {
-	return new SandBox;
+	ApplicationSpecification spec;
+	spec.Name = "Sandbox";
+	spec.WorkingDirectory = "../Adood";
+	spec.CommandLineArgs = args;
+
+	return new Sandbox(spec);
 }

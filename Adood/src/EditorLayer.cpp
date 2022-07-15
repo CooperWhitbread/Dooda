@@ -40,7 +40,7 @@ namespace Dooda
 		d_EditorScene = CreateRef<Scene>();
 		d_ActiveScene = d_EditorScene;
 
-		auto commandLineArgs = Application::Get().GetCommandLineArgs();
+		auto commandLineArgs = Application::Get().GetSpecification().CommandLineArgs;
 		if (commandLineArgs.Count > 1)
 		{
 			auto sceneFilePath = commandLineArgs[1];
@@ -51,6 +51,8 @@ namespace Dooda
 		d_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 		//d_CameraController.SetZoomLevel(8.0f);
+
+		Renderer2D::SetLineWidth(1.0f);//Doesn't support greater than 1
 	}
 
 	void EditorLayer::OnDetach()
@@ -193,6 +195,8 @@ namespace Dooda
 					NewScene();
 				if (ImGui::MenuItem("Open...", "Ctrl+O"))
 					OpenScene();
+				if (ImGui::MenuItem("Save", "Ctrl+S"))
+					SaveScene();
 				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
 					SaveSceneAs();
 
@@ -362,7 +366,12 @@ namespace Dooda
 	void EditorLayer::OnEvent(Event& e)
 	{
 		d_CameraController.OnEvent(e);
-		d_EditorCamera.OnEvent(e);
+
+		if (d_SceneState == SceneState::Edit)
+		{
+			d_EditorCamera.OnEvent(e);
+		}
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(DD_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 		dispatcher.Dispatch<MouseButtonPressedEvent>(DD_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
@@ -499,6 +508,13 @@ namespace Dooda
 					Renderer2D::DrawCircle(transform, glm::vec4(0, 1, 0, 1), 0.01f);
 				}
 			}
+		}
+
+		// Draw selected entity outline 
+		if (Entity selectedEntity = d_SceneHierarchyPanel.GetSelectedEntity())
+		{
+			const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
+			Renderer2D::DrawRect(transform.GetTransform(), glm::vec4(1.0f, 0.5f, 0.0f, 1.0f));
 		}
 
 		Renderer2D::EndScene();
