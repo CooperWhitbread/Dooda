@@ -24,4 +24,4 @@ if (premakeInstalled):
 
     print("\nSetup completed!")
 else:
-    print("Dooda requires Premake to generate project files.")
+    print("Hazel requires Premake to generate project files.")
