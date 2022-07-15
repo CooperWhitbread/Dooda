@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Scene.h"
 #include "Dooda/Core/Core.h"
+#include "Dooda/Scene/Scene.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class SceneSerialiser
 	{

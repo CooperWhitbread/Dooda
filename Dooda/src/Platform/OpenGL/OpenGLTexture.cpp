@@ -3,7 +3,8 @@
 
 #include <stb_image.h>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	OpenGLTexture2D::OpenGLTexture2D(UINT width, UINT height)
 		: d_Width(width), d_Height(height)

@@ -2,7 +2,8 @@
 
 #include "Dooda/Renderer/Framebuffer.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class OpenGLFramebuffer : public Framebuffer
 	{

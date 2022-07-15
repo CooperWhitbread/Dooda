@@ -1,5 +1,6 @@
 #pragma once
-#include "Dooda.h"
+
+#include <Dooda.h>
 
 class ExampleLayer : public Dooda::Layer
 {

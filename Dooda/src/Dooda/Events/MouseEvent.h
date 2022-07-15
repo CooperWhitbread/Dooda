@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Dooda/Events/Event.h"
 #include "Dooda/Core/MouseCodes.h"
+#include "Dooda/Events/Event.h"
 
 namespace Dooda {
 

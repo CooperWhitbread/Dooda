@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Component.h"
-#include "Scene.h"
 #include "Dooda/Core/UUID.h"
+#include "Dooda/Scene/Component.h"
+#include "Dooda/Scene/Scene.h"
 
-#include "entt.hpp"
+#include <entt.hpp>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class Entity
 	{

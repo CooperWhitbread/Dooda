@@ -1,10 +1,9 @@
 #pragma once
 
 #include "Dooda/Core/Layer.h"
-
+#include "Dooda/Events/ApplicationEvent.h"
 #include "Dooda/Events/KeyEvent.h"
 #include "Dooda/Events/MouseEvent.h"
-#include "Dooda/Events/ApplicationEvent.h"
 
 namespace Dooda
 {

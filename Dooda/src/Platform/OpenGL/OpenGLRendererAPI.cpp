@@ -3,7 +3,8 @@
 
 #include <glad/glad.h>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	void OpenGLMessageCallback(
 		unsigned source,

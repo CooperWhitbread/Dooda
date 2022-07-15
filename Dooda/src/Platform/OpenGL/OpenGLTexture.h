@@ -4,7 +4,8 @@
 
 #include <glad/glad.h>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class OpenGLTexture2D : public Texture2D
 	{

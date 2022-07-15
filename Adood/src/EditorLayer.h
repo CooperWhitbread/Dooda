@@ -1,11 +1,13 @@
 #pragma once
 
 #include <Dooda.h>
+#include <Dooda/Renderer/EditorCamera.h>
+
 #include "Panels/SceneHierarchyPanel.h"
-#include "Dooda/Renderer/EditorCamera.h"
 #include "Panels/ContentBrowserPanel.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class EditorLayer : public Dooda::Layer
 	{

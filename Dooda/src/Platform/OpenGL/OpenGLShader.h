@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Dooda/Renderer/Shader.h"
+
 #include <glm/glm.hpp>
 
 // TODO: REMOVE!
 typedef unsigned int GLenum;
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class OpenGLShader : public Shader
 	{

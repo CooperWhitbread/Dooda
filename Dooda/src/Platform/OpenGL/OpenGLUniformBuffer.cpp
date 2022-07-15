@@ -3,7 +3,8 @@
 
 #include <glad/glad.h>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	OpenGLUniformBuffer::OpenGLUniformBuffer(uint32_t size, uint32_t binding)
 	{

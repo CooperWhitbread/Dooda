@@ -1,18 +1,18 @@
 #include "ddpch.h"
 #include "Scene.h"
 
-#include "Component.h"
 #include "Dooda/Renderer/Renderer2D.h"
-#include "ScriptableEntity.h"
-
-#include <glm/glm.hpp>
+#include "Dooda/Scene/Component.h"
+#include "Dooda/Scene/ScriptableEntity.h"
 
 // Box2D
-#include "box2d/b2_world.h"
 #include "box2d/b2_body.h"
+#include "box2d/b2_circle_shape.h"
 #include "box2d/b2_fixture.h"
 #include "box2d/b2_polygon_shape.h"
-#include "box2d/b2_circle_shape.h"
+#include "box2d/b2_world.h"
+
+#include <glm/glm.hpp>
 
 namespace Dooda 
 {

@@ -1,13 +1,14 @@
 #include "ddpch.h"
 #include "SceneSerialiser.h"
 
-#include "Entity.h"
-#include "Component.h"
+#include "Dooda/Scene/Entity.h"
+#include "Dooda/Scene/Component.h"
 
 #include <fstream>
 #include <yaml-cpp/yaml.h>
 
-namespace YAML {
+namespace YAML 
+{
 
 	template<>
 	struct convert<glm::vec2>
@@ -86,6 +87,7 @@ namespace YAML {
 	};
 
 }
+
 namespace Dooda 
 {
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v)

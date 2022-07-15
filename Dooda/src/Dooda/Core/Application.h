@@ -1,13 +1,11 @@
 #pragma once
 
-#include "Dooda/Events/Event.h"
-#include "Dooda/Events/ApplicationEvent.h"
 #include "Dooda/Core/LayerStack.h"
-#include "Dooda/Core/Window.h"
-
-#include "Dooda/ImGui/ImGuiLayer.h"
-
 #include "Dooda/Core/Timestep.h"
+#include "Dooda/Core/Window.h"
+#include "Dooda/Events/ApplicationEvent.h"
+#include "Dooda/Events/Event.h"
+#include "Dooda/ImGui/ImGuiLayer.h"
 
 int main(int argc, char** argv);
 

@@ -1,10 +1,10 @@
 #include "ddpch.h"
-
 #include "RendererAPI.h"
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	RendererAPI::API RendererAPI::sd_API = RendererAPI::API::OpenGL;
 

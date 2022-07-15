@@ -1,10 +1,10 @@
 #include "SceneHierarchyPanel.h"
 
+#include <Dooda/Scene/Component.h>
+
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
-
-#include "Dooda/Scene/Component.h"
 
 #include <cstring>
 

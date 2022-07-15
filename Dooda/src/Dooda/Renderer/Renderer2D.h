@@ -1,13 +1,14 @@
 #pragma once
 
-#include "OrthographicCamera.h"
-#include "Texture.h"
-#include "Camera.h"
+#include "Dooda/Renderer/Camera.h"
 #include "Dooda/Renderer/EditorCamera.h"
+#include "Dooda/Renderer/OrthographicCamera.h"
+#include "Dooda/Renderer/Texture.h"
 #include "Dooda/Scene/Component.h"
 
-namespace Dooda {
-
+namespace Dooda 
+{
+	
 	//TODO Set up Instance Rendering
 	class Renderer2D
 	{

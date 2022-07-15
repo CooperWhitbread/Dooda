@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Dooda/Renderer/RenderCommand.h"
-
 #include "Dooda/Renderer/OrthographicCamera.h"
+#include "Dooda/Renderer/RenderCommand.h"
 #include "Dooda/Renderer/Shader.h"
 
 namespace Dooda

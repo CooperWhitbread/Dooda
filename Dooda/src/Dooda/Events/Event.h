@@ -1,8 +1,8 @@
 #pragma once
 
-#include <functional>
-
 #include "Dooda/Debug/Instrumentor.h"
+
+#include <functional>
 
 namespace Dooda
 {

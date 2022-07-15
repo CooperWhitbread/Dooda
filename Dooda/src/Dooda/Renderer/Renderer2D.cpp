@@ -1,17 +1,18 @@
 #include "ddpch.h"
 #include "Renderer2D.h"
 
-#include "VertexArray.h"
-#include "Shader.h"
-#include "UniformBuffer.h"
-#include "RenderCommand.h"
+#include "Dooda/Renderer/RenderCommand.h"
+#include "Dooda/Renderer/Shader.h"
+#include "Dooda/Renderer/UniformBuffer.h"
+#include "Dooda/Renderer/VertexArray.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #pragma warning(disable : 4244)
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	struct QuadVertex
 	{

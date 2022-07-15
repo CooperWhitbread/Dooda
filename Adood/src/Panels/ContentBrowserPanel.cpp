@@ -1,10 +1,12 @@
 #include "ddpch.h"
 #include "ContentBrowserPanel.h"
 
-#include <imgui/imgui.h>
-#include "Dooda/Renderer/Texture.h"
+#include <Dooda/Renderer/Texture.h>
 
-namespace Dooda {
+#include <imgui/imgui.h>
+
+namespace Dooda 
+{
 
 	// Once we have projects, change this
 	extern const std::filesystem::path g_AssetPath = "assets";

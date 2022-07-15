@@ -1,10 +1,10 @@
 #include "ddpch.h"
 #include "SceneCamera.h"
 
-
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	SceneCamera::SceneCamera()
 	{

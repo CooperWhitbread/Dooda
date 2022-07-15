@@ -1,16 +1,16 @@
 #pragma once
 
-#include "SceneCamera.h"
 #include "Dooda/Core/UUID.h"
 #include "Dooda/Renderer/Texture.h"
+#include "Dooda/Scene/SceneCamera.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	struct IDComponent
 	{

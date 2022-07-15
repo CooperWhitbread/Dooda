@@ -2,7 +2,8 @@
 
 #include "Dooda/Renderer/RendererAPI.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class RenderCommand
 	{

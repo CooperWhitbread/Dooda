@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Dooda/Events/Event.h"
 #include "Dooda/Core/KeyCodes.h"
+#include "Dooda/Events/Event.h"
 
 namespace Dooda {
 

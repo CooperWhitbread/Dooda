@@ -2,6 +2,7 @@
 #include "Dooda/Core/Input.h"
 
 #include "Dooda/Core/Application.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Dooda 

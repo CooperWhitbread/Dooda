@@ -1,9 +1,10 @@
-#include "Dooda.h"
+#include <Dooda.h>
 #include <Dooda/Core/EntryPoint.h>
 
 #include "EditorLayer.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 	class Adood : public Application
 	{
 	public:

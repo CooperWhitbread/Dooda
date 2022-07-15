@@ -5,7 +5,8 @@
 
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	Ref<VertexArray> VertexArray::SD_Create()
 	{

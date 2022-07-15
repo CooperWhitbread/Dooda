@@ -2,7 +2,8 @@
 
 #include <string>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class FileDialogs
 	{

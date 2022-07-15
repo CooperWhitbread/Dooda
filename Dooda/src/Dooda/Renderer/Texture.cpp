@@ -2,9 +2,11 @@
 #include "Texture.h"
 
 #include "Dooda/Renderer/Renderer.h"
+
 #include "Platform/OpenGL/OpenGLTexture.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	Ref<Texture2D> Texture2D::Create(UINT width, UINT height)
 	{

@@ -1,10 +1,10 @@
 #pragma once
-
 #include "ddpch.h"
 
 #include <glm/glm.hpp>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class Shader
 	{

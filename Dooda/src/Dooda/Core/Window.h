@@ -1,8 +1,8 @@
 #pragma once
 
-#include <sstream>
-
 #include "Dooda/Events/Event.h"
+
+#include <sstream>
 
 namespace Dooda 
 {

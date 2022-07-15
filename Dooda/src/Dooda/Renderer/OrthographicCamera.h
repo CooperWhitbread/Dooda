@@ -2,7 +2,8 @@
 
 #include <glm/glm.hpp>
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class OrthographicCamera
 	{

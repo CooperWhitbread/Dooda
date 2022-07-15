@@ -1,10 +1,11 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "Dooda/Renderer/VertexArray.h"
 
-namespace Dooda {
+#include <glm/glm.hpp>
+
+namespace Dooda 
+{
 
 	class RendererAPI
 	{

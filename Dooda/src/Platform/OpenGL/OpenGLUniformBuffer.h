@@ -2,7 +2,8 @@
 
 #include "Dooda/Renderer/UniformBuffer.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class OpenGLUniformBuffer : public UniformBuffer
 	{

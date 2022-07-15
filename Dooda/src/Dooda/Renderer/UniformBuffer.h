@@ -2,7 +2,8 @@
 
 #include "Dooda/Core/Core.h"
 
-namespace Dooda {
+namespace Dooda 
+{
 
 	class UniformBuffer
 	{

@@ -1,10 +1,11 @@
 #pragma once
 
+#include <Dooda/Renderer/Texture.h>
+
 #include <filesystem>
 
-#include "Dooda/Renderer/Texture.h"
-
-namespace Dooda {
+namespace Dooda 
+{
 
 	class ContentBrowserPanel
 	{

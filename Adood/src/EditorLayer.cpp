@@ -1,16 +1,16 @@
 #include "EditorLayer.h"
 
-#include "Dooda/Scene/SceneSerialiser.h"
-#include "Dooda/Utilities/PlatformUtilities.h"
-
-#include <imgui/imgui.h>
+#include <Dooda/Math/Math.h>
+#include <Dooda/Scene/SceneSerialiser.h>
+#include <Dooda/Utilities/PlatformUtilities.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <imgui/imgui.h>
+
 #include <ImGuizmo.h>
 
-#include "Dooda/Math/Math.h"
 
 namespace Dooda 
 {

@@ -1,15 +1,13 @@
 #include "ddpch.h"
 #include "WindowsWindow.h"
 
+#include "Dooda/Core/Input.h"
 #include "Dooda/Events/ApplicationEvent.h"
 #include "Dooda/Events/KeyEvent.h"
 #include "Dooda/Events/MouseEvent.h"
-
-#include "Platform/OpenGL/OpenGLContext.h"
-
 #include "Dooda/Renderer/Renderer.h"
 
-#include "Dooda/Core/Input.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Dooda
 {

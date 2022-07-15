@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Dooda/Renderer/OrthographicCamera.h"
 #include "Dooda/Core/Timestep.h"
-
 #include "Dooda/Events/ApplicationEvent.h"
 #include "Dooda/Events/MouseEvent.h"
+#include "Dooda/Renderer/OrthographicCamera.h"
 
 namespace Dooda {
 
