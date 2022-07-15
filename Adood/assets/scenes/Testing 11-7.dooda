@@ -1,0 +1,60 @@
+Scene: Untitled
+Entities:
+  - Entity: 5553015469767639838
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Translation: [0, 0, 18.7999992]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 0
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false
+  - Entity: 12260228025362827079
+    TagComponent:
+      Tag: Ball
+    TransformComponent:
+      Translation: [-1.70000005, 3.29999995, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CircleRendererComponent:
+      Color: [0.155677468, 0.187090501, 0.683397651, 1]
+      Thickness: 1
+      Fade: 0.00499999989
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+  - Entity: 11462501120403588006
+    TagComponent:
+      Tag: Ground
+    TransformComponent:
+      Translation: [0.558339834, 0.537528336, 0]
+      Rotation: [0, 0, -0.286233991]
+      Scale: [7.0999999, 0.5, 1]
+    SpriteRendererComponent:
+      Color: [0.249489501, 0.864864886, 0.00333925197, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5

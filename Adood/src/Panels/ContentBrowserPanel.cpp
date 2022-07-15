@@ -2,6 +2,7 @@
 #include "ContentBrowserPanel.h"
 
 #include <imgui/imgui.h>
+#include "Dooda/Renderer/Texture.h"
 
 namespace Dooda {
 

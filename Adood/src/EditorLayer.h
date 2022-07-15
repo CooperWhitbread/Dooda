@@ -24,6 +24,8 @@ namespace Dooda {
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
+		void OnOverlayRender();
+
 		void NewScene();
 		void OpenScene(); 
 		void OpenScene(const std::filesystem::path& path);
@@ -34,6 +36,7 @@ namespace Dooda {
 		void SerialiseScene(Ref<Scene> scene, const std::filesystem::path& path);
 
 		void OnScenePlay();
+		void OnSceneSimulate();
 		void OnSceneStop();
 
 		void OnDuplicateEntity();
@@ -53,10 +56,12 @@ namespace Dooda {
 
 		int d_GizmoType = -1;
 
+		bool d_ShowPhysicsColliders = false;
+
 		//Scene states for the editor main view
 		enum class SceneState
 		{
-			Edit = 0, Play = 1
+			Edit = 0, Play = 1, Simulate = 2
 		};
 		SceneState d_SceneState = SceneState::Edit;
 
@@ -81,6 +86,6 @@ namespace Dooda {
 		glm::vec4 d_SquareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
 
 		// Editor resources
-		Ref<Texture2D> d_IconPlay, d_IconStop;
+		Ref<Texture2D> d_IconPlay, d_IconSimulate, d_IconStop;
 	};
 }
