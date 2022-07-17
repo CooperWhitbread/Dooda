@@ -7,7 +7,7 @@
 #include <fstream>
 #include <yaml-cpp/yaml.h>
 
-namespace YAML 
+namespace YAML
 {
 
 	template<>
@@ -88,7 +88,7 @@ namespace YAML
 
 }
 
-namespace Dooda 
+namespace Dooda
 {
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v)
 	{
@@ -299,6 +299,8 @@ namespace Dooda
 
 	bool SceneSerialiser::Deserialise(const std::string& filepath)
 	{
+		InstrumentationTimer time("Scene Deserialise");
+
 		YAML::Node data;
 		try
 		{
@@ -337,40 +339,53 @@ namespace Dooda
 				{
 					// Entities always have transforms
 					auto& tc = deserialisedEntity.GetComponent<TransformComponent>();
-					tc.Translation = transformComponent["Translation"].as<glm::vec3>();
-					tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
-					tc.Scale = transformComponent["Scale"].as<glm::vec3>();
+
+					if (transformComponent["Translation"])
+						tc.Translation = transformComponent["Translation"].as<glm::vec3>();
+					if (transformComponent["Rotation"])
+						tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
+					if (transformComponent["Scale"])
+						tc.Scale = transformComponent["Scale"].as<glm::vec3>();
 				}
 
 				auto cameraComponent = entity["CameraComponent"];
 				if (cameraComponent)
 				{
 					auto& cc = deserialisedEntity.AddComponent<CameraComponent>();
-
 					auto& cameraProps = cameraComponent["Camera"];
-					cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
 
-					cc.Camera.SetPerspectiveVerticalFOV(cameraProps["PerspectiveFOV"].as<float>());
-					cc.Camera.SetPerspectiveNearClip(cameraProps["PerspectiveNear"].as<float>());
-					cc.Camera.SetPerspectiveFarClip(cameraProps["PerspectiveFar"].as<float>());
+					if (cameraProps["ProjectionType"])
+						cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
 
-					cc.Camera.SetOrthographicSize(cameraProps["OrthographicSize"].as<float>());
-					cc.Camera.SetOrthographicNearClip(cameraProps["OrthographicNear"].as<float>());
-					cc.Camera.SetOrthographicFarClip(cameraProps["OrthographicFar"].as<float>());
+					if (cameraProps["PerspectiveFOV"])
+						cc.Camera.SetPerspectiveVerticalFOV(cameraProps["PerspectiveFOV"].as<float>());
+					if (cameraProps["PerspectiveNear"])
+						cc.Camera.SetPerspectiveNearClip(cameraProps["PerspectiveNear"].as<float>());
+					if (cameraProps["PerspectiveFar"])
+						cc.Camera.SetPerspectiveFarClip(cameraProps["PerspectiveFar"].as<float>());
 
-					cc.Primary = cameraComponent["Primary"].as<bool>();
-					cc.FixedAspectRatio = cameraComponent["FixedAspectRatio"].as<bool>();
+					if (cameraProps["OrthographicSize"])
+						cc.Camera.SetOrthographicSize(cameraProps["OrthographicSize"].as<float>());
+					if (cameraProps["OrthographicNear"])
+						cc.Camera.SetOrthographicNearClip(cameraProps["OrthographicNear"].as<float>());
+					if (cameraProps["OrthographicFar"])
+						cc.Camera.SetOrthographicFarClip(cameraProps["OrthographicFar"].as<float>());
+
+					if (cameraComponent["Primary"])
+						cc.Primary = cameraComponent["Primary"].as<bool>();
+					if (cameraComponent["FixedAspectRatio"])
+						cc.FixedAspectRatio = cameraComponent["FixedAspectRatio"].as<bool>();
 				}
 
 				auto spriteRendererComponent = entity["SpriteRendererComponent"];
 				if (spriteRendererComponent)
 				{
 					auto& src = deserialisedEntity.AddComponent<SpriteRendererComponent>();
-					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 
+					if (spriteRendererComponent["Color"])
+						src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 					if (spriteRendererComponent["TexturePath"])
 						src.Texture = Texture2D::Create(spriteRendererComponent["TexturePath"].as<std::string>());
-
 					if (spriteRendererComponent["TilingFactor"])
 						src.TilingFactor = spriteRendererComponent["TilingFactor"].as<float>();
 				}
@@ -379,41 +394,61 @@ namespace Dooda
 				if (circleRendererComponent)
 				{
 					auto& crc = deserialisedEntity.AddComponent<CircleRendererComponent>();
-					crc.Color = circleRendererComponent["Color"].as<glm::vec4>();
-					crc.Thickness = circleRendererComponent["Thickness"].as<float>();
-					crc.Fade = circleRendererComponent["Fade"].as<float>();
+
+					if (circleRendererComponent["Color"])
+						crc.Color = circleRendererComponent["Color"].as<glm::vec4>();
+					if (circleRendererComponent["Thickness"])
+						crc.Thickness = circleRendererComponent["Thickness"].as<float>();
+					if (circleRendererComponent["Fade"])
+						crc.Fade = circleRendererComponent["Fade"].as<float>();
 				}
 
 				auto rigidbody2DComponent = entity["Rigidbody2DComponent"];
 				if (rigidbody2DComponent)
 				{
 					auto& rb2d = deserialisedEntity.AddComponent<Rigidbody2DComponent>();
-					rb2d.Type = RigidBody2DBodyTypeFromString(rigidbody2DComponent["BodyType"].as<std::string>());
-					rb2d.FixedRotation = rigidbody2DComponent["FixedRotation"].as<bool>();
+
+					if (rigidbody2DComponent["BodyType"])
+						rb2d.Type = RigidBody2DBodyTypeFromString(rigidbody2DComponent["BodyType"].as<std::string>());
+					if (rigidbody2DComponent["FixedRotation"])
+						rb2d.FixedRotation = rigidbody2DComponent["FixedRotation"].as<bool>();
 				}
 
 				auto boxCollider2DComponent = entity["BoxCollider2DComponent"];
 				if (boxCollider2DComponent)
 				{
 					auto& bc2d = deserialisedEntity.AddComponent<BoxCollider2DComponent>();
-					bc2d.Offset = boxCollider2DComponent["Offset"].as<glm::vec2>();
-					bc2d.Size = boxCollider2DComponent["Size"].as<glm::vec2>();
-					bc2d.Density = boxCollider2DComponent["Density"].as<float>();
-					bc2d.Friction = boxCollider2DComponent["Friction"].as<float>();
-					bc2d.Restitution = boxCollider2DComponent["Restitution"].as<float>();
-					bc2d.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
+					if (boxCollider2DComponent["Offset"])
+						bc2d.Offset = boxCollider2DComponent["Offset"].as<glm::vec2>();
+					if (boxCollider2DComponent["Size"])
+						bc2d.Size = boxCollider2DComponent["Size"].as<glm::vec2>();
+					if (boxCollider2DComponent["Density"])
+						bc2d.Density = boxCollider2DComponent["Density"].as<float>();
+					if (boxCollider2DComponent["Friction"])
+						bc2d.Friction = boxCollider2DComponent["Friction"].as<float>();
+					if (boxCollider2DComponent["Restitution"])
+						bc2d.Restitution = boxCollider2DComponent["Restitution"].as<float>();
+					if (boxCollider2DComponent["RestitutionThreshold"])
+						bc2d.RestitutionThreshold = boxCollider2DComponent["RestitutionThreshold"].as<float>();
 				}
 
 				auto circleCollider2DComponent = entity["CircleCollider2DComponent"];
 				if (circleCollider2DComponent)
 				{
 					auto& cc2d = deserialisedEntity.AddComponent<CircleCollider2DComponent>();
-					cc2d.Offset = circleCollider2DComponent["Offset"].as<glm::vec2>();
-					cc2d.Radius = circleCollider2DComponent["Radius"].as<float>();
-					cc2d.Density = circleCollider2DComponent["Density"].as<float>();
-					cc2d.Friction = circleCollider2DComponent["Friction"].as<float>();
-					cc2d.Restitution = circleCollider2DComponent["Restitution"].as<float>();
-					cc2d.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
+
+					if (circleCollider2DComponent["Offset"])
+						cc2d.Offset = circleCollider2DComponent["Offset"].as<glm::vec2>();
+					if (circleCollider2DComponent["Radius"])
+						cc2d.Radius = circleCollider2DComponent["Radius"].as<float>();
+					if (circleCollider2DComponent["Density"])
+						cc2d.Density = circleCollider2DComponent["Density"].as<float>();
+					if (circleCollider2DComponent["Friction"])
+						cc2d.Friction = circleCollider2DComponent["Friction"].as<float>();
+					if (circleCollider2DComponent["Restitution"])
+						cc2d.Restitution = circleCollider2DComponent["Restitution"].as<float>();
+					if (circleCollider2DComponent["RestitutionThreshold"])
+						cc2d.RestitutionThreshold = circleCollider2DComponent["RestitutionThreshold"].as<float>();
 				}
 			}
 		}

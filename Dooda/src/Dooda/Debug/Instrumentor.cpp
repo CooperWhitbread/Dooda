@@ -117,7 +117,7 @@ namespace Dooda
 		auto elapsedTime = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch() - std::chrono::time_point_cast<std::chrono::microseconds>(d_StartTimepoint).time_since_epoch();
 		
 		Instrumentor::Get().WriteProfile({ d_Name, highResStart, elapsedTime, std::this_thread::get_id() });
-		DD_CORE_INFO("{0} took: {1} micro seconds", d_Name, elapsedTime.count());
+		DD_CORE_TRACE("{0} took: {1} micro seconds", d_Name, elapsedTime.count());
 
 		d_Stopped = true;
 	}
