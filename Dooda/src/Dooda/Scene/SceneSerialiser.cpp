@@ -308,7 +308,7 @@ namespace Dooda
 		}
 		catch (YAML::ParserException e)
 		{
-			DD_CORE_ERROR("Failed to load .hazel file '{0}'\n     {1}", filepath, e.what());
+			DD_CORE_ERROR("Failed to load .dooda file '{0}'\n     {1}", filepath, e.what());
 			return false;
 		}
 
