@@ -1,14 +1,20 @@
-[submodule "Dooda/vendor/spdlog"]
-	path = Dooda/vendor/spdlog
-	url = https://github.com/gabime/spdlog
-	branch = v1.x
 [submodule "Dooda/vendor/GLFW"]
 	path = Dooda/vendor/GLFW
 	url = https://github.com/Dooda1318/glfw
 	branch = master
 [submodule "Dooda/vendor/imgui"]
 	path = Dooda/vendor/imgui
-	url = https://github.com/TheCherno/imgui
+	url = https://github.com/Dooda1318/imgui.git
+	branch = 17/7/22-code-point
 [submodule "Dooda/vendor/Box2D"]
 	path = Dooda/vendor/Box2D
 	url = https://github.com/Dooda1318/box2d.git
+[submodule "Dooda/vendor/spdlog"]
+	path = Dooda/vendor/spdlog
+	url = https://github.com/Dooda1318/spdlog.git
+[submodule "Dooda/vendor/ImGuizmo"]
+	path = Dooda/vendor/ImGuizmo
+	url = https://github.com/Dooda1318/ImGuizmo.git
+[submodule "Dooda/vendor/glm"]
+	path = Dooda/vendor/glm
+	url = https://github.com/Dooda1318/glm.git

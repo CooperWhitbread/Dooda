@@ -8,8 +8,8 @@ project "Dooda"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "ddpch.h"
-	pchsource "src/ddpch.cpp"
+	pchheader "Ddpch.h"
+	pchsource "src/Ddpch.cpp"
 
 	files 
 	{
@@ -56,7 +56,7 @@ project "Dooda"
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
-	flags { "NoPCH" }
+		flags { "NoPCH" }
 	
 	filter "system:windows" 
 		systemversion "latest"

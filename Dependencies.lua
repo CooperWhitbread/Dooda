@@ -18,7 +18,6 @@ IncludeDir["SPIRV_Cross"] =				"%{wks.location}/Dooda/vendor/SPIRV-Cross"
 IncludeDir["VulkanSDK"] =				"%{VULKAN_SDK}/Include"
 
 LibraryDir = {}
-
 LibraryDir["VulkanSDK"] =				"%{VULKAN_SDK}/Lib"
 
 Library = {}
