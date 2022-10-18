@@ -35,8 +35,8 @@ namespace Dooda
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
-		io.Fonts->AddFontFromFileTTF("assets/fonts/ebrima/ebrimabd.ttf", 18.0f);
-		io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/ebrima/ebrima.ttf", 18.0f);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/ebrima/ebrimabd.ttf", 38.0f);
+		io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/ebrima/ebrima.ttf", 38.0f);
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();

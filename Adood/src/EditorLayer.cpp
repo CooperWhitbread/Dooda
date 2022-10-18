@@ -123,6 +123,10 @@ namespace Dooda
 			int pixelData = d_Framebuffer->ReadPixel(1, mouseX, mouseY);
 			d_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, d_ActiveScene.get());
 		}
+		else
+		{
+			d_HoveredEntity = Entity();
+		}
 
 		OnOverlayRender();
 
@@ -451,7 +455,8 @@ namespace Dooda
 		if (e.GetMouseButton() == Mouse::ButtonLeft)
 		{
 			//mouse picking, requirments to be able to select an entity in the scene pannel
-			if (d_ViewportFocused && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
+			if (d_ViewportFocused && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt) && 
+				d_HoveredEntity)
 				d_SceneHierarchyPanel.SetSelectedEntity(d_HoveredEntity);
 		}
 		return false;
