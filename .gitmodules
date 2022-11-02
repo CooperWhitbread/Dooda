@@ -4,7 +4,7 @@
 	branch = master
 [submodule "Dooda/vendor/imgui"]
 	path = Dooda/vendor/imgui
-	url = https://github.com/Dooda1318/imgui.git
+	url = https://github.com/CooperWhitbread/imgui.git
 	branch = 17/7/22-code-point
 [submodule "Dooda/vendor/Box2D"]
 	path = Dooda/vendor/Box2D
