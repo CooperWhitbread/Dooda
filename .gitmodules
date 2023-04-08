@@ -5,7 +5,7 @@
 [submodule "Dooda/vendor/imgui"]
 	path = Dooda/vendor/imgui
 	url = https://github.com/CooperWhitbread/imgui.git
-	branch = 17/7/22-code-point
+	branch = docking
 [submodule "Dooda/vendor/Box2D"]
 	path = Dooda/vendor/Box2D
 	url = https://github.com/Dooda1318/box2d.git
