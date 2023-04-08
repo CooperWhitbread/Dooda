@@ -1,0 +1,4 @@
+Change to a new branch
+	Change name of branch in .gitmodules
+	call: git submodule update --init --recursive --remote
+
