@@ -15,7 +15,7 @@ premakeInstalled = PremakeRequirements.Validate()
 VulkanRequirements.Validate()
 
 print("\nUpdating submodules...")
-subprocess.call(["git", "submodule", "update", "--init", "--recursive"])
+subprocess.call(["git", "submodule", "update", "--init", "--recursive", "--remote"])
 
 if (premakeInstalled):
     if platform.system() == "Windows":
