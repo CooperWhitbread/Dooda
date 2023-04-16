@@ -134,7 +134,7 @@ namespace Dooda
 		if (d_ColorAttachmentSpecifications.size())
 		{
 			d_ColorAttachments.resize(d_ColorAttachmentSpecifications.size());
-			Utils::CreateTextures(multisample, d_ColorAttachments.data(), d_ColorAttachments.size());
+			Utils::CreateTextures(multisample, d_ColorAttachments.data(), (uint32_t)d_ColorAttachments.size());
 
 			for (size_t i = 0; i < d_ColorAttachments.size(); i++)
 			{
@@ -143,12 +143,12 @@ namespace Dooda
 				{
 				case FramebufferTextureFormat::RGBA8:
 				{
-					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_RGBA8, GL_RGBA, d_Specification.Width, d_Specification.Height, i);
+					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_RGBA8, GL_RGBA, d_Specification.Width, d_Specification.Height, (int)i);
 					break;
 				}
 				case FramebufferTextureFormat::RED_INTEGER:
 				{
-					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_R32I, GL_RED_INTEGER, d_Specification.Width, d_Specification.Height, i);
+					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_R32I, GL_RED_INTEGER, d_Specification.Width, d_Specification.Height, (int)i);
 					break;
 				}
 				}

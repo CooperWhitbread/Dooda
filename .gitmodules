@@ -6,9 +6,11 @@
 	path = Dooda/vendor/imgui
 	url = https://github.com/CooperWhitbread/imgui.git
 	branch = docking
+	ignore = dirty
 [submodule "Dooda/vendor/Box2D"]
 	path = Dooda/vendor/Box2D
 	url = https://github.com/Dooda1318/box2d.git
+	ignore = dirty
 [submodule "Dooda/vendor/spdlog"]
 	path = Dooda/vendor/spdlog
 	url = https://github.com/Dooda1318/spdlog.git

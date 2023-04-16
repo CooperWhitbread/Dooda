@@ -421,6 +421,7 @@ namespace Dooda
 		{
 			if (control)
 				OnDuplicateEntity();
+			break;
 		}
 		// Gizmos
 		case Key::Q:
