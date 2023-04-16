@@ -448,6 +448,8 @@ namespace Dooda
 			break;
 		}
 		}
+
+		return true;
 	}
 
 	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)

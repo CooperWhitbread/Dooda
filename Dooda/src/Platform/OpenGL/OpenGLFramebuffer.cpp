@@ -110,7 +110,7 @@ namespace Dooda
 	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
 		glDeleteFramebuffers(1, &d_RendererID);
-		glDeleteTextures(d_ColorAttachments.size(), d_ColorAttachments.data());
+		glDeleteTextures((GLsizei)d_ColorAttachments.size(), d_ColorAttachments.data());
 		glDeleteTextures(1, &d_DepthAttachment);
 	}
 
@@ -119,7 +119,7 @@ namespace Dooda
 		if (d_RendererID)
 		{
 			glDeleteFramebuffers(1, &d_RendererID);
-			glDeleteTextures(d_ColorAttachments.size(), d_ColorAttachments.data());
+			glDeleteTextures((GLsizei)d_ColorAttachments.size(), d_ColorAttachments.data());
 			glDeleteTextures(1, &d_DepthAttachment);
 
 			d_ColorAttachments.clear();
@@ -143,12 +143,12 @@ namespace Dooda
 				{
 				case FramebufferTextureFormat::RGBA8:
 				{
-					Utils::AttachColorTexture(d_ColorAttachments[i], d_Specification.Samples, GL_RGBA8, GL_RGBA, d_Specification.Width, d_Specification.Height, i);
+					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_RGBA8, GL_RGBA, d_Specification.Width, d_Specification.Height, i);
 					break;
 				}
 				case FramebufferTextureFormat::RED_INTEGER:
 				{
-					Utils::AttachColorTexture(d_ColorAttachments[i], d_Specification.Samples, GL_R32I, GL_RED_INTEGER, d_Specification.Width, d_Specification.Height, i);
+					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_R32I, GL_RED_INTEGER, d_Specification.Width, d_Specification.Height, i);
 					break;
 				}
 				}
@@ -174,7 +174,7 @@ namespace Dooda
 		{
 			DD_CORE_ASSERT(d_ColorAttachments.size() <= 4);
 			GLenum buffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
-			glDrawBuffers(d_ColorAttachments.size(), buffers);
+			glDrawBuffers((GLsizei)d_ColorAttachments.size(), buffers);
 		}
 		else if (d_ColorAttachments.empty())
 		{

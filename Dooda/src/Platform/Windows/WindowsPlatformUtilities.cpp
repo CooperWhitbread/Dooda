@@ -14,7 +14,7 @@ namespace Dooda
 
 	float Time::GetTime()
 	{
-		return glfwGetTime();
+		return (float)glfwGetTime();
 	}
 
 
