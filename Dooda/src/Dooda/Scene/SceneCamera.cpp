@@ -29,7 +29,7 @@ namespace Dooda
 		RecalculateProjection();
 	}
 
-	void SceneCamera::SetViewportSize(UINT width, UINT height)
+	void SceneCamera::SetViewportSize(uint32_t width, uint32_t height)
 	{
 		DD_CORE_ASSERT(width > 0 && height > 0);
 		d_AspectRatio = (float)width / (float)height;

@@ -25,7 +25,7 @@ namespace Dooda
 
 	public: //Setters
 		virtual void SetInt(const std::string& name, int value) override;
-		virtual void SetIntArray(const std::string& name, int* values, UINT count) override;
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
 		virtual void SetFloat(const std::string& name, float value) override;
 		virtual void SetFloat2(const std::string& name, const glm::vec2& value) override;
 		virtual void SetFloat3(const std::string& name, const glm::vec3& value) override;
@@ -33,7 +33,7 @@ namespace Dooda
 		virtual void SetMat4(const std::string& name, const glm::mat4& value) override;
 
 		void UploadUniformInt(const std::string& name, int value);
-		void UploadUniformIntArray(const std::string& name, int* values, UINT count);
+		void UploadUniformIntArray(const std::string& name, int* values, uint32_t count);
 
 		void UploadUniformFloat(const std::string& name, float value);
 		void UploadUniformFloat2(const std::string& name, const glm::vec2& value);
@@ -53,7 +53,7 @@ namespace Dooda
 		void Reflect(GLenum stage, const std::vector<uint32_t>& shaderData);
 
 	private: //Variables
-		UINT d_RendererID; 
+		uint32_t d_RendererID; 
 		std::string d_FilePath;
 		std::string d_Name;
 

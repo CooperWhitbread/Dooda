@@ -198,7 +198,7 @@ namespace Dooda
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void OpenGLFramebuffer::Resize(UINT width, UINT height)
+	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
 	{
 		if (width == 0 || height == 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize)
 		{
@@ -211,7 +211,7 @@ namespace Dooda
 		Invalidate();
 	}
 
-	int OpenGLFramebuffer::ReadPixel(UINT attachmentIndex, int x, int y)
+	int OpenGLFramebuffer::ReadPixel(uint32_t attachmentIndex, int x, int y)
 	{
 		DD_CORE_ASSERT(attachmentIndex < d_ColorAttachments.size());
 
@@ -222,7 +222,7 @@ namespace Dooda
 
 	}
 
-	void OpenGLFramebuffer::ClearColourAttachment(UINT attachmentIndex, int value)
+	void OpenGLFramebuffer::ClearColourAttachment(uint32_t attachmentIndex, int value)
 	{
 		DD_CORE_ASSERT(attachmentIndex < d_ColorAttachments.size());
 

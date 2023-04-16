@@ -8,7 +8,7 @@ namespace Dooda
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
 	};
 
-	static UINT S_ShaderDataTypeSize(ShaderDataType type)
+	static uint32_t S_ShaderDataTypeSize(ShaderDataType type)
 	{
 		switch (type)
 		{
@@ -40,7 +40,7 @@ namespace Dooda
 		}
 
 	public: //Getters
-		UINT GetComponentCount() const
+		uint32_t GetComponentCount() const
 		{
 			switch (Type)
 			{
@@ -64,7 +64,7 @@ namespace Dooda
 	public: //Variables
 		std::string Name;
 		ShaderDataType Type;
-		UINT Size;
+		uint32_t Size;
 		size_t Offset;
 		bool Normalized;
 	};
@@ -81,7 +81,7 @@ namespace Dooda
 		}
 
 	public: //Getters
-		inline UINT GetStride() const { return d_Stride; }
+		inline uint32_t GetStride() const { return d_Stride; }
 		inline const std::vector<BufferElement>& GetElements() const { return d_Elements; }
 
 	public: //Iterators
@@ -105,7 +105,7 @@ namespace Dooda
 
 	private: //Variables
 		std::vector<BufferElement> d_Elements;
-		UINT d_Stride = 0;
+		uint32_t d_Stride = 0;
 	};
 
 	class VertexBuffer
@@ -122,11 +122,11 @@ namespace Dooda
 	public: //Setters
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 
-		virtual void SetData(const void* data, UINT size) = 0;
+		virtual void SetData(const void* data, uint32_t size) = 0;
 
 	public: // Static Functions
-		static Ref<VertexBuffer> Create(float* verticies, UINT size); 
-		static Ref<VertexBuffer> Create(UINT size);
+		static Ref<VertexBuffer> Create(float* verticies, uint32_t size); 
+		static Ref<VertexBuffer> Create(uint32_t size);
 		
 	};
 
@@ -141,10 +141,10 @@ namespace Dooda
 		virtual void UnBind() const = 0;
 
 	public: //Getters
-		virtual UINT GetCount() const = 0;
+		virtual uint32_t GetCount() const = 0;
 
 	public: // Static Functions
-		static Ref<IndexBuffer> Create(UINT* indicies, UINT count);
+		static Ref<IndexBuffer> Create(uint32_t* indicies, uint32_t count);
 	};
 
 }

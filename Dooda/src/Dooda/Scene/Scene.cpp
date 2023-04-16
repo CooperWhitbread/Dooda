@@ -261,7 +261,7 @@ namespace Dooda
 		RenderScene(camera);
 	}
 
-	void Scene::OnViewportResize(UINT width, UINT height)
+	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
 		d_ViewportWidth = width;
 		d_ViewportHeight = height;

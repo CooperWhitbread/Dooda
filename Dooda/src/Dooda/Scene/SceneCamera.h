@@ -16,7 +16,7 @@ namespace Dooda
 		void SetPerspective(float verticalFOV, float nearClip, float farClip);
 		void SetOrthographic(float size, float nearClip, float farClip);
 
-		void SetViewportSize(UINT width, UINT height);
+		void SetViewportSize(uint32_t width, uint32_t height);
 
 		float GetPerspectiveVerticalFOV() const { return d_PerspectiveFOV; }
 		void SetPerspectiveVerticalFOV(float verticalFov) { d_PerspectiveFOV = verticalFov; RecalculateProjection(); }

@@ -54,7 +54,7 @@ namespace Dooda
 		}
 
 		operator bool() const { return d_EntityHandle != entt::null; }
-		operator UINT() const { return (UINT)d_EntityHandle; }
+		operator uint32_t() const { return (uint32_t)d_EntityHandle; }
 
 		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
 		const std::string& GetName() { return GetComponent<TagComponent>().Tag; }

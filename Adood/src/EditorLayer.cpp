@@ -68,10 +68,10 @@ namespace Dooda
 			d_ViewportSize.x > 0.0f && d_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
 			(spec.Width != d_ViewportSize.x || spec.Height != d_ViewportSize.y))
 		{
-			d_Framebuffer->Resize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
+			d_Framebuffer->Resize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
 			d_CameraController.OnResize(d_ViewportSize.x, d_ViewportSize.y);
 			d_EditorCamera.SetViewportSize(d_ViewportSize.x, d_ViewportSize.y);
-			d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
+			d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
 		}
 
 		// Render
@@ -530,7 +530,7 @@ namespace Dooda
 	void EditorLayer::NewScene()
 	{
 		d_ActiveScene = CreateRef<Scene>();
-		d_ActiveScene->OnViewportResize((UINT)d_ViewportSize.x, (UINT)d_ViewportSize.y);
+		d_ActiveScene->OnViewportResize((uint32_t)d_ViewportSize.x, (uint32_t)d_ViewportSize.y);
 		d_SceneHierarchyPanel.SetContext(d_ActiveScene);
 
 		d_EditorScenePath = std::filesystem::path();

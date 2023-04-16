@@ -65,7 +65,7 @@ namespace Dooda
 		glBindVertexArray(d_RendererID);
 		vertexBuffer->Bind();
 
-		UINT index = 0;
+		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{

@@ -49,10 +49,10 @@ namespace Dooda
 
 	struct Renderer2DData
 	{
-		static const UINT MaxQuads = 20000;
-		static const UINT MaxVertices = MaxQuads * 4;
-		static const UINT MaxIndices = MaxQuads * 6;
-		static const UINT MaxTextureSlots = 32; // TODO: RenderCaps
+		static const uint32_t MaxQuads = 20000;
+		static const uint32_t MaxVertices = MaxQuads * 4;
+		static const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxTextureSlots = 32; // TODO: RenderCaps
 
 		//Texture/Quad Data
 		Ref<VertexArray> QuadVertexArray;
@@ -60,7 +60,7 @@ namespace Dooda
 		Ref<Shader> QuadShader;
 		Ref<Texture2D> WhiteTexture;
 
-		UINT QuadIndexCount = 0;
+		uint32_t QuadIndexCount = 0;
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
 
@@ -69,7 +69,7 @@ namespace Dooda
 		Ref<VertexBuffer> CircleVertexBuffer;
 		Ref<Shader> CircleShader;
 
-		UINT CircleIndexCount = 0;
+		uint32_t CircleIndexCount = 0;
 		CircleVertex* CircleVertexBufferBase = nullptr;
 		CircleVertex* CircleVertexBufferPtr = nullptr;
 
@@ -86,7 +86,7 @@ namespace Dooda
 
 		//Universal Rendering data
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
-		UINT TextureSlotIndex = 1; // 0 = white texture
+		uint32_t TextureSlotIndex = 1; // 0 = white texture
 
 		glm::vec4 QuadVertexPositions[4];
 
@@ -122,10 +122,10 @@ namespace Dooda
 
 		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
 
-		UINT* quadIndices = new UINT[s_Data.MaxIndices];
+		uint32_t* quadIndices = new uint32_t[s_Data.MaxIndices];
 
-		UINT offset = 0;
-		for (UINT i = 0; i < s_Data.MaxIndices; i += 6)
+		uint32_t offset = 0;
+		for (uint32_t i = 0; i < s_Data.MaxIndices; i += 6)
 		{
 			quadIndices[i + 0] = offset + 0;
 			quadIndices[i + 1] = offset + 1;
@@ -171,11 +171,11 @@ namespace Dooda
 
 		//White Texture 
 		s_Data.WhiteTexture = Texture2D::Create(1, 1);
-		UINT whiteTextureData = 0xffffffff;
-		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(UINT));
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
 		int32_t samplers[s_Data.MaxTextureSlots];
-		for (UINT i = 0; i < s_Data.MaxTextureSlots; i++)
+		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
 		{
 			samplers[i] = i;
 		}
@@ -245,11 +245,11 @@ namespace Dooda
 	{
 		if (s_Data.QuadIndexCount)
 		{
-			UINT dataSize = (UINT)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
+			uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
 			s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
 			// Bind textures
-			for (UINT i = 0; i < s_Data.TextureSlotIndex; i++)
+			for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 				s_Data.TextureSlots[i]->Bind(i);
 
 			s_Data.QuadShader->Bind();
@@ -259,7 +259,7 @@ namespace Dooda
 
 		if (s_Data.CircleIndexCount)
 		{
-			UINT dataSize = (UINT)((uint8_t*)s_Data.CircleVertexBufferPtr - (uint8_t*)s_Data.CircleVertexBufferBase);
+			uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.CircleVertexBufferPtr - (uint8_t*)s_Data.CircleVertexBufferBase);
 			s_Data.CircleVertexBuffer->SetData(s_Data.CircleVertexBufferBase, dataSize);
 
 			s_Data.CircleShader->Bind();
