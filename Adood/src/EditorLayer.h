@@ -54,7 +54,7 @@ namespace Dooda
 		Ref<Framebuffer> d_Framebuffer;
 		glm::vec2 d_ViewportSize = glm::vec2(0.0f, 0.0f);
 
-		glm::vec2 d_ViewportBounds[2];
+		glm::vec2 d_ViewportBounds[2] = { {0, 0}, {0, 0} };
 
 		int d_GizmoType = -1;
 

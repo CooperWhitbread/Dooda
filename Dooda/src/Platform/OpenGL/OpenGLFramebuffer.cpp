@@ -110,7 +110,7 @@ namespace Dooda
 	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
 		glDeleteFramebuffers(1, &d_RendererID);
-		glDeleteTextures(d_ColorAttachments.size(), d_ColorAttachments.data());
+		glDeleteTextures((GLsizei)d_ColorAttachments.size(), d_ColorAttachments.data());
 		glDeleteTextures(1, &d_DepthAttachment);
 	}
 
@@ -119,7 +119,7 @@ namespace Dooda
 		if (d_RendererID)
 		{
 			glDeleteFramebuffers(1, &d_RendererID);
-			glDeleteTextures(d_ColorAttachments.size(), d_ColorAttachments.data());
+			glDeleteTextures((GLsizei)d_ColorAttachments.size(), d_ColorAttachments.data());
 			glDeleteTextures(1, &d_DepthAttachment);
 
 			d_ColorAttachments.clear();
@@ -134,7 +134,7 @@ namespace Dooda
 		if (d_ColorAttachmentSpecifications.size())
 		{
 			d_ColorAttachments.resize(d_ColorAttachmentSpecifications.size());
-			Utils::CreateTextures(multisample, d_ColorAttachments.data(), d_ColorAttachments.size());
+			Utils::CreateTextures(multisample, d_ColorAttachments.data(), (uint32_t)d_ColorAttachments.size());
 
 			for (size_t i = 0; i < d_ColorAttachments.size(); i++)
 			{
@@ -143,12 +143,12 @@ namespace Dooda
 				{
 				case FramebufferTextureFormat::RGBA8:
 				{
-					Utils::AttachColorTexture(d_ColorAttachments[i], d_Specification.Samples, GL_RGBA8, GL_RGBA, d_Specification.Width, d_Specification.Height, i);
+					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_RGBA8, GL_RGBA, d_Specification.Width, d_Specification.Height, (int)i);
 					break;
 				}
 				case FramebufferTextureFormat::RED_INTEGER:
 				{
-					Utils::AttachColorTexture(d_ColorAttachments[i], d_Specification.Samples, GL_R32I, GL_RED_INTEGER, d_Specification.Width, d_Specification.Height, i);
+					Utils::AttachColorTexture(d_ColorAttachments[(int)i], d_Specification.Samples, GL_R32I, GL_RED_INTEGER, d_Specification.Width, d_Specification.Height, (int)i);
 					break;
 				}
 				}
@@ -174,7 +174,7 @@ namespace Dooda
 		{
 			DD_CORE_ASSERT(d_ColorAttachments.size() <= 4);
 			GLenum buffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
-			glDrawBuffers(d_ColorAttachments.size(), buffers);
+			glDrawBuffers((GLsizei)d_ColorAttachments.size(), buffers);
 		}
 		else if (d_ColorAttachments.empty())
 		{
@@ -198,7 +198,7 @@ namespace Dooda
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void OpenGLFramebuffer::Resize(UINT width, UINT height)
+	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
 	{
 		if (width == 0 || height == 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize)
 		{
@@ -211,7 +211,7 @@ namespace Dooda
 		Invalidate();
 	}
 
-	int OpenGLFramebuffer::ReadPixel(UINT attachmentIndex, int x, int y)
+	int OpenGLFramebuffer::ReadPixel(uint32_t attachmentIndex, int x, int y)
 	{
 		DD_CORE_ASSERT(attachmentIndex < d_ColorAttachments.size());
 
@@ -222,7 +222,7 @@ namespace Dooda
 
 	}
 
-	void OpenGLFramebuffer::ClearColourAttachment(UINT attachmentIndex, int value)
+	void OpenGLFramebuffer::ClearColourAttachment(uint32_t attachmentIndex, int value)
 	{
 		DD_CORE_ASSERT(attachmentIndex < d_ColorAttachments.size());
 

@@ -8,7 +8,7 @@
 namespace Dooda 
 {
 
-	Ref<UniformBuffer> UniformBuffer::Create(UINT size, UINT binding)
+	Ref<UniformBuffer> UniformBuffer::Create(uint32_t size, uint32_t binding)
 	{
 		switch (Renderer::GetCurrentRendererAPI())
 		{

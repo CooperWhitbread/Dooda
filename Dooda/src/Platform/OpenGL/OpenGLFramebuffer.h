@@ -16,23 +16,23 @@ namespace Dooda
 		virtual void Bind() override;
 		virtual void Unbind() override;
 
-		virtual UINT GetColorAttachmentRendererID(UINT index = 0) const override { DD_CORE_ASSERT(index < d_ColorAttachments.size()); return d_ColorAttachments[index]; }
+		virtual uint32_t GetColorAttachmentRendererID(uint32_t index = 0) const override { DD_CORE_ASSERT(index < d_ColorAttachments.size()); return d_ColorAttachments[index]; }
 
 		virtual const FramebufferSpecification& GetSpecification() const override { return d_Specification; }
 
-		virtual void Resize(UINT width, UINT height) override;
-		virtual int ReadPixel(UINT attachmentIndex, int x, int y) override;
+		virtual void Resize(uint32_t width, uint32_t height) override;
+		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) override;
 
-		virtual void ClearColourAttachment(UINT attachmentIndex, int value) override;
+		virtual void ClearColourAttachment(uint32_t attachmentIndex, int value) override;
 	private:
-		UINT d_RendererID = 0;
+		uint32_t d_RendererID = 0;
 		FramebufferSpecification d_Specification;
 
 		std::vector<FramebufferTextureSpecification> d_ColorAttachmentSpecifications;
 		FramebufferTextureSpecification d_DepthAttachmentSpecification = FramebufferTextureFormat::None;
 
 		std::vector<uint32_t> d_ColorAttachments;
-		UINT d_DepthAttachment = 0;
+		uint32_t d_DepthAttachment = 0;
 	};
 }
 

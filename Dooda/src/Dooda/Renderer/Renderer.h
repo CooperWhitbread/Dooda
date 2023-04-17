@@ -13,7 +13,7 @@ namespace Dooda
 		static void Init(); 
 		static void Shutdown();
 
-		static void OnWindowResize(UINT width, UINT height);
+		static void OnWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();

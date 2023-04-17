@@ -9,7 +9,7 @@ namespace Dooda
 	//Vertex Buffer//
 	/////////////////
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(UINT size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
 	{
 		DD_PROFILE_FUNCTION();
 
@@ -21,7 +21,7 @@ namespace Dooda
 		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* verticies, UINT size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* verticies, uint32_t size)
 	{
 		DD_PROFILE_FUNCTION();
 
@@ -51,7 +51,7 @@ namespace Dooda
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void OpenGLVertexBuffer::SetData(const void* data, UINT size)
+	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, d_RendererID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
@@ -62,7 +62,7 @@ namespace Dooda
 	//Index Buffer//
 	////////////////
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(UINT* indicies, UINT count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indicies, uint32_t count)
 		:
 		d_Count(count)
 	{
@@ -70,7 +70,7 @@ namespace Dooda
 
 		glGenBuffers(1, &d_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, d_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, count * sizeof(UINT), indicies, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32_t), indicies, GL_STATIC_DRAW);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()

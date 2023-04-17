@@ -6,7 +6,7 @@
 namespace Dooda 
 {
 
-	OpenGLTexture2D::OpenGLTexture2D(UINT width, UINT height)
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: d_Width(width), d_Height(height)
 	{
 		DD_PROFILE_FUNCTION();
@@ -81,16 +81,16 @@ namespace Dooda
 		glDeleteTextures(1, &d_RendererID);
 	}
 
-	void OpenGLTexture2D::SetData(void* data, UINT size)
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
 		DD_PROFILE_FUNCTION();
 
-		UINT bpp = d_DataFormat == GL_RGBA ? 4 : 3;
+		uint32_t bpp = d_DataFormat == GL_RGBA ? 4 : 3;
 		DD_CORE_ASSERT(size == d_Width * d_Height * bpp, "Data must be entire texture!");
 		glTextureSubImage2D(d_RendererID, 0, 0, 0, d_Width, d_Height, d_DataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
-	void OpenGLTexture2D::Bind(UINT slot) const
+	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
 		DD_PROFILE_FUNCTION();
 

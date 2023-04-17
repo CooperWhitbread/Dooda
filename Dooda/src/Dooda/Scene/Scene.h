@@ -34,7 +34,7 @@ namespace Dooda {
 		void OnUpdateSimulation(Timestep ts, EditorCamera& camera);
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 
-		void OnViewportResize(UINT width, UINT height);
+		void OnViewportResize(uint32_t width, uint32_t height);
 
 		void DuplicateEntity(Entity entity);
 
@@ -53,7 +53,7 @@ namespace Dooda {
 
 	private:
 		entt::registry d_Registry;
-		UINT d_ViewportWidth = 0, d_ViewportHeight = 0;
+		uint32_t d_ViewportWidth = 0, d_ViewportHeight = 0;
 
 		b2World* d_PhysicsWorld = nullptr;
 

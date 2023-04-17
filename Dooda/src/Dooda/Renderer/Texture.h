@@ -10,19 +10,19 @@ namespace Dooda
 	public:
 		virtual ~Texture() = default;
 
-		virtual void Bind(UINT slot = 0) const = 0;
+		virtual void Bind(uint32_t slot = 0) const = 0;
 
 		virtual bool IsLoaded() const = 0;
 
 	public: //Getters
-		virtual UINT GetWidth() const = 0;
-		virtual UINT GetHeight() const = 0;
-		virtual UINT GetRendererID() const = 0;
+		virtual uint32_t GetWidth() const = 0;
+		virtual uint32_t GetHeight() const = 0;
+		virtual uint32_t GetRendererID() const = 0;
 
 		virtual const std::string& GetPath() const = 0;
 
 	public: //Setters
-		virtual void SetData(void* data, UINT size) = 0;
+		virtual void SetData(void* data, uint32_t size) = 0;
 
 	public: //Operators
 		virtual bool operator==(const Texture& other) const = 0;
@@ -31,7 +31,7 @@ namespace Dooda
 	class Texture2D : public Texture
 	{
 	public:
-		static Ref<Texture2D> Create(UINT width, UINT height);
+		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
 		static Ref<Texture2D> Create(const std::string& path);
 	};
 
