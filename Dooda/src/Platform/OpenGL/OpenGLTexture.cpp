@@ -63,7 +63,7 @@ namespace Dooda
 			glTextureStorage2D(d_RendererID, 1, internalFormat, d_Width, d_Height);
 
 			glTextureParameteri(d_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTextureParameteri(d_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTextureParameteri(d_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 			glTextureParameteri(d_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTextureParameteri(d_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
