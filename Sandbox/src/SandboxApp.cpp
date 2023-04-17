@@ -1,8 +1,7 @@
 #include <Dooda.h>
 #include <Dooda/Core/EntryPoint.h>
 
-#include "Sandbox2D.h"
-#include "ExampleLayer.h"
+#include "TestingLayer.h"
 
 class Sandbox : public Dooda::Application
 {
@@ -10,8 +9,7 @@ public:
 	Sandbox(const Dooda::ApplicationSpecification& specification)
 	: Dooda::Application(specification)
 	{
-		// PushLayer(new ExampleLayer());
-		PushLayer(new Sandbox2D());
+		PushLayer(new TestingLayer());
 	}
 	~Sandbox()
 	{

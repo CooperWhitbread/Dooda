@@ -1,5 +1,4 @@
 project "Adood"
-
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
