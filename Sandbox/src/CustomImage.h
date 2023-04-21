@@ -10,5 +10,12 @@ public:
 
 	~CustomImage();
 
+	void GenerateRandomNoise(int seed = 0); // If left blank, a random seed will be used
+
+	int GenerateRandomNumber(int seed = 0); // If left blank, a random see will be used
+
+private:
+	int m_Seed = 0;
+
 };
 

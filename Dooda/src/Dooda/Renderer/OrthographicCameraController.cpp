@@ -70,8 +70,8 @@ namespace Dooda {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
-		d_ZoomLevel -= e.GetYOffset() * 0.25f;
-		d_ZoomLevel = std::max(d_ZoomLevel, 0.25f);
+		d_ZoomLevel -= e.GetYOffset() * 0.05f;
+		d_ZoomLevel = std::max(d_ZoomLevel, 0.05f);
 		d_Camera.SetProjection(-d_AspectRatio * d_ZoomLevel, d_AspectRatio * d_ZoomLevel, -d_ZoomLevel, d_ZoomLevel);
 		return false;
 	}

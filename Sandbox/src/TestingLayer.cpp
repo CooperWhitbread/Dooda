@@ -21,16 +21,14 @@ void TestingLayer::OnAttach()
 {
 	DD_PROFILE_FUNCTION();
 
-	m_ImageTexture = Dooda::Texture2D::Create(m_ImageSize, m_ImageSize);
-	m_ImageTexture2 = Dooda::Texture2D::Create(m_ImageSize, m_ImageSize);
-	m_ImageC = Dooda::CreateRef<CustomImage, int, int>(1000, 1000);
+	m_ImageTexture = Dooda::Texture2D::Create(100, 100);
+	m_ImageTexture2 = Dooda::Texture2D::Create(1000, 1);
+	m_ImageC = Dooda::CreateRef<CustomImage, int, int>(100, 100);
 	//m_ImageTexture = Dooda::Texture2D::Create("assets/textures/Checkerboard.png");
-
-	GenerateRandomNoise();
-	m_ImageTexture->SetData(m_Image, m_ImageSize * m_ImageSize * 4);
-	m_ImageTexture2->SetData(m_Image2, m_ImageSize * m_ImageSize * 4);
 	
-
+	// Image generation
+	m_ImageC->GenerateRandomNoise();
+	m_ImageTexture->SetData(m_ImageC->GetData(), m_ImageC->GetDataSize());
 }
 
 void TestingLayer::OnDetach()
@@ -44,23 +42,9 @@ void TestingLayer::OnUpdate(Dooda::Timestep ts)
 
 	m_CameraController.OnUpdate(ts);
 
-	// Image generation
-	//GenerateRandomNoise();
-	int colour[] = { 255, 255, 100, 255 };
-	m_ImageC->SetUniformArray(colour);
+	// Game Updates
+	m_ImageC->GenerateRandomNoise();
 	m_ImageTexture->SetData(m_ImageC->GetData(), m_ImageC->GetDataSize());
-
-	colour[2] = 0;
-	for (int i = 0; i < 100; i++)
-	{
-		for (int j = 400; j < 600; j++)
-		{
-			m_ImageC->SetIndexed(i, j, colour);
-		}
-	}
-
-	m_ImageTexture2->SetData(m_ImageC->GetData(), m_ImageC->GetDataSize());
-
 
 	// Render
 	Dooda::Renderer2D::ResetStats();
@@ -98,33 +82,4 @@ void TestingLayer::OnImGuiRender()
 void TestingLayer::OnEvent(Dooda::Event& e)
 {
 	m_CameraController.OnEvent(e);
-}
-
-void TestingLayer::GenerateRandomNoise()
-{
-	/*unsigned char image[1000][1000][4];
-
-	Dooda::Timer timer;
-	for (int x = 0; x < m_ImageSize; x++)
-	{
-		for (int y = 0; y < m_ImageSize; y++)
-		{
-			int value = (x ^ y * 3151975234 + y ^ y * 1351235 + y * x * 78690769 + 878669);
-			value ^= value << 1 & 0x8374f73fU;
-			value ^= value >> 3 & 0x87677f67U;
-			value ^= value << 4 & 0x2f38f2f4U;
-			
-			m_Image[x][y][0] = value;
-			m_Image[x][y][1] = value;
-			m_Image[x][y][2] = value;
-			m_Image[x][y][3] = 255;
-		}
-	}
-	std::cout << timer.Elapsed() << std::endl;*/
-}
-
-
-int TestingLayer::RandomNumberGenerator(int seed)
-{
-	return 0;
 }
