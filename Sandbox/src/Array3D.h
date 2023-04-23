@@ -14,6 +14,7 @@ public:
 
 	unsigned char* GetData() { return m_Array; }
 	int GetDataSize() { return m_X * m_Y * m_Z; }
+	int GetIndex(int x, int y, int z, int zSize = 0);
 
 	unsigned char GetIndexed(int x, int y, int z);
 

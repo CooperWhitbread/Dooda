@@ -21,14 +21,16 @@ void TestingLayer::OnAttach()
 {
 	DD_PROFILE_FUNCTION();
 
-	m_ImageTexture = Dooda::Texture2D::Create(100, 100);
+	m_ImageTexture = Dooda::Texture2D::Create(1000, 1000);
 	m_ImageTexture2 = Dooda::Texture2D::Create(1000, 1);
-	m_ImageC = Dooda::CreateRef<CustomImage, int, int>(100, 100);
+	m_ImageC = Dooda::CreateRef<CustomImage, int, int>(1000, 1000, 1);
 	//m_ImageTexture = Dooda::Texture2D::Create("assets/textures/Checkerboard.png");
 	
 	// Image generation
 	m_ImageC->GenerateRandomNoise();
-	m_ImageTexture->SetData(m_ImageC->GetData(), m_ImageC->GetDataSize());
+	auto data = m_ImageC->GetDataForVisual();
+	m_ImageTexture->SetData(data, m_ImageC->GetVisualDataSize());
+	delete[] data;
 }
 
 void TestingLayer::OnDetach()
@@ -43,8 +45,7 @@ void TestingLayer::OnUpdate(Dooda::Timestep ts)
 	m_CameraController.OnUpdate(ts);
 
 	// Game Updates
-	m_ImageC->GenerateRandomNoise();
-	m_ImageTexture->SetData(m_ImageC->GetData(), m_ImageC->GetDataSize());
+	
 
 	// Render
 	Dooda::Renderer2D::ResetStats();

@@ -30,21 +30,29 @@ Array3D::~Array3D()
     delete[] m_Array;
 }
 
+int Array3D::GetIndex(int x, int y, int z, int zSize)
+{
+    if (zSize == 0)
+        return x * m_Y * m_Z + y * m_Z + z;
+    else
+        return x * m_Y * zSize + y * zSize + z;
+}
+
 unsigned char Array3D::GetIndexed(int x, int y, int z)
 {
-    return m_Array[x * m_Y * m_Z + y * m_Z + z];
+    return m_Array[GetIndex(x, y, z)];
 }
 
 void Array3D::SetIndexed(int x, int y, int z, int value)
 {
-    m_Array[x * m_Y * m_Z + y * m_Z + z] = value;
+    m_Array[GetIndex(x, y, z)] = value;
 }
 
 void Array3D::SetIndexed(int x, int y, int z[])
 {
     for (int i = 0; i < m_Z; i++)
     {
-        m_Array[x * m_Y * m_Z + y * m_Z + i] = z[i];
+        m_Array[GetIndex(x, y, i)] = z[i];
     }
 }
 
