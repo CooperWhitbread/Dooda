@@ -20,7 +20,6 @@ private: //Variables
 	Dooda::OrthographicCameraController m_CameraController;
 
 	Dooda::Ref<Dooda::Texture2D> m_ImageTexture;
-	Dooda::Ref<Dooda::Texture2D> m_ImageTexture2;
 	glm::vec4 m_Colour = glm::vec4(1.0, 0.1, 1.0, 1.0);
 	int m_ImageSize = 100;
 	Dooda::Ref<CustomImage> m_ImageC;
